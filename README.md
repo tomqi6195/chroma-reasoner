@@ -28,11 +28,22 @@ python scripts/evaluate.py --pred results/ddcolor_tiny --gt data/coco/val2017_su
 
 The language baseline (L-CAD) needs more than 4 GB VRAM — run [notebooks/lcad_baseline_colab.ipynb](notebooks/lcad_baseline_colab.ipynb) on Colab and evaluate the downloaded outputs locally with the same `scripts/evaluate.py`.
 
+## The colour plan (Phase 1, locked)
+
+The system's intermediate representation is an object-centric JSON plan — see [docs/phase1.md](docs/phase1.md), [schemas/color_plan.schema.json](schemas/color_plan.schema.json), and the [canonical example](examples/plans/melancholic_1910s_seaside.json).
+
+```powershell
+python scripts/validate_plan.py examples/plans/melancholic_1910s_seaside.json
+```
+
 ## Repo layout
 
 - `src/chroma_reasoner/data/` — COCO subset + grayscale synthesis
 - `src/chroma_reasoner/metrics/` — colorfulness (Hasler-Süsstrunk), FID (clean-fid), hue-invariant FID (arXiv:2503.14974 §5.2.1), CLIP-score
+- `src/chroma_reasoner/plan/` — colour-plan validation + Lab colour math (ΔE, Lab↔sRGB)
 - `src/chroma_reasoner/baselines/` — DDColor runner (wraps `third_party/DDColor`)
+- `schemas/` — the locked plan JSON Schema
+- `examples/plans/` — hand-authored reference plans
 - `scripts/` — CLI entrypoints
 - `notebooks/` — Colab notebooks for models that don't fit local VRAM
-- `tests/` — metric unit tests (`pytest`)
+- `tests/` — unit tests (`pytest`)

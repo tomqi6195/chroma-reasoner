@@ -1,0 +1,71 @@
+{
+  "plan_version": "1.0",
+  "prompt": "melancholic 1910s seaside",
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1910s",
+        "effect": "autochrome/early-film rendering: lifted blacks, gentle fade, saturation ceiling"
+      }
+    ],
+    "rationale": "Period rendering is image-wide; it caps vividness after per-object colours are set."
+  },
+  "regions": [
+    {
+      "id": "sky",
+      "object": "sky",
+      "grounding_phrase": "the overcast sky",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "weather", "value": "overcast", "effect": "grey, low chroma"},
+        {"family": "mood", "value": "melancholic", "effect": "cool shift, desaturate"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 72, "a": -2, "b": -6},
+      "tolerance_delta_e": 8,
+      "confidence": 0.85,
+      "rationale": "Overcast sky is strongly constrained to neutral grey; melancholic mood pushes it slightly cool."
+    },
+    {
+      "id": "sea",
+      "object": "sea",
+      "grounding_phrase": "the sea and waves",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "weather", "value": "overcast", "effect": "no sky-blue reflection; grey-green"},
+        {"family": "mood", "value": "melancholic", "effect": "desaturate, darken"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 42, "a": -8, "b": -4},
+      "tolerance_delta_e": 12,
+      "confidence": 0.7,
+      "rationale": "Sea under overcast light reads grey-green rather than blue; mood keeps chroma low."
+    },
+    {
+      "id": "dress",
+      "object": "dress",
+      "grounding_phrase": "the woman's long dress",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "era", "value": "1910s", "effect": "muted natural dyes, low saturation"},
+        {"family": "mood", "value": "melancholic", "effect": "desaturate, cool shift"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 45, "a": -4, "b": -12},
+      "tolerance_delta_e": 15,
+      "confidence": 0.6,
+      "rationale": "Luminance under-determines the dress; 1910s dye palette plus melancholic cool bias selects a muted slate blue. Weak content constraint, so wide tolerance."
+    },
+    {
+      "id": "sand",
+      "object": "sand",
+      "grounding_phrase": "the sandy beach",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "weather", "value": "overcast", "effect": "flat light, no warm highlights"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 65, "a": 3, "b": 14},
+      "tolerance_delta_e": 8,
+      "confidence": 0.9,
+      "rationale": "Sand is strongly constrained to warm neutral; overcast light flattens it slightly."
+    }
+  ]
+}

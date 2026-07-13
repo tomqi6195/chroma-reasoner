@@ -16,6 +16,7 @@ dependencies = [
     "pyyaml",
     "pycocotools",
     "clean-fid",
+    "jsonschema",
     "transformers",
     "huggingface_hub",
     "timm",

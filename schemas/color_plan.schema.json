@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tomqi6195/chroma-reasoner/schemas/color_plan.schema.json",
+  "title": "chroma-reasoner object-centric colour plan",
+  "description": "The intermediate representation between the LLM reasoner and the colorizer. Object-centric: each region anchors a colour, contextual modifiers deform its prior, and the resolved colour plus rationale make the plan inspectable and editable before pixels are committed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["plan_version", "regions"],
+  "properties": {
+    "plan_version": {
+      "const": "1.0",
+      "description": "Schema version. Bump only with a migration note in docs/phase1.md."
+    },
+    "image_id": {
+      "type": "string",
+      "description": "Identifier of the source image (e.g. COCO stem '000000000139'). Optional; plans can be authored before an image is chosen."
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The user's abstract context prompt this plan realizes (e.g. 'melancholic 1910s seaside'). Empty/absent for purely automatic plans."
+    },
+    "global": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Image-wide effects that do not route through a single object: film-stock/fading emulation, global saturation caps, colour temperature. Applied after per-region colours.",
+      "properties": {
+        "modifiers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/modifier" }
+        },
+        "rationale": { "type": "string" }
+      }
+    },
+    "regions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/region" }
+    }
+  },
+  "$defs": {
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object", "grounding_phrase", "resolved_colour", "confidence", "rationale"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable identifier for editing/diffing plans. Optional."
+        },
+        "object": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical object class name; the lookup key into the knowledge base (e.g. 'dress', 'foliage', 'car')."
+        },
+        "grounding_phrase": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Natural-language phrase for Grounding DINO to localize the region (e.g. \"the woman's long dress\")."
+        },
+        "base_prior": {
+          "type": ["string", "null"],
+          "description": "Reference/id of the KB colour-distribution prior this colour was resolved from. Null until the KB exists (Phase 3) or when the reasoner falls back to its own prior."
+        },
+        "modifiers": {
+          "type": "array",
+          "description": "Contextual factors the reasoner selected as operative for this region, in application order (composition is order-sensitive).",
+          "items": { "$ref": "#/$defs/modifier" }
+        },
+        "resolved_colour": { "$ref": "#/$defs/lab_colour" },
+        "tolerance_delta_e": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Acceptable CIE76 ΔE radius around resolved_colour for palette-adherence evaluation. Wide for weakly-constrained objects (a car could be many blues), tight for strongly-constrained ones (grass). Default 10 if absent."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Reasoner's confidence that this colour assignment is right, given content constraints and prior strength."
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable justification: which priors and modifiers produced this colour. The auditability of the whole system lives here."
+        }
+      }
+    },
+    "modifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "value", "effect"],
+      "properties": {
+        "family": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Modifier family. Open vocabulary by design (the factor list is unbounded); established families: era, mood, season, geography, weather, time_of_day, occasion, condition, socioeconomic, formality."
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The factor's value, e.g. '1910s', 'melancholic', 'autumn', 'mediterranean'."
+        },
+        "effect": {
+          "type": "string",
+          "minLength": 1,
+          "description": "How this modifier deforms the colour distribution, stated qualitatively (e.g. 'muted dyes, low saturation', 'orange/brown shift')."
+        }
+      }
+    },
+    "lab_colour": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["space", "L", "a", "b"],
+      "description": "CIE L*a*b* (D65). L in [0,100]; a,b in [-128,127]. Lab is the working space because ΔE and colorization math live there; convert to hex/RGB only for display.",
+      "properties": {
+        "space": { "const": "Lab" },
+        "L": { "type": "number", "minimum": 0, "maximum": 100 },
+        "a": { "type": "number", "minimum": -128, "maximum": 127 },
+        "b": { "type": "number", "minimum": -128, "maximum": 127 }
+      }
+    }
+  }
+}
