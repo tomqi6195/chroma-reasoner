@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chroma-reasoner"
+version = "0.0.1"
+description = "Context-reasoned colorization: object-centric colour plans from LLM factor selection over an explicit knowledge base."
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pillow",
+    "opencv-python",
+    "tqdm",
+    "requests",
+    "pyyaml",
+    "pycocotools",
+    "clean-fid",
+    "transformers",
+    "huggingface_hub",
+    "timm",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+# torch/torchvision are installed separately with the CUDA index:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
