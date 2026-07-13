@@ -39,17 +39,25 @@ Unit tests: `tests/test_metrics.py`.
 
 | Baseline | FID ↓ | HI-FID ↓ | CF (GT 41.5) | ΔCF | CLIP ↑ (GT 30.7) |
 |---|---|---|---|---|---|
-| DDColor tiny | 50.6 | 48.6 | 39.9 | −1.5 | 29.9 |
+| DDColor tiny (automatic) | **50.6** | **48.6** | 39.9 | −1.5 | 29.9 |
+| L-CAD (COCO caption) | 61.8 | 60.0 | 40.3 | −1.2 | **30.6** |
 
-Raw numbers in `results/phase0/ddcolor_tiny/report.json`. Reading them:
+Raw numbers in `results/phase0/*/report.json`. Reading them:
 
-- **FID ~50 is dominated by n=300 small-sample bias**, not model quality (DDColor reports ≈3.9 on full ImageNet val). Smoke FID is only comparable *between systems run on this exact subset*.
-- **HI-FID < FID with mean α ≈ 1.11**: outputs are slightly under-saturated (need ~11% chroma boost to match GT colorfulness), consistent with ΔCF = −1.5.
-- **CLIP-score 29.9 vs. GT ceiling 30.7**: automatic colorization nearly recovers the GT's caption alignment — this is the number a language/plan-conditioned system must beat by a clear margin to demonstrate faithfulness.
+- **The ordering is exactly the expected pattern**, which validates the harness: the language-conditioned model wins CLIP-score (30.58, essentially at the GT ceiling of 30.67, vs. 29.92 for automatic), while the automatic model wins realism (FID/HI-FID). Caption conditioning measurably moves prompt faithfulness.
+- **FID magnitudes are dominated by n=300 small-sample bias** (DDColor reports ≈3.9 on full ImageNet val). Smoke numbers are only comparable *between systems on this exact subset*.
+- **L-CAD's FID carries a resolution confound**: it outputs 256×256 while DDColor preserves original resolution; clean-fid resizes internally but upscaling artifacts still cost L-CAD some FID. Don't over-read the FID gap.
+- **Both models are slightly under-saturated** (ΔCF ≈ −1.2 to −1.5; HI-FID α* ≈ 1.11–1.20).
+- **Reference targets for the plan-conditioned system** (roadmap §6 kill-criteria, on this subset): CLIP-score > 30.6 (beat L-CAD) and FID < 50.6 / HI-FID < 48.6 (beat DDColor).
+- L-CAD produced 299/300 outputs (000000560371 missing — single sampling failure, not investigated).
+
+### L-CAD-on-Colab port notes (all patches are in the notebook)
+
+Getting L-CAD's 2023 research code running on a 2026 Colab required: skipping its conda-dump requirements.txt (torch 1.12 pin, local file:// paths); `torchviz` (debugging leftover import); patching the hardcoded placeholder checkpoint path and the author's local CLIP path (`/data/pretrained/...` → `openai/clip-vit-large-patch14`); `transformers<5` + non-strict weight load (the ckpt uses the 4.x CLIP key layout with `.text_model` nesting); and a Drive "Make a copy" workaround for the weights (public folder is perpetually quota-blocked). Weight choice: `coco_weight.ckpt` = caption-conditioned Extended-COCO-Stuff model; `multi_weight` = instance/SAM variant; `auto_weight` = no-caption.
 
 ## Open items / next
 
-1. Run L-CAD notebook on Colab Pro; bring outputs back for evaluation.
+1. ~~Run L-CAD notebook on Colab Pro~~ — done 2026-07-13, results above.
 2. Decide whether to also run `ddcolor_paper` (large) locally — may OOM on 4 GB; fall back to Colab if so.
 3. Small user study deferred until there is a system output to compare (Phase 2+).
-4. Phase 1 next: lock the object-centric plan JSON schema + validator (colour space: Lab).
+4. **Phase 1 next**: lock the object-centric plan JSON schema + validator (colour space: Lab).
