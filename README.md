@@ -36,6 +36,14 @@ The system's intermediate representation is an object-centric JSON plan — see 
 python scripts/validate_plan.py examples/plans/melancholic_1910s_seaside.json
 ```
 
+## Phase 2: manual consumption path
+
+Hand-authored plans ([examples/plans/phase2/](examples/plans/phase2)) → Grounded-SAM masks → naive Lab-paste render / Control Color hints → per-region ΔE adherence. See [docs/phase2.md](docs/phase2.md); masks come from [notebooks/phase2_masks_colab.ipynb](notebooks/phase2_masks_colab.ipynb).
+
+```powershell
+python scripts/render_naive.py --plan examples/plans/phase2/000000010092.json --gray data/coco/gray/000000010092.png --masks masks --out results/phase2/naive
+```
+
 ## Repo layout
 
 - `src/chroma_reasoner/data/` — COCO subset + grayscale synthesis

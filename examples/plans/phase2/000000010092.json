@@ -1,0 +1,62 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000010092",
+  "prompt": "",
+  "regions": [
+    {
+      "id": "walls",
+      "object": "wall",
+      "grounding_phrase": "the orange painted walls",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 62, "a": 28, "b": 48},
+      "tolerance_delta_e": 12,
+      "confidence": 0.75,
+      "rationale": "Tropical lodge interior painted a warm saturated orange."
+    },
+    {
+      "id": "net",
+      "object": "mosquito_net",
+      "grounding_phrase": "the mosquito net hanging over the bed",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 55, "a": -6, "b": 22},
+      "tolerance_delta_e": 12,
+      "confidence": 0.6,
+      "rationale": "Military-style olive netting; translucency mixes in bed tones underneath, so tolerance is wide."
+    },
+    {
+      "id": "bedding",
+      "object": "bedding",
+      "grounding_phrase": "the bed sheets and duvet under the net",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 74, "a": -3, "b": 8},
+      "tolerance_delta_e": 10,
+      "confidence": 0.7,
+      "rationale": "Pale grey-green linen matching the net's tint."
+    },
+    {
+      "id": "floor",
+      "object": "tile_floor",
+      "grounding_phrase": "the white tiled floor",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 82, "a": 2, "b": 6},
+      "tolerance_delta_e": 8,
+      "confidence": 0.9,
+      "rationale": "Off-white ceramic tile; strongly constrained."
+    },
+    {
+      "id": "furniture",
+      "object": "wooden_furniture",
+      "grounding_phrase": "the wooden table and chairs",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 42, "a": 18, "b": 30},
+      "tolerance_delta_e": 12,
+      "confidence": 0.85,
+      "rationale": "Varnished tropical hardwood, warm mid-brown."
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000000139",
+  "prompt": "",
+  "regions": [
+    {
+      "id": "floor",
+      "object": "wood_floor",
+      "grounding_phrase": "the wooden floor",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 45, "a": 16, "b": 28},
+      "tolerance_delta_e": 12,
+      "confidence": 0.85,
+      "rationale": "Polished hardwood reads warm mid-brown; grain gradients motivate a wide tolerance."
+    },
+    {
+      "id": "tv",
+      "object": "television",
+      "grounding_phrase": "the flat screen television",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 12, "a": 0, "b": 0},
+      "tolerance_delta_e": 6,
+      "confidence": 0.95,
+      "rationale": "Modern TVs are near-black neutral; strongly constrained."
+    },
+    {
+      "id": "walls",
+      "object": "wall",
+      "grounding_phrase": "the beige walls of the room",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 76, "a": 4, "b": 12},
+      "tolerance_delta_e": 10,
+      "confidence": 0.7,
+      "rationale": "Domestic interior walls skew warm off-white/beige; moderately constrained."
+    },
+    {
+      "id": "radiator",
+      "object": "radiator",
+      "grounding_phrase": "the white radiator under the window",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 85, "a": 1, "b": 4},
+      "tolerance_delta_e": 8,
+      "confidence": 0.9,
+      "rationale": "Radiators are overwhelmingly painted white."
+    }
+  ]
+}

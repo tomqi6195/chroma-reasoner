@@ -83,3 +83,34 @@ def lab_to_hex(lab: LabColor) -> str:
 def delta_e76(c1: LabColor, c2: LabColor) -> float:
     """CIE76 ΔE: Euclidean distance in Lab. ~2.3 is a just-noticeable difference."""
     return math.sqrt((c1.L - c2.L) ** 2 + (c1.a - c2.a) ** 2 + (c1.b - c2.b) ** 2)
+
+
+def is_in_srgb_gamut(lab: LabColor, tolerance: float = 1.0) -> bool:
+    """True if this Lab colour survives a round-trip through sRGB.
+
+    Out-of-gamut plan colours get clipped at render time, so the realized
+    colour will miss the plan's target no matter how well the colorizer
+    follows hints. Plans should only specify in-gamut colours; the
+    validate_plan CLI warns about violations.
+    """
+    return delta_e76(lab, srgb_to_lab(lab_to_srgb(lab))) <= tolerance
+
+
+def srgb_array_to_lab(rgb: "np.ndarray") -> "np.ndarray":
+    """Vectorized sRGB->Lab. rgb: (..., 3) float in [0,1]. Returns (..., 3) Lab.
+
+    Same math as srgb_to_lab; used where per-pixel conversion matters
+    (adherence evaluation over masked regions).
+    """
+    import numpy as np
+
+    rgb = np.asarray(rgb, dtype=np.float64)
+    lin = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+    r, g, b = lin[..., 0], lin[..., 1], lin[..., 2]
+    x = (0.4124564 * r + 0.3575761 * g + 0.1804375 * b) / _XN
+    y = (0.2126729 * r + 0.7151522 * g + 0.0721750 * b) / _YN
+    z = (0.0193339 * r + 0.1191920 * g + 0.9503041 * b) / _ZN
+    xyz = np.stack([x, y, z], axis=-1)
+    f = np.where(xyz > _DELTA ** 3, np.cbrt(xyz), xyz / (3 * _DELTA ** 2) + 4 / 29)
+    fx, fy, fz = f[..., 0], f[..., 1], f[..., 2]
+    return np.stack([116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)], axis=-1)

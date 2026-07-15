@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from chroma_reasoner.plan import PlanValidationError, LabColor, lab_to_hex, load_plan
+from chroma_reasoner.plan.colors import is_in_srgb_gamut
 
 
 def main() -> None:
@@ -30,8 +31,9 @@ def main() -> None:
     for region in plan["regions"]:
         lab = LabColor.from_plan(region["resolved_colour"])
         mods = ", ".join(f"{m['family']}:{m['value']}" for m in region.get("modifiers", []))
+        gamut = "" if is_in_srgb_gamut(lab) else "  !! OUT OF sRGB GAMUT (will clip at render)"
         print(f"  [{region['object']:>10}] {lab_to_hex(lab)}  Lab({lab.L:g},{lab.a:g},{lab.b:g})"
-              f"  conf={region['confidence']:.2f}  mods=[{mods}]")
+              f"  conf={region['confidence']:.2f}  mods=[{mods}]{gamut}")
         print(f"              {region['rationale']}")
 
 

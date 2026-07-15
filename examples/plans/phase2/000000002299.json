@@ -1,0 +1,70 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000002299",
+  "prompt": "British school class photo, late 1940s, overcast day",
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1940s",
+        "effect": "early colour-film rendering: muted saturation ceiling, slightly warm cast"
+      }
+    ],
+    "rationale": "This is a real monochrome photograph with no colour ground truth; the era prior governs every choice."
+  },
+  "regions": [
+    {
+      "id": "wall",
+      "object": "stone_wall",
+      "grounding_phrase": "the stone wall behind the children",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "geography", "value": "britain", "effect": "weathered grey stone, mossy tint"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 45, "a": 2, "b": 8},
+      "tolerance_delta_e": 10,
+      "confidence": 0.8,
+      "rationale": "British institutional buildings of the period are weathered grey-brown stone."
+    },
+    {
+      "id": "ground",
+      "object": "pavement",
+      "grounding_phrase": "the paved ground the boys are sitting on",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "weather", "value": "overcast", "effect": "flat, cool neutral"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 40, "a": 1, "b": 4},
+      "tolerance_delta_e": 8,
+      "confidence": 0.85,
+      "rationale": "Schoolyard asphalt/flagstone under overcast light is a cool neutral grey."
+    },
+    {
+      "id": "boy_jumper",
+      "object": "jumper",
+      "grounding_phrase": "the dark knitted jumper of the boy sitting cross-legged at the front left",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "era", "value": "1940s", "effect": "home-dyed wool: drab greens, browns, maroons"},
+        {"family": "socioeconomic", "value": "working_class", "effect": "practical dark colours that hide wear"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 30, "a": 8, "b": 12},
+      "tolerance_delta_e": 15,
+      "confidence": 0.5,
+      "rationale": "Luminance fully under-determines this; 1940s British boys' knitwear skews drab brown/maroon wool. Wide tolerance, low confidence — exactly the case the era prior exists for."
+    },
+    {
+      "id": "girl_dress",
+      "object": "dress",
+      "grounding_phrase": "the light dress of the girl standing at the far right",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "era", "value": "1940s", "effect": "pale cotton prints: cream, dusty pink, faded florals"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 75, "a": 8, "b": 10},
+      "tolerance_delta_e": 14,
+      "confidence": 0.55,
+      "rationale": "Light-toned girls' dresses of the period are pale cotton, often dusty pink or cream."
+    }
+  ]
+}

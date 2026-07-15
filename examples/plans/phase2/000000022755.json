@@ -1,0 +1,55 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000022755",
+  "prompt": "",
+  "regions": [
+    {
+      "id": "bus",
+      "object": "school_bus",
+      "grounding_phrase": "the school bus reflected in the round mirror",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "geography", "value": "usa", "effect": "regulation National School Bus Glossy Yellow"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 74, "a": 12, "b": 68},
+      "tolerance_delta_e": 10,
+      "confidence": 0.95,
+      "rationale": "US school buses are legally standardized to one yellow; the strongest object prior in the set."
+    },
+    {
+      "id": "sky",
+      "object": "sky",
+      "grounding_phrase": "the cloudy sky",
+      "base_prior": null,
+      "modifiers": [
+        {"family": "weather", "value": "overcast", "effect": "cool grey-blue, low chroma"}
+      ],
+      "resolved_colour": {"space": "Lab", "L": 68, "a": -3, "b": -9},
+      "tolerance_delta_e": 10,
+      "confidence": 0.8,
+      "rationale": "Heavy overcast sky reads cool grey-blue."
+    },
+    {
+      "id": "sign",
+      "object": "sign",
+      "grounding_phrase": "the orange and white sign on the wall",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 52, "a": 42, "b": 50},
+      "tolerance_delta_e": 14,
+      "confidence": 0.6,
+      "rationale": "The badge-shaped sign is the classic Harley-Davidson orange."
+    },
+    {
+      "id": "mirror_rim",
+      "object": "mirror",
+      "grounding_phrase": "the black rim of the round mirror",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 14, "a": 0, "b": 0},
+      "tolerance_delta_e": 8,
+      "confidence": 0.9,
+      "rationale": "Mirror housings are near-black plastic or metal."
+    }
+  ]
+}

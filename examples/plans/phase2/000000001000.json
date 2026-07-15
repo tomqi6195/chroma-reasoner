@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001000",
+  "prompt": "",
+  "regions": [
+    {
+      "id": "court",
+      "object": "tennis_court",
+      "grounding_phrase": "the light blue tennis court surface",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 72, "a": -10, "b": -14},
+      "tolerance_delta_e": 12,
+      "confidence": 0.7,
+      "rationale": "Hard courts are commonly painted light blue or green; the pale surface here suggests light blue."
+    },
+    {
+      "id": "windscreen",
+      "object": "windscreen",
+      "grounding_phrase": "the dark green windscreen panel at the back of the court",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 35, "a": -22, "b": 14},
+      "tolerance_delta_e": 10,
+      "confidence": 0.8,
+      "rationale": "Court windscreens are conventionally dark green."
+    },
+    {
+      "id": "red_shirt",
+      "object": "t_shirt",
+      "grounding_phrase": "the red t-shirt of the boy holding the trophy",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {"space": "Lab", "L": 46, "a": 55, "b": 35},
+      "tolerance_delta_e": 14,
+      "confidence": 0.6,
+      "rationale": "Luminance under-determines shirt colour; a saturated red is chosen to test multi-instance binding (one red shirt among white ones)."
+    },
+    {
+      "id": "foliage",
+      "object": "foliage",
+      "grounding_phrase": "the trees behind the fence",
+      "base_prior": null,
+      "modifiers": [{"family": "season", "value": "summer", "effect": "full green, high chroma"}],
+      "resolved_colour": {"space": "Lab", "L": 50, "a": -28, "b": 32},
+      "tolerance_delta_e": 12,
+      "confidence": 0.9,
+      "rationale": "Dense summer canopy; strongly constrained to green."
+    }
+  ]
+}
