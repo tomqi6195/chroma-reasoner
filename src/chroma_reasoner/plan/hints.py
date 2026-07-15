@@ -20,7 +20,7 @@ from __future__ import annotations
 import numpy as np
 
 from .colors import LabColor, lab_to_srgb
-from .masks import erode_frac, region_key
+from .masks import erode_frac, paint_order, region_key
 
 
 def render_naive(gray_l8: np.ndarray, masks: dict[str, np.ndarray], plan: dict) -> np.ndarray:
@@ -35,7 +35,8 @@ def render_naive(gray_l8: np.ndarray, masks: dict[str, np.ndarray], plan: dict) 
     lab = np.zeros((h, w, 3), dtype=np.uint8)
     lab[:, :, 0] = gray_l8
     lab[:, :, 1:] = 128  # neutral ab
-    for region in plan["regions"]:
+    # large -> small: specific regions override the backgrounds containing them
+    for region in paint_order(masks, plan):
         key = region_key(region)
         mask = masks[key]
         colour = LabColor.from_plan(region["resolved_colour"])
@@ -56,7 +57,7 @@ def make_hint_image(gray_rgb: np.ndarray, masks: dict[str, np.ndarray], plan: di
     Returns HxWx3 uint8.
     """
     hint = gray_rgb.copy()
-    for region in plan["regions"]:
+    for region in paint_order(masks, plan):
         key = region_key(region)
         core = erode_frac(masks[key], erosion)
         colour = LabColor.from_plan(region["resolved_colour"])

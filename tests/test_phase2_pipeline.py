@@ -37,10 +37,10 @@ def test_naive_render_adheres(synthetic):
     gray, masks, plan = synthetic
     rgb = render_naive(gray, masks, plan)
     report = evaluate_adherence(rgb, masks, plan)
-    # Naive paste keeps the input L (50.2 for gray 128) and pastes exact ab;
-    # only cv2 8-bit quantization and sRGB gamut clipping remain.
+    # Naive paste writes the exact target ab, and adherence is ab-only, so
+    # only cv2 8-bit quantization remains.
     assert report["n_pass"] == 2, report
-    assert report["mean_delta_e"] < 3, report
+    assert report["mean_delta_e"] < 1.5, report
 
 
 def test_naive_render_leaves_background_neutral(synthetic):
@@ -68,6 +68,34 @@ def test_erode_frac_never_erases():
     tiny[9:11, 9:11] = True  # 4-pixel region
     eroded = erode_frac(tiny, 0.9)
     assert eroded.any()
+
+
+def test_overlapping_masks_specific_wins():
+    """A small object inside a broad background: painting must go large->small
+    and adherence must score the background on its exclusive pixels only
+    (the Phase-2 walls-contain-floor / mirror-contains-bus finding)."""
+    gray = np.full((60, 60), 128, dtype=np.uint8)
+    background = np.zeros((60, 60), dtype=bool)
+    background[5:55, 5:55] = True
+    obj = np.zeros((60, 60), dtype=bool)
+    obj[20:40, 20:40] = True  # entirely inside background
+    masks = {"bg": background, "obj": obj}
+    plan = {
+        "plan_version": "1.0",
+        "regions": [
+            # deliberately listed small-first: order in the plan must not matter
+            {"id": "obj", "object": "obj", "grounding_phrase": "o",
+             "resolved_colour": {"space": "Lab", "L": 50, "a": 35, "b": 10},
+             "confidence": 0.9, "rationale": "t"},
+            {"id": "bg", "object": "bg", "grounding_phrase": "b",
+             "resolved_colour": {"space": "Lab", "L": 50, "a": -15, "b": 20},
+             "confidence": 0.9, "rationale": "t"},
+        ],
+    }
+    rgb = render_naive(gray, masks, plan)
+    report = evaluate_adherence(rgb, masks, plan)
+    assert report["n_pass"] == 2, report
+    assert report["mean_delta_e"] < 1.5, report
 
 
 def test_adherence_flags_wrong_colour(synthetic):

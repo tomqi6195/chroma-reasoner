@@ -52,6 +52,35 @@ def load_masks(masks_root: Path, image_id: str, plan: dict,
     return masks
 
 
+def paint_order(masks: dict[str, np.ndarray], plan: dict) -> list[dict]:
+    """Regions sorted by mask area, largest first.
+
+    Painting large->small makes specific objects override the broad
+    backgrounds that swallow them (Phase-2 finding: "walls" masks contain the
+    floor, a "mirror" mask contains the bus reflected in it). Broad first,
+    specific last = specific wins.
+    """
+    return sorted(plan["regions"], key=lambda r: -int(masks[region_key(r)].sum()))
+
+
+def exclusive_masks(masks: dict[str, np.ndarray], plan: dict) -> dict[str, np.ndarray]:
+    """Each region's mask minus every strictly smaller region's mask.
+
+    The evaluation-side counterpart of paint_order: a region's realized
+    colour must be measured only on pixels that weren't handed to a more
+    specific region. Falls back to the full mask if exclusion empties it.
+    """
+    order = paint_order(masks, plan)  # largest -> smallest
+    out: dict[str, np.ndarray] = {}
+    for i, region in enumerate(order):
+        key = region_key(region)
+        excl = masks[key].copy()
+        for smaller in order[i + 1:]:
+            excl &= ~masks[region_key(smaller)]
+        out[key] = excl if excl.any() else masks[key]
+    return out
+
+
 def erode_frac(mask: np.ndarray, frac: float = 0.15) -> np.ndarray:
     """Erode a bool mask by `frac` of its equivalent radius.
 

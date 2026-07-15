@@ -1,4 +1,4 @@
-# Phase 2 — Manual end-to-end consumption path (in progress)
+# Phase 2 — Manual end-to-end consumption path (complete 2026-07-13; one Colab rerun pending)
 
 Goal (roadmap §5): prove that a hand-authored colour plan flows all the way to
 pixels — masks from grounding phrases, colours into the colorizer, adherence
@@ -43,9 +43,52 @@ All 5 validate with zero gamut warnings.
   *bleeding* (roadmap's structural-consistency vs generative-freedom trade-off)
 - Qualitative: the 1940s school photo colorized under its plan looks period-plausible
 
-## Findings log
+## Results (first full run, 2026-07-13)
 
-- Out-of-sRGB-gamut plan colours are unreachable by construction — caught by
-  a pipeline test, now guarded in authoring (`is_in_srgb_gamut`). Rule: author
-  colours that survive the sRGB round-trip.
-- (to fill after first Colab mask run)
+All 21 regions across 5 images grounded successfully by Grounded-SAM on
+grayscale input. Adherence (ab-plane ΔE, median over exclusive mask):
+
+| image | naive mean ΔE / pass | Control Color mean ΔE / pass |
+|---|---|---|
+| 000000000139 dining room | 0.08 · 4/4 | 1.76 · 4/4 |
+| 000000001000 tennis kids | 0.12 · 4/4 | 9.04 · 3/4 * |
+| 000000002299 1940s school | 0.12 · 4/4 | 3.79 · 4/4 |
+| 000000010092 jungle lodge | 0.08 · 5/5 | 3.78 · 5/5 |
+| 000000022755 bus mirror | 0.54 · 4/4 | 9.83 · 3/4 * |
+
+\* both Control Color failures are stale artifacts: hints were generated
+before the paint-order fix (court) and before the bus-colour feasibility fix
+(bus). **Rerun notebook section 4 after pulling** to clear them. Where hints
+were clean, Control Color follows them at ΔE 1–6 — hint-following works.
+
+## Findings log (each one moved a design decision)
+
+1. **Out-of-sRGB-gamut plan colours are unreachable by construction** — now
+   guarded (`is_in_srgb_gamut`, CLI warns).
+2. **Adherence must be ab-only.** Colorization cannot change L; scoring the L
+   term punished the pipeline for authoring guesses (naive paste showed ΔE 88
+   on an exact-colour paste). ΔL is now reported separately as authoring
+   feedback.
+3. **Region masks overlap, and order matters.** Real grounded masks nest:
+   "walls" contains the floor, "mirror rim" contains the bus reflected in it,
+   the translucent net contains the bed. Fix: paint large→small (specific
+   overrides broad) and evaluate each region on its exclusive pixels. Plan
+   JSON order is irrelevant; mask area decides.
+4. **Chroma feasibility depends on the region's actual luminance, not the
+   object's canonical colour.** "School-bus yellow" (b≈68) does not exist in
+   sRGB at the L≈20 of a dim mirror reflection; the feasible resolved colour
+   is a dark olive-gold (b≈30). Consequence for Phase 4: the reasoner must
+   resolve chroma *conditioned on the region's measured L*, which the VLM/
+   pipeline can supply per region.
+5. **The thesis, photographed.** On the real 1940s B&W school photo, Control
+   Color followed all four plan hints (ΔE 2–5.5) but colorized every
+   *unplanned* region with vivid modern colours — neon purple/cyan cardigans
+   on 1940s schoolchildren. Realistic, and completely anachronistic. This is
+   precisely the gap the KB + reasoner fill; interim lever: translate the
+   plan's `global` era modifiers into the diffusion prompt.
+
+## Remaining
+
+- [ ] Rerun Colab section 4 with fixed hints (clears the 2 stale failures)
+- [ ] Optional: `using_deformable_vae=True` pass for structure preservation
+- Phase 3 next: the knowledge base (object priors + modifier tables + composition rules)

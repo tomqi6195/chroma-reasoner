@@ -11,10 +11,10 @@
       "modifiers": [
         {"family": "geography", "value": "usa", "effect": "regulation National School Bus Glossy Yellow"}
       ],
-      "resolved_colour": {"space": "Lab", "L": 74, "a": 12, "b": 68},
+      "resolved_colour": {"space": "Lab", "L": 22, "a": 12, "b": 30},
       "tolerance_delta_e": 10,
       "confidence": 0.95,
-      "rationale": "US school buses are legally standardized to one yellow; the strongest object prior in the set."
+      "rationale": "US school buses are legally standardized to one yellow, but this one is a dim mirror reflection (region median L~20): at that luminance sRGB caps yellow chroma near b=30, so the resolved colour is the darkest feasible bus-yellow. Phase-2 lesson: resolve chroma at the region's actual L, not the object's canonical L."
     },
     {
       "id": "sky",
