@@ -52,6 +52,14 @@ Object → colour-distribution priors and modifier tables live in [kb/](kb) as a
 python scripts/kb_resolve.py dress --mod era=1910s --mod mood=melancholic --L 45 --trace
 ```
 
+## The reasoner (Phase 4)
+
+Text prompt + grayscale image → colour plan: Claude (vision + structured outputs) selects objects and operative modifiers; the KB resolves colours. See [docs/phase4.md](docs/phase4.md).
+
+```powershell
+python scripts/reason_plan.py --image data/coco/gray/000000002299.png --prompt "British school class photo, late 1940s, overcast day" --out plans/reasoned
+```
+
 ## Repo layout
 
 - `src/chroma_reasoner/data/` — COCO subset + grayscale synthesis

@@ -15,6 +15,7 @@ dependencies = [
     "requests",
     "pyyaml",
     "pycocotools",
+    "anthropic",
     "clean-fid",
     "jsonschema",
     "transformers",
