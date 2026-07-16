@@ -1,0 +1,154 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001000",
+  "prompt": "summer tennis camp group photo",
+  "regions": [
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wooden wall behind the group",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "weather",
+          "value": "sunny",
+          "effect": "direct sun deepens chroma"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.6,
+        "a": 1,
+        "b": 4
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The wooden wall has a consistent texture and tone, suggesting a single source of light. | KB prior 'wall_interior' mode 'accent'; not operative: season:summer, weather:sunny; broad saturated accent-paint mode | re-resolved at mask-measured L=21",
+      "id": "wall_interior"
+    },
+    {
+      "object": "grass",
+      "grounding_phrase": "the grassy area visible through the fence",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.9,
+        "a": -30,
+        "b": 36
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The grass appears vibrant and lush, typical of summer conditions. | KB prior 'grass' mode 'verdant'; modifiers: season:summer; healthy chlorophyll green | re-resolved at mask-measured L=64",
+      "id": "grass"
+    },
+    {
+      "object": "tennis_court",
+      "grounding_phrase": "the ground beneath the group",
+      "base_prior": "kb:tennis_court",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "weather",
+          "value": "sunny",
+          "effect": "direct sun deepens chroma"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.5,
+        "a": -9.9,
+        "b": -17.6
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "The ground shows distinct lines and textures characteristic of a tennis court. | KB prior 'tennis_court' mode 'hard_green'; modifiers: weather:sunny; not operative: season:summer; classic green acrylic | re-resolved at mask-measured L=64",
+      "id": "tennis_court"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the girl wearing a white dress in the center",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45.9,
+        "a": 1,
+        "b": 3
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The white dress contrasts with the darker tones of the other clothing items. | KB prior 'dress' mode 'neutral'; not operative: season:summer; white/grey/black garments | re-resolved at mask-measured L=46",
+      "id": "dress"
+    },
+    {
+      "object": "suit",
+      "grounding_phrase": "the boy wearing a dark suit on the right",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 34.5,
+        "a": 0,
+        "b": 0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.6,
+      "rationale": "The dark suit stands out against the lighter summer clothing, but its luminance is less certain. | KB prior 'suit' mode 'charcoal'; not operative: season:summer; black/charcoal | re-resolved at mask-measured L=35",
+      "id": "suit"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the ground near the fence",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "weather",
+          "value": "sunny",
+          "effect": "direct sun deepens chroma"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.9,
+        "a": 0.0,
+        "b": 3.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The asphalt surface is smooth and uniform, typical of a tennis court. | KB prior 'asphalt' mode 'worn'; modifiers: weather:sunny; not operative: season:summer; neutral grey | re-resolved at mask-measured L=64",
+      "id": "asphalt"
+    }
+  ]
+}

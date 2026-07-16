@@ -62,11 +62,25 @@ def _check_selection(kb: KnowledgeBase, selection: dict) -> list[str]:
     return errors
 
 
+def _dedupe_regions(regions: list[dict]) -> list[dict]:
+    """Small open models sometimes emit the same region twice verbatim
+    (Phase-4 finding). Keep the first of each (object, grounding_phrase)."""
+    seen: set[tuple[str, str]] = set()
+    out = []
+    for region in regions:
+        key = (region["object"], region["grounding_phrase"].strip().lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(region)
+    return out
+
+
 def _selection_to_plan(kb: KnowledgeBase, selection: dict, image_id: str,
                        user_prompt: str) -> dict:
     regions = []
     used_ids: set[str] = set()
-    for region in selection["regions"]:
+    for region in _dedupe_regions(selection["regions"]):
         mods = [{"family": m["family"], "value": m["value"],
                  "effect": kb.modifier_entry(m["family"], m["value"]).get("note", m["why"])}
                 for m in region["modifiers"]]
@@ -96,6 +110,29 @@ def _selection_to_plan(kb: KnowledgeBase, selection: dict, image_id: str,
                           for m in selection["global_modifiers"]],
             "rationale": selection.get("scene_summary", ""),
         }
+    return assert_valid(plan)
+
+
+def re_resolve_with_masks(kb: KnowledgeBase, plan: dict, gray_l8, masks: dict) -> dict:
+    """Replace each region's colour with one resolved at the mask-measured L.
+
+    Phase-4 finding: open-VLM luminance estimates err by up to ΔL 60, so
+    colours must be re-resolved once real masks exist. gray_l8 is the L
+    channel in cv2 0-255 scaling; masks maps region id/object -> bool array.
+    Deterministic, no model involved.
+    """
+    import numpy as np
+
+    for region in plan["regions"]:
+        key = region.get("id") or region["object"]
+        mask = masks.get(key)
+        if mask is None or not mask.any():
+            continue
+        measured_L = float(np.median(gray_l8[mask])) * 100.0 / 255.0
+        res = resolve(kb, region["object"], region["modifiers"], measured_L=measured_L)
+        region["resolved_colour"] = res.resolved.to_plan()
+        region["tolerance_delta_e"] = round(res.tolerance_delta_e, 1)
+        region["rationale"] += f" | re-resolved at mask-measured L={measured_L:.0f}"
     return assert_valid(plan)
 
 

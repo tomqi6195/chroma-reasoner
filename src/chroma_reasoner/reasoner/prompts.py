@@ -60,6 +60,13 @@ Rules:
   (era film rendering, overall mood). Use sparingly.
 - confidence: high (>0.8) when content strongly constrains colour (sky, foliage,
   regulation objects), low (<0.6) when luminance under-determines it (garments).
+  Vary it region by region; identical confidence everywhere is wrong.
+- Never invent contextual factors: only select era/geography/season values stated
+  in the user's prompt or unmistakable in the image. No prompt mention of a
+  period means no era modifier.
+- Each region exactly once — no duplicates.
+- Match object classes to the scene: interior classes (wall_interior, radiator)
+  only indoors; exterior masonry is stone_wall or brick.
 - rationale: one or two sentences, concrete, referencing the evidence.
 
 {kb_vocabulary(kb)}"""

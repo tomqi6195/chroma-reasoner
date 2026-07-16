@@ -111,6 +111,36 @@ def test_duplicate_objects_get_unique_region_ids(kb, gray_png):
     assert len(ids) == len(set(ids))
 
 
+def test_duplicate_selections_are_deduped(kb, gray_png):
+    """Verbatim duplicate regions (a real Qwen-7B failure mode) collapse to one."""
+    sel = {**GOOD_SELECTION, "regions": [
+        GOOD_SELECTION["regions"][0],
+        {**GOOD_SELECTION["regions"][0]},   # exact duplicate
+        GOOD_SELECTION["regions"][2],
+    ]}
+    plan = reason_plan(kb, MockBackend(sel), gray_png)
+    assert len(plan["regions"]) == 2
+
+
+def test_re_resolve_with_masks_uses_measured_L(kb, gray_png):
+    """Colours re-resolve at the mask-measured luminance (ΔL~60 estimate
+    errors observed from the 7B model)."""
+    from chroma_reasoner.reasoner import re_resolve_with_masks
+
+    sel = {**GOOD_SELECTION, "global_modifiers": [],
+           "regions": [{**GOOD_SELECTION["regions"][0], "estimated_L": 20}]}
+    plan = reason_plan(kb, MockBackend(sel), gray_png)
+    assert plan["regions"][0]["resolved_colour"]["L"] == 20
+
+    gray = np.full((40, 40), 204, dtype=np.uint8)   # true L ~ 80
+    masks = {"stone_wall": np.ones((40, 40), dtype=bool)}
+    plan = re_resolve_with_masks(kb, plan, gray, masks)
+    assert plan["regions"][0]["resolved_colour"]["L"] == 80
+    assert "re-resolved at mask-measured L=80" in plan["regions"][0]["rationale"]
+    from chroma_reasoner.plan import validate_plan as vp
+    assert vp(plan) == []
+
+
 def test_system_prompt_embeds_kb_vocabulary(kb):
     text = system_prompt(kb)
     assert "school_bus" in text

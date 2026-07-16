@@ -80,13 +80,42 @@ Control Color) and `scripts/render_naive.py`.
 luminance-conditioned colours, global block), repair round, hard failure with
 error list, unique region ids, prompt determinism. Suite total: 46.
 
+## First live run (Qwen2.5-VL-7B, 2026-07-13)
+
+3/5 images produced valid plans end-to-end (text → plan → masks → pixels,
+adherence 16/16 at ΔE ≈ 0 — the machinery is sound); 2/5 raised
+`ReasonerError` (unrepairable selections). Findings, each now addressed:
+
+1. **Open-VLM luminance estimates are unreliable** (ΔL errors up to 60: a
+   bright wall estimated L=20). Fix: `re_resolve_with_masks()` — after
+   grounding, colours re-resolve at the mask-measured median L
+   (deterministic; in the notebook between grounding and rendering). The
+   VLM's `estimated_L` is now only a bootstrap.
+2. **Measured L doubles as a grounding diagnostic**: multiple regions with
+   near-identical measured L means their phrases grabbed the same wrong box
+   (2299's dress/suit/wall all measured L=79.6; 22755's "sky" measured 15.7).
+   Root cause: the 7B writes vague plural phrases ("the dresses worn by the
+   girls") where the human baseline wrote singular specific ones.
+3. **Verbatim duplicate regions** (2299 emitted wall+brick twice) — planner
+   now dedupes on (object, grounding_phrase).
+4. **Hallucinated factors**: era:1940s applied to a "vintage car" in an image
+   whose prompt said nothing about a period; system prompt now forbids
+   inventing era/geography beyond prompt or unmistakable evidence.
+5. **Misc 7B weaknesses**: flat 0.8 confidence, interior classes used
+   outdoors (prompt rules added), and the school bus — the strongest prior in
+   the KB — was missed entirely.
+
+Quality levers, in expected order of impact: a larger open model
+(`Qwen2.5-VL-32B/72B` quantized, same backend, `--model` flag), the Claude
+backend as a quality ceiling for comparison, richer grounding-phrase
+instructions, and KB vocabulary growth.
+
 ## Next
 
-1. Live run on the 5 Phase-2 images (needs ANTHROPIC_API_KEY) — compare
-   reasoned plans against the hand-authored ones (same images, same pipeline:
-   the hand plans are now the human baseline).
-2. Colab: reasoned plans → masks → measure true median L per mask →
-   re-resolve → hints → Control Color → adherence + the Phase-0 metrics.
+1. Rerun the Phase-4 notebook after pulling (dedup + re-resolve + prompt
+   rules); diagnose the 2 unrepairable images from their printed error lists.
+2. Reasoned plans + masks → Control Color (Phase-2 notebook section 4) for
+   the diffusion render.
 3. Phase 5/6: KB-on/off ablation (roadmap kill-criteria) — same selection,
    colours from the LLM instead of the KB, measure ΔE-to-intent and human
    preference.

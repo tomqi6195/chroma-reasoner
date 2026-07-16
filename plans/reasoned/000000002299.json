@@ -1,0 +1,159 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000002299",
+  "prompt": "British school class photo, late 1940s, overcast day",
+  "regions": [
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the children",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The wall appears to be indoors, with a uniform texture suggesting a painted surface. | KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast; off-white paint | re-resolved at mask-measured L=80",
+      "id": "wall_interior"
+    },
+    {
+      "object": "brick",
+      "grounding_phrase": "the brick wall outside the building",
+      "base_prior": "kb:brick",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.8,
+        "a": 18.5,
+        "b": 16.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The texture and pattern of the bricks indicate an outdoor setting. | KB prior 'brick' mode 'red'; modifiers: weather:overcast; fired clay red | re-resolved at mask-measured L=21",
+      "id": "brick"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the dresses worn by the girls",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 0.7,
+        "b": 2.1
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The dresses are the most prominent clothing items and have a distinct style typical of the late 1940s. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s; not operative: weather:overcast; white/grey/black garments | re-resolved at mask-measured L=80",
+      "id": "dress"
+    },
+    {
+      "object": "suit",
+      "grounding_phrase": "the suits worn by some boys",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The suits are the most prominent clothing items and have a distinct style typical of the late 1940s. | KB prior 'suit' mode 'charcoal'; modifiers: era:1940s; not operative: weather:overcast; black/charcoal | re-resolved at mask-measured L=80",
+      "id": "suit"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the children",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The wall appears to be indoors, with a uniform texture suggesting a painted surface. | KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast; off-white paint | re-resolved at mask-measured L=80",
+      "id": "wall_interior_2"
+    },
+    {
+      "object": "brick",
+      "grounding_phrase": "the brick wall outside the building",
+      "base_prior": "kb:brick",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.8,
+        "a": 18.5,
+        "b": 16.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The texture and pattern of the bricks indicate an outdoor setting. | KB prior 'brick' mode 'red'; modifiers: weather:overcast; fired clay red | re-resolved at mask-measured L=21",
+      "id": "brick_2"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1940s",
+        "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+      }
+    ],
+    "rationale": "A British school class photo taken in the late 1940s under an overcast sky."
+  }
+}

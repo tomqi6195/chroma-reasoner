@@ -1,0 +1,110 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000022755",
+  "prompt": "overcast day in an American town",
+  "regions": [
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky reflected in the mirror",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The sky's low luminance and uniformity suggest an overcast condition. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | re-resolved at mask-measured L=16",
+      "id": "sky"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car in the reflection",
+      "base_prior": "kb:car",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.0,
+        "a": 0,
+        "b": 0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The car's appearance and the lighting conditions align with a 1940s setting under overcast skies. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=20",
+      "id": "car"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street visible in the mirror",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The street's low luminance and lack of distinct shadows support the overcast weather. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=16",
+      "id": "asphalt"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the building in the background",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The building's uniform appearance and lack of distinct features suggest an overcast day. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast; broad saturated accent-paint mode | re-resolved at mask-measured L=25",
+      "id": "wall_interior"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1940s",
+        "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+      }
+    ],
+    "rationale": "A motorcycle side mirror reflects a street scene under an overcast sky in an American town."
+  }
+}
