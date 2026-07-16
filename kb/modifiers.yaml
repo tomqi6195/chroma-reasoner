@@ -1,0 +1,186 @@
+# chroma-reasoner knowledge base: modifier tables (v1, hand-authored)
+#
+# A modifier = (family, value) -> ordered ops that deform an object's mode
+# distribution. `applies_to` lists selector tokens (object names, aliases,
+# categories, or '*'); a modifier that doesn't match the object is a recorded
+# no-op. Every entry carries provenance — the KB's auditability lives here.
+#
+# Canonical application order (documented in docs/phase3.md):
+#   era -> geography -> season -> weather -> time_of_day -> mood
+# (cultural constraints, then physical state, then stylistic intent last).
+
+version: "1.0"
+families:
+
+  era:
+    1910s:
+      applies_to: [clothing]
+      ops:
+        - {op: scale_chroma, factor: 0.6}
+        - {op: clamp_chroma, max: 32}
+        - {op: reweight, mode: earth, factor: 1.8}
+      note: muted palette; garment dyes and photographic record both subdued
+      provenance: >
+        Pre-WWI garment palettes: natural and early synthetic dyes in sober
+        fashion norms; autochrome-era colour records show low-chroma dress.
+    1950s:
+      applies_to: [vehicle]
+      ops:
+        - {op: add_mode, mode: {name: pastel_two_tone, ab: [8, 10], sigma: 9, weight: 0.5, L_range: [55, 85], note: 1950s American pastel body colour}}
+        - {op: reweight, mode: achromatic, factor: 0.4}
+      note: American cars skew to pastel two-tones (seafoam, coral, powder blue)
+      provenance: >
+        1950s US auto marketing and surviving colour chip catalogues; the
+        roadmap's own canonical era-object example.
+    1970s:
+      applies_to: [interior, material]
+      ops:
+        - {op: add_mode, mode: {name: avocado, ab: [-8, 30], sigma: 7, weight: 0.35, L_range: [35, 65], note: avocado green}}
+        - {op: add_mode, mode: {name: harvest_gold, ab: [10, 45], sigma: 7, weight: 0.35, L_range: [45, 75], note: harvest gold}}
+        - {op: add_mode, mode: {name: burnt_orange, ab: [32, 42], sigma: 7, weight: 0.25, L_range: [35, 60], note: burnt orange}}
+      note: domestic objects lived in avocado / harvest gold / burnt orange
+      provenance: >
+        1970s appliance and interior-decor colourways, extensively documented
+        in consumer-culture histories (roadmap example).
+    1940s:
+      applies_to: [clothing]
+      ops:
+        - {op: scale_chroma, factor: 0.7}
+        - {op: clamp_chroma, max: 30}
+        - {op: reweight, mode: earth, factor: 2.0}
+        - {op: reweight, mode: neutral, factor: 1.5}
+      note: wartime austerity; drab wools, home-dyed knitwear, utility schemes
+      provenance: >
+        Utility clothing schemes (UK CC41) and rationed dye supply; period
+        colour photography shows drab/earth-dominant dress.
+
+  season:
+    spring:
+      applies_to: [vegetation]
+      ops:
+        - {op: shift_ab, da: -4, db: 6}
+        - {op: reweight, mode: verdant, factor: 1.6}
+      note: fresh growth, yellow-green bias
+      provenance: leaf-out phenology; young leaves carry less chlorophyll.
+    summer:
+      applies_to: [vegetation]
+      ops:
+        - {op: reweight, mode: verdant, factor: 2.0}
+        - {op: reweight, mode: dry, factor: 0.7}
+      note: peak canopy green
+      provenance: mid-season chlorophyll maximum.
+    autumn:
+      applies_to: [vegetation]
+      ops:
+        - {op: reweight, mode: senescent, factor: 4.0}
+        - {op: reweight, mode: dry, factor: 2.5}
+        - {op: reweight, mode: verdant, factor: 0.35}
+        - {op: shift_ab, da: 10, db: 6}
+      note: orange/brown senescence shift (the roadmap's season-object example)
+      provenance: carotenoid/anthocyanin expression at leaf senescence.
+    winter:
+      applies_to: [vegetation]
+      ops:
+        - {op: scale_chroma, factor: 0.6}
+        - {op: reweight, mode: dry, factor: 2.0}
+        - {op: reweight, mode: verdant, factor: 0.4}
+      note: dormancy; desaturated browns, conifers persist
+      provenance: deciduous dormancy; only evergreens hold chroma.
+
+  weather:
+    overcast:
+      applies_to: [atmosphere, water, ground, vegetation, architecture]
+      ops:
+        - {op: reweight, mode: overcast, factor: 4.0}
+        - {op: reweight, mode: storm, factor: 2.0}
+        - {op: scale_chroma, factor: 0.75}
+        - {op: shift_ab, da: -1, db: -2}
+      note: diffuse illumination flattens chroma, slight cool cast
+      provenance: overcast illuminant (~6500-7000K diffuse) lowers scene chroma.
+    sunny:
+      applies_to: [atmosphere, water, ground, vegetation]
+      ops:
+        - {op: reweight, mode: clear, factor: 3.0}
+        - {op: scale_chroma, factor: 1.1}
+      note: direct sun deepens chroma
+      provenance: higher illuminance and blue-sky fill raise apparent saturation.
+    fog:
+      applies_to: ['*']
+      ops:
+        - {op: scale_chroma, factor: 0.4}
+        - {op: shift_ab, da: 0, db: -2}
+      note: aerosol scattering crushes chroma toward neutral
+      provenance: Mie scattering desaturates with distance (aerial perspective).
+
+  geography:
+    mediterranean:
+      applies_to: [vegetation, ground]
+      ops:
+        - {op: shift_ab, da: 6, db: 8}
+        - {op: scale_chroma, factor: 0.9}
+        - {op: reweight, mode: dry, factor: 1.8}
+      note: gold/olive shift in dry-summer vegetation (roadmap's geo example)
+      provenance: sclerophyll/dry-summer flora; olive-green and gold grasses.
+    britain:
+      applies_to: [vegetation]
+      ops:
+        - {op: reweight, mode: verdant, factor: 1.8}
+        - {op: scale_chroma, factor: 0.95}
+      note: year-round lush green under maritime climate
+      provenance: high rainfall maritime climate keeps grass verdant.
+    tropics:
+      applies_to: [vegetation, water]
+      ops:
+        - {op: reweight, mode: verdant, factor: 2.0}
+        - {op: reweight, mode: tropical, factor: 3.0}
+        - {op: scale_chroma, factor: 1.1}
+      note: saturated greens; turquoise shallow water
+      provenance: broadleaf evergreen flora; carbonate-shelf water colour.
+
+  time_of_day:
+    golden_hour:
+      applies_to: ['*']
+      ops:
+        - {op: shift_ab, da: 7, db: 12}
+      note: warm low-sun illuminant shifts everything toward orange
+      provenance: ~3000-3500K direct sunlight near the horizon.
+    night:
+      applies_to: ['*']
+      ops:
+        - {op: scale_chroma, factor: 0.5}
+        - {op: shift_ab, da: -2, db: -8}
+      note: scotopic/artificial light; cool, desaturated
+      provenance: Purkinje shift and moonlight/streetlight illuminants.
+
+  mood:
+    melancholic:
+      applies_to: ['*']
+      ops:
+        - {op: scale_chroma, factor: 0.7}
+        - {op: shift_ab, da: -2, db: -5}
+      note: desaturate + cool bias (the project's canonical mood)
+      provenance: >
+        Colour-emotion association studies and cinematic grading convention:
+        sadness reads as low-chroma, cool-shifted palettes.
+    cheerful:
+      applies_to: ['*']
+      ops:
+        - {op: scale_chroma, factor: 1.25}
+        - {op: shift_ab, da: 2, db: 4}
+      note: saturated, warm-leaning
+      provenance: colour-emotion studies; high chroma + warmth reads positive.
+    ominous:
+      applies_to: ['*']
+      ops:
+        - {op: scale_chroma, factor: 0.55}
+        - {op: shift_ab, da: -1, db: -8}
+        - {op: scale_sigma, factor: 1.2}
+      note: crushed chroma, cold cast, looser palette
+      provenance: thriller/horror grading conventions (teal-shadow bias).
+    nostalgic:
+      applies_to: ['*']
+      ops:
+        - {op: scale_chroma, factor: 0.8}
+        - {op: shift_ab, da: 5, db: 9}
+      note: warm fade, as in aged prints
+      provenance: dye fading in aged colour prints skews warm/yellow.

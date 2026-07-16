@@ -96,6 +96,25 @@ def is_in_srgb_gamut(lab: LabColor, tolerance: float = 1.0) -> bool:
     return delta_e76(lab, srgb_to_lab(lab_to_srgb(lab))) <= tolerance
 
 
+def project_chroma_into_gamut(lab: LabColor, iters: int = 22) -> LabColor:
+    """Scale ab toward neutral until the colour is sRGB-representable at its L.
+
+    The Phase-2 school-bus finding as an operation: the maximum feasible
+    chroma depends on luminance, so a KB-resolved chroma must be projected
+    into gamut at the region's measured L before it goes into a plan.
+    """
+    if is_in_srgb_gamut(lab):
+        return lab
+    lo, hi = 0.0, 1.0
+    for _ in range(iters):
+        mid = (lo + hi) / 2
+        if is_in_srgb_gamut(LabColor(lab.L, lab.a * mid, lab.b * mid)):
+            lo = mid
+        else:
+            hi = mid
+    return LabColor(lab.L, lab.a * lo, lab.b * lo)
+
+
 def srgb_array_to_lab(rgb: "np.ndarray") -> "np.ndarray":
     """Vectorized sRGB->Lab. rgb: (..., 3) float in [0,1]. Returns (..., 3) Lab.
 

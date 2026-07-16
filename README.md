@@ -44,12 +44,22 @@ Hand-authored plans ([examples/plans/phase2/](examples/plans/phase2)) → Ground
 python scripts/render_naive.py --plan examples/plans/phase2/000000010092.json --gray data/coco/gray/000000010092.png --masks masks --out results/phase2/naive
 ```
 
+## The knowledge base (Phase 3)
+
+Object → colour-distribution priors and modifier tables live in [kb/](kb) as auditable YAML; the composition engine is `chroma_reasoner.kb`. See [docs/phase3.md](docs/phase3.md).
+
+```powershell
+python scripts/kb_resolve.py dress --mod era=1910s --mod mood=melancholic --L 45 --trace
+```
+
 ## Repo layout
 
 - `src/chroma_reasoner/data/` — COCO subset + grayscale synthesis
 - `src/chroma_reasoner/metrics/` — colorfulness (Hasler-Süsstrunk), FID (clean-fid), hue-invariant FID (arXiv:2503.14974 §5.2.1), CLIP-score
-- `src/chroma_reasoner/plan/` — colour-plan validation + Lab colour math (ΔE, Lab↔sRGB)
+- `src/chroma_reasoner/plan/` — colour-plan validation + Lab colour math (ΔE, Lab↔sRGB, gamut projection)
+- `src/chroma_reasoner/kb/` — knowledge-base loading + modifier composition + luminance-conditioned resolution
 - `src/chroma_reasoner/baselines/` — DDColor runner (wraps `third_party/DDColor`)
+- `kb/` — the knowledge base itself (objects.yaml, modifiers.yaml)
 - `schemas/` — the locked plan JSON Schema
 - `examples/plans/` — hand-authored reference plans
 - `scripts/` — CLI entrypoints

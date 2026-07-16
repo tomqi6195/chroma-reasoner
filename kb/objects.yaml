@@ -1,0 +1,200 @@
+# chroma-reasoner knowledge base: object colour priors (v1, hand-authored)
+#
+# Each object class maps to a *distribution*: weighted modes in the CIE ab
+# plane. `ab` is the mode centre, `sigma` an isotropic spread (drives the
+# suggested adherence tolerance), `weight` the prior probability mass,
+# `L_range` the luminance band where the mode is plausible (resolution
+# filters by the region's measured L — chroma is resolved conditioned on
+# lightness, per the Phase-2 school-bus finding).
+#
+# Depth over breadth (roadmap §7): ~18 classes that cover the Phase-2 scenes
+# and the highest-value colourization content. Categories link objects to
+# modifier applies_to selectors.
+
+version: "1.0"
+objects:
+
+  sky:
+    categories: [atmosphere]
+    modes:
+      - {name: clear,    ab: [-7, -26], sigma: 6, weight: 0.55, L_range: [45, 85], note: clear daytime sky blue}
+      - {name: overcast, ab: [-2, -6],  sigma: 4, weight: 0.35, L_range: [55, 85], note: grey overcast cover}
+      - {name: dusk,     ab: [14, 10],  sigma: 9, weight: 0.10, L_range: [30, 65], note: warm low-sun sky}
+    provenance: >
+      Sky chromaticity from Rayleigh scattering (clear) and diffuse cloud
+      cover (neutral); dusk band from golden-hour photography references.
+
+  cloud:
+    categories: [atmosphere]
+    modes:
+      - {name: white, ab: [0, 1],  sigma: 3, weight: 0.7, L_range: [65, 98], note: sunlit cloud}
+      - {name: storm, ab: [-1, -5], sigma: 4, weight: 0.3, L_range: [30, 70], note: rain-bearing grey}
+    provenance: Clouds are near-neutral scatterers; slight cool cast under overcast light.
+
+  sea:
+    categories: [water]
+    modes:
+      - {name: temperate, ab: [-8, -10], sigma: 6, weight: 0.45, L_range: [25, 65], note: steel blue-grey coastal water}
+      - {name: tropical,  ab: [-28, -8], sigma: 7, weight: 0.30, L_range: [40, 75], note: turquoise shallow water}
+      - {name: deep,      ab: [2, -24],  sigma: 6, weight: 0.25, L_range: [15, 45], note: open-ocean navy}
+    provenance: >
+      Water colour from depth/turbidity/sky reflection; turquoise requires
+      shallow carbonate shelf (tropical), navy requires depth.
+
+  grass:
+    aliases: [lawn, meadow]
+    categories: [vegetation]
+    modes:
+      - {name: verdant, ab: [-30, 36], sigma: 7, weight: 0.65, L_range: [25, 70], note: healthy chlorophyll green}
+      - {name: dry,     ab: [4, 28],   sigma: 8, weight: 0.35, L_range: [35, 80], note: straw/dormant grass}
+    provenance: Chlorophyll absorption spectrum (verdant); senescent carotenoids (dry).
+
+  foliage:
+    aliases: [tree, trees, bush, canopy]
+    categories: [vegetation]
+    modes:
+      - {name: verdant, ab: [-28, 34], sigma: 8, weight: 0.6, L_range: [20, 65], note: broadleaf summer canopy}
+      - {name: conifer, ab: [-16, 20], sigma: 6, weight: 0.25, L_range: [15, 50], note: darker evergreen}
+      - {name: senescent, ab: [18, 36], sigma: 9, weight: 0.15, L_range: [30, 65], note: autumn orange-brown}
+    provenance: Leaf pigments; carotenoid/anthocyanin turn in deciduous autumn.
+
+  sand:
+    aliases: [beach]
+    categories: [ground]
+    modes:
+      - {name: quartz, ab: [4, 16], sigma: 5, weight: 0.8, L_range: [50, 85], note: warm neutral beach sand}
+      - {name: golden, ab: [8, 26], sigma: 6, weight: 0.2, L_range: [45, 75], note: iron-rich golden sand}
+    provenance: Quartz/feldspar sands are warm neutrals; iron oxides deepen toward gold.
+
+  soil:
+    aliases: [dirt, earth]
+    categories: [ground]
+    modes:
+      - {name: loam, ab: [8, 16],  sigma: 6, weight: 0.6, L_range: [20, 55], note: brown topsoil}
+      - {name: clay, ab: [18, 28], sigma: 7, weight: 0.4, L_range: [30, 60], note: iron-oxide red-orange}
+    provenance: Humus browns vs. iron-oxide (laterite/terra rossa) reds.
+
+  asphalt:
+    aliases: [road, tarmac, pavement]
+    categories: [ground, urban]
+    modes:
+      - {name: worn, ab: [0, 3], sigma: 3, weight: 1.0, L_range: [20, 60], note: neutral grey, slight warm wear}
+    provenance: Bitumen aggregate is a near-perfect neutral; weathering adds faint warmth.
+
+  concrete:
+    categories: [ground, urban, architecture]
+    modes:
+      - {name: plain, ab: [1, 5], sigma: 3, weight: 1.0, L_range: [40, 80], note: warm-neutral grey}
+    provenance: Portland cement grey with mild warm cast from sand fines.
+
+  brick:
+    categories: [architecture]
+    modes:
+      - {name: red,    ab: [26, 24], sigma: 7, weight: 0.7, L_range: [25, 55], note: fired clay red}
+      - {name: yellow, ab: [10, 24], sigma: 6, weight: 0.3, L_range: [40, 70], note: London-stock yellow-buff}
+    provenance: Iron oxide firing chemistry; lime-rich clays give buff/yellow stocks.
+
+  stone_wall:
+    aliases: [stone, masonry]
+    categories: [architecture]
+    modes:
+      - {name: grey,      ab: [1, 6],  sigma: 4, weight: 0.6, L_range: [30, 70], note: granite/limestone grey}
+      - {name: sandstone, ab: [8, 18], sigma: 6, weight: 0.4, L_range: [35, 70], note: warm sandstone}
+    provenance: Common building stones; weathering and lichen add warmth.
+
+  wood_floor:
+    aliases: [wood, wooden_furniture, timber]
+    categories: [interior, material]
+    modes:
+      - {name: varnished, ab: [16, 28], sigma: 7, weight: 0.6, L_range: [25, 60], note: warm mid-brown finish}
+      - {name: pale,      ab: [8, 20],  sigma: 6, weight: 0.4, L_range: [50, 80], note: birch/pine blond}
+    provenance: Lignin/tannin browns; finish darkens and saturates.
+
+  wall_interior:
+    aliases: [wall, walls]
+    categories: [interior, architecture]
+    modes:
+      - {name: white,  ab: [1, 4],  sigma: 3, weight: 0.55, L_range: [60, 95], note: off-white paint}
+      - {name: beige,  ab: [4, 12], sigma: 5, weight: 0.30, L_range: [55, 85], note: warm neutral}
+      - {name: accent, ab: [18, 30], sigma: 12, weight: 0.15, L_range: [35, 75], note: broad saturated accent-paint mode}
+    provenance: Interior paint sales skew heavily to off-whites/warm neutrals.
+
+  snow:
+    categories: [ground, atmosphere]
+    modes:
+      - {name: sunlit, ab: [0, 1],  sigma: 2, weight: 0.6, L_range: [75, 98], note: near-perfect white}
+      - {name: shadow, ab: [-3, -8], sigma: 4, weight: 0.4, L_range: [45, 80], note: blue cast from skylight}
+    provenance: Snow reflects illuminant; shadowed snow takes the sky's blue.
+
+  skin:
+    aliases: [face, person_skin]
+    categories: [person]
+    modes:
+      - {name: light,  ab: [13, 17], sigma: 4, weight: 0.4, L_range: [55, 80], note: light skin tone}
+      - {name: medium, ab: [15, 21], sigma: 4, weight: 0.35, L_range: [40, 65], note: medium skin tone}
+      - {name: deep,   ab: [14, 22], sigma: 4, weight: 0.25, L_range: [20, 45], note: deep skin tone}
+    provenance: >
+      Skin chromaticity clusters tightly in ab across all tones (melanin
+      varies L far more than hue) — standard finding in skin-locus literature.
+
+  dress:
+    aliases: [t_shirt, shirt, clothing, jumper, coat]
+    categories: [clothing]
+    modes:
+      - {name: neutral, ab: [1, 3],   sigma: 8,  weight: 0.35, L_range: [10, 90], note: white/grey/black garments}
+      - {name: warm,    ab: [30, 18], sigma: 12, weight: 0.25, L_range: [25, 70], note: reds/pinks}
+      - {name: cool,    ab: [2, -24], sigma: 12, weight: 0.25, L_range: [20, 70], note: blues}
+      - {name: earth,   ab: [12, 22], sigma: 10, weight: 0.15, L_range: [20, 60], note: browns/olives}
+    provenance: >
+      Garment colour is weakly constrained by content (the core ambiguity this
+      project targets); broad modes reflect modern apparel colour statistics.
+
+  suit:
+    categories: [clothing]
+    modes:
+      - {name: charcoal, ab: [0, 0],   sigma: 4, weight: 0.5, L_range: [10, 40], note: black/charcoal}
+      - {name: navy,     ab: [2, -14], sigma: 5, weight: 0.35, L_range: [15, 40], note: navy wool}
+      - {name: brown,    ab: [10, 16], sigma: 6, weight: 0.15, L_range: [20, 45], note: brown/tweed}
+    provenance: Formalwear conventions since the 20th century.
+
+  car:
+    aliases: [vehicle, truck]
+    categories: [vehicle]
+    modes:
+      - {name: achromatic, ab: [0, 0],   sigma: 5,  weight: 0.55, L_range: [5, 95], note: white/silver/grey/black majority}
+      - {name: red,        ab: [45, 30], sigma: 10, weight: 0.15, L_range: [25, 55], note: signal red}
+      - {name: blue,       ab: [5, -35], sigma: 10, weight: 0.15, L_range: [20, 55], note: blues}
+      - {name: earth,      ab: [15, 25], sigma: 10, weight: 0.15, L_range: [25, 60], note: browns/golds}
+    provenance: >
+      Global automotive colour popularity reports: ~3/4 of modern cars are
+      white/black/grey/silver; chromatic share led by red and blue.
+
+  school_bus:
+    categories: [vehicle]
+    modes:
+      - {name: nsbgy, ab: [10, 62], sigma: 5, weight: 1.0, L_range: [35, 90], note: US regulation National School Bus Glossy Yellow (chroma clamps at low L)}
+    provenance: >
+      US standard adopted 1939 (Frank Cyr conference); codified as FMVSS/SAE
+      colour. The strongest single-object colour prior in common scenes.
+
+  tennis_court:
+    aliases: [court]
+    categories: [ground, sports]
+    modes:
+      - {name: hard_blue,  ab: [-9, -16], sigma: 6, weight: 0.45, L_range: [45, 80], note: acrylic hard-court blue}
+      - {name: hard_green, ab: [-18, 14], sigma: 6, weight: 0.30, L_range: [35, 70], note: classic green acrylic}
+      - {name: clay,       ab: [26, 30],  sigma: 7, weight: 0.25, L_range: [40, 70], note: crushed-brick clay}
+    provenance: Court surface conventions (US Open blue post-2005, traditional green, European clay).
+
+  windscreen:
+    aliases: [windbreak]
+    categories: [sports]
+    modes:
+      - {name: dark_green, ab: [-20, 13], sigma: 5, weight: 1.0, L_range: [20, 50], note: standard court windscreen green}
+    provenance: Near-universal dark green mesh convention at outdoor courts.
+
+  radiator:
+    categories: [interior]
+    modes:
+      - {name: white, ab: [1, 3], sigma: 3, weight: 1.0, L_range: [55, 95], note: painted white}
+    provenance: Domestic radiators overwhelmingly factory-painted white.
