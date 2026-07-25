@@ -42,17 +42,29 @@ def plan_vs_reference(plan: dict, masks: dict[str, np.ndarray],
             continue
         ref = region_reference_lab(original_rgb, mask)
         planned = LabColor.from_plan(region["resolved_colour"])
+        planned_chroma = math.hypot(planned.a, planned.b)
+        ref_chroma = math.hypot(ref.a, ref.b)
         rows.append({
             "region": key,
             "object": region["object"],
             "planned_ab": [round(planned.a, 1), round(planned.b, 1)],
             "reference_ab": [round(ref.a, 1), round(ref.b, 1)],
             "delta_e": round(math.hypot(planned.a - ref.a, planned.b - ref.b), 2),
-            "reference_chroma": round(math.hypot(ref.a, ref.b), 2),
+            "reference_chroma": round(ref_chroma, 2),
+            # Chroma deficit: how much colour the plan FAILED to commit to.
+            # ΔE alone rewards conservative desaturation (the classic PSNR
+            # bias, rediscovered in Phase 5 when a model collapsed to gray
+            # and "won"); a gray guess for a colourful region must show up.
+            "chroma_deficit": round(max(0.0, ref_chroma - planned_chroma), 2),
         })
     des = [r["delta_e"] for r in rows if "delta_e" in r]
+    deficits = [r["chroma_deficit"] for r in rows if "chroma_deficit" in r]
+    undercommitted = sum(1 for r in rows
+                         if r.get("chroma_deficit", 0) > 10 and r.get("reference_chroma", 0) > 15)
     return {
         "regions": rows,
         "mean_delta_e": round(float(np.mean(des)), 2) if des else None,
+        "mean_chroma_deficit": round(float(np.mean(deficits)), 2) if deficits else None,
+        "n_undercommitted": undercommitted,
         "n_regions": len(rows),
     }

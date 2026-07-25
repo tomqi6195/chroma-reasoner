@@ -46,7 +46,33 @@ python scripts/ablate_score.py --originals data/coco/val2017_subset `
     --out results/phase5/reference_scores.json
 ```
 
-## First three-arm numbers (2026-07-13/14)
+## The desaturation exploit (found 2026-07-14, fixed)
+
+Run 4's LLM arm "beat" the KB on mean ΔE (14.6 vs 17.8) by collapsing to the
+same near-gray hex for almost every region — and since real walls, asphalt,
+and sky are near-neutral, gray scores well. **Our ΔE-to-reality metric had
+re-derived the field's classic PSNR bias: rewarding conservative
+desaturation** (roadmap §2.8). Fix: per-region **chroma deficit**
+`max(0, C_ref − C_planned)` reported alongside ΔE, plus an
+undercommitted-region count (deficit > 10 where reference chroma > 15). A
+gray guess for a gray wall is fine; a gray guess for a colourful region now
+shows up.
+
+Two-metric view of run 4 (both must be read together):
+
+| arm | mean ΔE ↓ | chroma deficit ↓ | undercommitted |
+|---|---|---|---|
+| human | 18.4 | **5.4** | 2/17 |
+| kb | 17.8 | 5.7 | 3/15 |
+| llm | **14.6** | 7.2 | **4/15** |
+
+The LLM's ΔE edge is bought with gray: worst deficit, most undercommitted
+regions, and (run 3, controlled masks) wildly wrong colours whenever it did
+commit — yellow-green tennis court, purple 1940s dresses. The KB commits to
+real chroma at human-baseline deficit. Small-n caveats stand; the metric
+pair is now exploit-resistant in both directions.
+
+## Earlier three-arm numbers (2026-07-13/14)
 
 - `human`: mean ΔE-to-reality **18.4** (4 images, own masks — context only)
 - `kb` (7B reasoner): **17.9** (2 images)

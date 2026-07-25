@@ -4,113 +4,15 @@
   "prompt": "British school class photo, late 1940s, overcast day",
   "regions": [
     {
-      "object": "brick",
+      "object": "building_facade",
       "grounding_phrase": "the brick wall behind the children",
-      "base_prior": "kb:brick",
+      "base_prior": "kb:building_facade",
       "modifiers": [
         {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 79.6,
-        "a": 18.5,
-        "b": 16.0
-      },
-      "tolerance_delta_e": 10.5,
-      "confidence": 0.8,
-      "rationale": "The brick wall is a prominent feature in the background, and its texture and color are consistent with a typical British school building. | KB prior 'brick' mode 'red'; modifiers: weather:overcast; fired clay red | re-resolved at mask-measured L=80",
-      "id": "brick"
-    },
-    {
-      "object": "dress",
-      "grounding_phrase": "the dresses worn by some of the girls",
-      "base_prior": "kb:dress",
-      "modifiers": [
-        {
-          "family": "era",
-          "value": "1940s",
-          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+          "family": "geography",
+          "value": "britain",
+          "effect": "year-round lush green under maritime climate"
         },
-        {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 79.6,
-        "a": 0.7,
-        "b": 2.1
-      },
-      "tolerance_delta_e": 12.0,
-      "confidence": 0.7,
-      "rationale": "The dresses are a significant part of the image, and their style and color are indicative of the late 1940s. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s; not operative: weather:overcast; white/grey/black garments | re-resolved at mask-measured L=80",
-      "id": "dress"
-    },
-    {
-      "object": "wall_interior",
-      "grounding_phrase": "the wall behind the children, possibly inside a classroom",
-      "base_prior": "kb:wall_interior",
-      "modifiers": [
-        {
-          "family": "era",
-          "value": "1940s",
-          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
-        },
-        {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 79.6,
-        "a": -0.2,
-        "b": 1.0
-      },
-      "tolerance_delta_e": 6.0,
-      "confidence": 0.7,
-      "rationale": "The wall behind the children appears to be an interior wall, likely within a classroom, and its simplicity reflects the practicality of the 1940s. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast; not operative: era:1940s; broad saturated accent-paint mode | re-resolved at mask-measured L=80",
-      "id": "wall_interior"
-    },
-    {
-      "object": "suit",
-      "grounding_phrase": "the dark suits worn by some of the boys",
-      "base_prior": "kb:suit",
-      "modifiers": [
-        {
-          "family": "era",
-          "value": "1940s",
-          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
-        },
-        {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 79.6,
-        "a": 0.0,
-        "b": 0.0
-      },
-      "tolerance_delta_e": 6.0,
-      "confidence": 0.7,
-      "rationale": "The dark suits worn by some of the boys are a key element of the image, and their style and color are indicative of the late 1940s. | KB prior 'suit' mode 'charcoal'; modifiers: era:1940s; not operative: weather:overcast; black/charcoal | re-resolved at mask-measured L=80",
-      "id": "suit"
-    },
-    {
-      "object": "grass",
-      "grounding_phrase": "the ground where the children are standing",
-      "base_prior": "kb:grass",
-      "modifiers": [
         {
           "family": "weather",
           "value": "overcast",
@@ -121,12 +23,61 @@
         "space": "Lab",
         "L": 79.6,
         "a": 2.0,
-        "b": 19.0
+        "b": 5.5
       },
       "tolerance_delta_e": 12.0,
-      "confidence": 0.6,
-      "rationale": "The ground appears to be grass, and the diffused lighting suggests an overcast day, which affects the overall color and tone of the image. | KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; healthy chlorophyll green | re-resolved at mask-measured L=80",
-      "id": "grass"
+      "confidence": 0.8,
+      "rationale": "The brick wall is a prominent feature in the background, and its texture and color are consistent with a British school building from the 1940s. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: geography:britain; painted render | re-resolved at mask-measured L=80",
+      "id": "building_facade"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the children's clothing",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 5.6,
+        "b": 10.7
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The children are wearing dresses typical of the late 1940s, with a muted color palette and simple designs. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s, mood:nostalgic; white/grey/black garments | re-resolved at mask-measured L=80",
+      "id": "dress"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the children",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The sky is a large, uniform area with a low luminance value, suggesting an overcast condition. | KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; grey overcast cover | re-resolved at mask-measured L=80",
+      "id": "sky"
     }
   ],
   "global": {
@@ -135,8 +86,13 @@
         "family": "era",
         "value": "1940s",
         "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+      },
+      {
+        "family": "mood",
+        "value": "nostalgic",
+        "effect": "warm fade, as in aged prints"
       }
     ],
-    "rationale": "A group of children posing for a school class photo in a British setting during the late 1940s."
+    "rationale": "A group of children posing for a school class photo in a British setting, likely taken during the late 1940s."
   }
 }

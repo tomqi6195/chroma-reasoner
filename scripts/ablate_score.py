@@ -66,15 +66,25 @@ def main() -> None:
                 continue
             res = plan_vs_reference(plan, masks, original)
             rows.append({"image": iid, **res})
-            print(f"[{name}] {iid}: mean dE-to-reality {res['mean_delta_e']}")
+            print(f"[{name}] {iid}: mean dE {res['mean_delta_e']} | "
+                  f"chroma deficit {res['mean_chroma_deficit']} | "
+                  f"undercommitted {res['n_undercommitted']}/{res['n_regions']}")
             for r in res["regions"]:
                 if "delta_e" in r:
                     print(f"    {r['region']:>16} planned ab{tuple(r['planned_ab'])} "
-                          f"vs real ab{tuple(r['reference_ab'])}  dE={r['delta_e']}")
+                          f"vs real ab{tuple(r['reference_ab'])}  dE={r['delta_e']}"
+                          f"  deficit={r['chroma_deficit']}")
         des = [x["mean_delta_e"] for x in rows if x["mean_delta_e"] is not None]
+        defs_ = [x["mean_chroma_deficit"] for x in rows if x["mean_chroma_deficit"] is not None]
+        under = sum(x["n_undercommitted"] for x in rows)
+        total = sum(x["n_regions"] for x in rows)
         summary = round(float(np.mean(des)), 2) if des else None
-        print(f"== arm '{name}': mean dE-to-reality {summary} over {len(rows)} images\n")
-        report[name] = {"images": rows, "mean_delta_e": summary}
+        deficit_summary = round(float(np.mean(defs_)), 2) if defs_ else None
+        print(f"== arm '{name}': mean dE {summary} | mean chroma deficit {deficit_summary} "
+              f"| undercommitted {under}/{total} regions over {len(rows)} images\n")
+        report[name] = {"images": rows, "mean_delta_e": summary,
+                        "mean_chroma_deficit": deficit_summary,
+                        "n_undercommitted": under, "n_regions": total}
 
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)

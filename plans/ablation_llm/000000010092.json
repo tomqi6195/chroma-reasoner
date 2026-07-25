@@ -1,0 +1,142 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000010092",
+  "prompt": "tropical jungle lodge interior",
+  "regions": [
+    {
+      "object": "bedding",
+      "grounding_phrase": "the bed with a mosquito net",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The bed is centrally located and the mosquito net suggests a tropical setting. The overcast weather and melancholic mood modifiers align with the subdued lighting. | KB prior 'bedding' mode 'white'; modifiers: mood:melancholic; not operative: weather:overcast; white linen | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "bedding"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the large windows on the left side",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The large windows allow natural light into the room, but the diffused quality suggests overcast weather. The melancholic mood modifiers complement the overall subdued tone. | KB prior 'window' mode 'glazing'; modifiers: weather:overcast, mood:melancholic; glass reflects sky - cool cast | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "window"
+    },
+    {
+      "object": "curtain",
+      "grounding_phrase": "the curtains on the left side",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "The curtains are a significant element in the room, and the diffused lighting and soft shadows suggest overcast weather. The melancholic mood modifiers enhance the subdued atmosphere. | KB prior 'curtain' mode 'neutral'; modifiers: mood:melancholic; not operative: weather:overcast; cream/white window dressing | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "curtain"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the bed",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 18.0,
+      "confidence": 0.8,
+      "rationale": "The wall behind the bed is a key architectural element, and the diffused lighting and soft shadows suggest overcast weather. The melancholic mood modifiers enhance the subdued atmosphere. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast, mood:melancholic; broad saturated accent-paint mode | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "wall_interior"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the small table next to the bed",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The small table is a minor but noticeable element in the room, and the diffused lighting and soft shadows suggest overcast weather. The melancholic mood modifiers contribute to the overall subdued tone. | KB prior 'wood_floor' mode 'varnished'; modifiers: mood:melancholic; not operative: weather:overcast; warm mid-brown finish | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "wood_floor"
+    }
+  ]
+}

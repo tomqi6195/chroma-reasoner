@@ -103,7 +103,7 @@ objects:
     provenance: Common building stones; weathering and lichen add warmth.
 
   wood_floor:
-    aliases: [wood, wooden_furniture, timber, table, chair, desk, bench, counter, cabinet]
+    aliases: [wood, wooden_furniture, timber, table, chair, desk, bench, counter, cabinet, floor, flooring]
     categories: [interior, material]
     modes:
       - {name: varnished, ab: [16, 28], sigma: 7, weight: 0.6, L_range: [25, 60], note: warm mid-brown finish}

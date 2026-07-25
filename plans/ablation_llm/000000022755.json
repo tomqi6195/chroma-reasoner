@@ -6,7 +6,7 @@
     {
       "object": "building_facade",
       "grounding_phrase": "the building behind the motorcycle",
-      "base_prior": "kb:building_facade",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "weather",
@@ -16,19 +16,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 25.5,
-        "a": 15.5,
-        "b": 14.5
+        "L": 45,
+        "a": -0.0,
+        "b": 0.0
       },
-      "tolerance_delta_e": 10.5,
+      "tolerance_delta_e": 12.0,
       "confidence": 0.8,
-      "rationale": "The building facade is a large, coherent area reflecting the overcast conditions. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=25",
+      "rationale": "The building facade is a large, coherent area reflecting the overcast conditions. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | ABLATION: colour #808080 chosen by model, KB bypassed",
       "id": "building_facade"
     },
     {
       "object": "car",
       "grounding_phrase": "the vintage car reflected in the mirror",
-      "base_prior": "kb:car",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "era",
@@ -43,19 +43,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 20.0,
-        "a": 0,
-        "b": 0
+        "L": 45,
+        "a": 6.7,
+        "b": 28.9
       },
       "tolerance_delta_e": 7.5,
       "confidence": 0.8,
-      "rationale": "The car is a prominent, reflective object in the scene, capturing the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=20",
+      "rationale": "The car is a prominent, reflective object in the scene, capturing the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | ABLATION: colour #6b4f25 chosen by model, KB bypassed",
       "id": "car"
     },
     {
       "object": "asphalt",
       "grounding_phrase": "the street visible in the mirror",
-      "base_prior": "kb:asphalt",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "weather",
@@ -65,19 +65,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 15.7,
-        "a": -1.0,
-        "b": 0.2
+        "L": 45,
+        "a": -0.0,
+        "b": 0.0
       },
       "tolerance_delta_e": 6.0,
       "confidence": 0.8,
-      "rationale": "The street is a large, coherent area reflecting the overcast conditions. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=16",
+      "rationale": "The street is a large, coherent area reflecting the overcast conditions. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | ABLATION: colour #333333 chosen by model, KB bypassed",
       "id": "asphalt"
     },
     {
       "object": "sky",
       "grounding_phrase": "the sky reflected in the mirror",
-      "base_prior": "kb:sky",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "weather",
@@ -87,13 +87,13 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 15.7,
-        "a": -2.5,
-        "b": -6.5
+        "L": 45,
+        "a": -2.7,
+        "b": -8.1
       },
-      "tolerance_delta_e": 6.0,
+      "tolerance_delta_e": 9.0,
       "confidence": 0.8,
-      "rationale": "The sky is a large, coherent area reflecting the overcast conditions. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | re-resolved at mask-measured L=16",
+      "rationale": "The sky is a large, coherent area reflecting the overcast conditions. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | ABLATION: colour #8a99a5 chosen by model, KB bypassed",
       "id": "sky"
     }
   ],

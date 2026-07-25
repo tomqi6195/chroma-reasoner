@@ -46,6 +46,23 @@ def test_reference_score_large_when_plan_wrong():
     assert row["reference_ab"] == pytest.approx([20, -10], abs=1.5)
 
 
+def test_gray_guess_for_colourful_region_flagged_as_undercommitted():
+    """The desaturation exploit: a gray guess scores moderate dE but must be
+    caught by the chroma deficit (the PSNR-bias rediscovery)."""
+    img, masks = _scene(LabColor(50, 30, 25))       # colourful reality
+    res = plan_vs_reference(_plan(0, 0), masks, img)  # plan says gray
+    row = res["regions"][0]
+    assert row["chroma_deficit"] > 30
+    assert res["n_undercommitted"] == 1
+
+
+def test_gray_guess_for_gray_region_not_penalized():
+    img, masks = _scene(LabColor(50, 1, 2))          # reality is near-neutral
+    res = plan_vs_reference(_plan(0, 0), masks, img)
+    assert res["regions"][0]["chroma_deficit"] < 4
+    assert res["n_undercommitted"] == 0
+
+
 class MockColorBackend:
     def __init__(self, colours):
         self.colours = colours
