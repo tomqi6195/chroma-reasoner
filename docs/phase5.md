@@ -46,16 +46,31 @@ python scripts/ablate_score.py --originals data/coco/val2017_subset `
     --out results/phase5/reference_scores.json
 ```
 
-## First numbers (2026-07-13; llm arm pending Colab rerun)
+## First three-arm numbers (2026-07-13/14)
 
-- `human`: mean ΔE-to-reality **18.4** over 4 images
-- `kb` (7B reasoner): **17.3** over 2 images
+- `human`: mean ΔE-to-reality **18.4** (4 images, own masks — context only)
+- `kb` (7B reasoner): **17.9** (2 images)
+- `llm` (same regions, model-picked colours): **40.4** (1 scorable image)
 
-Small-n and not yet decision-grade. The per-region rows are the real value at
-this stage: every large ΔE traced to a **mask error, not a colour error**
-("foliage" mask caught the court through the fence → reference reads blue;
-"suit" mask on skin; the KB's neutral "car" is sitting on the yellow school
-bus). The scorer doubles as a grounding auditor.
+**The controlled comparison (identical masks, image 1000): KB wins 5/6
+regions and ties the 6th** — 24.6 vs 40.4 mean. Failure modes are
+characteristic: the LLM picked yellow-green (b=+44) for a blue tennis court,
+saturated orange for a green windscreen, and — on the unscorable 1940s photo —
+**vivid purple (ab 36,−58) for wartime dresses** where the KB's era-composed
+prior gave drab neutral. Direction strongly favours the KB; n is far too
+small to close the question. Per-region rows remain the grounding auditor
+(large ΔEs still trace to mask errors more often than colour errors).
+
+## Phase-4 live-run feedback loop (what the log-driven runs fixed)
+
+- 2/5 image failures were **KB vocabulary gaps**, not model errors: the
+  reasoner wanted table/chair/rug/counter, mosquito_net/tile_floor/window,
+  building/street/motorcycle, geography:america. KB expanded accordingly
+  (aliases + 8 new classes + geography:usa); the vocabulary now covers all
+  selections attempted across three live runs.
+- 7B selections are **run-to-run unstable** (22755 passed one run, failed the
+  next; 1000's classes changed between runs). Expected to shrink with the
+  vocabulary fix; a larger open model is the next lever if not.
 
 ## Known limitations (v1)
 

@@ -111,6 +111,19 @@ def test_alias_resolution(kb):
     assert res.object == "dress"
 
 
+def test_phase4_vocabulary_expansion(kb):
+    """Classes the reasoner needed in the first live runs and lacked."""
+    for name, canonical in [("table", "wood_floor"), ("street", "asphalt"),
+                            ("motorcycle", "car"), ("building", "building_facade"),
+                            ("tile_floor", "tile_floor"), ("mosquito_net", "mosquito_net"),
+                            ("window", "window"), ("rug", "rug"), ("tv", "television"),
+                            ("bedding", "bedding"), ("curtain", "curtain")]:
+        assert resolve(kb, name, []).object == canonical, name
+    # geography:usa exists and routes through objects
+    bus = resolve(kb, "school_bus", [_mod("geography", "usa")], measured_L=70)
+    assert "geography:usa" in bus.applied
+
+
 def test_resolution_emits_valid_plan_region(kb):
     mods = [_mod("era", "1940s"), _mod("mood", "melancholic")]
     res = resolve(kb, "jumper", mods, measured_L=30)

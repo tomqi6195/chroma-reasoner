@@ -6,7 +6,7 @@
     {
       "object": "brick",
       "grounding_phrase": "the brick wall behind the children",
-      "base_prior": "kb:brick",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "weather",
@@ -16,19 +16,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 79.6,
-        "a": 18.5,
-        "b": 16.0
+        "L": 45,
+        "a": 26.4,
+        "b": 41.0
       },
       "tolerance_delta_e": 10.5,
       "confidence": 0.8,
-      "rationale": "The brick wall is a prominent feature in the background, and its texture and color are consistent with a typical British school building. | KB prior 'brick' mode 'red'; modifiers: weather:overcast; fired clay red | re-resolved at mask-measured L=80",
+      "rationale": "The brick wall is a prominent feature in the background, and its texture and color are consistent with a typical British school building. | KB prior 'brick' mode 'red'; modifiers: weather:overcast; fired clay red | ABLATION: colour #8b4513 chosen by model, KB bypassed",
       "id": "brick"
     },
     {
       "object": "dress",
       "grounding_phrase": "the dresses worn by some of the girls",
-      "base_prior": "kb:dress",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "era",
@@ -43,19 +43,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 79.6,
-        "a": 0.7,
-        "b": 2.1
+        "L": 40,
+        "a": 36.0,
+        "b": -57.8
       },
       "tolerance_delta_e": 12.0,
       "confidence": 0.7,
-      "rationale": "The dresses are a significant part of the image, and their style and color are indicative of the late 1940s. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s; not operative: weather:overcast; white/grey/black garments | re-resolved at mask-measured L=80",
+      "rationale": "The dresses are a significant part of the image, and their style and color are indicative of the late 1940s. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s; not operative: weather:overcast; white/grey/black garments | ABLATION: colour #6a5acd chosen by model, KB bypassed",
       "id": "dress"
     },
     {
       "object": "wall_interior",
       "grounding_phrase": "the wall behind the children, possibly inside a classroom",
-      "base_prior": "kb:wall_interior",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "era",
@@ -70,19 +70,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 79.6,
-        "a": -0.2,
-        "b": 1.0
+        "L": 40,
+        "a": 26.4,
+        "b": 41.0
       },
-      "tolerance_delta_e": 6.0,
+      "tolerance_delta_e": 18.0,
       "confidence": 0.7,
-      "rationale": "The wall behind the children appears to be an interior wall, likely within a classroom, and its simplicity reflects the practicality of the 1940s. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast; not operative: era:1940s; broad saturated accent-paint mode | re-resolved at mask-measured L=80",
+      "rationale": "The wall behind the children appears to be an interior wall, likely within a classroom, and its simplicity reflects the practicality of the 1940s. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast; not operative: era:1940s; broad saturated accent-paint mode | ABLATION: colour #8b4513 chosen by model, KB bypassed",
       "id": "wall_interior"
     },
     {
       "object": "suit",
       "grounding_phrase": "the dark suits worn by some of the boys",
-      "base_prior": "kb:suit",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "era",
@@ -97,19 +97,19 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 79.6,
+        "L": 40,
         "a": 0.0,
         "b": 0.0
       },
       "tolerance_delta_e": 6.0,
       "confidence": 0.7,
-      "rationale": "The dark suits worn by some of the boys are a key element of the image, and their style and color are indicative of the late 1940s. | KB prior 'suit' mode 'charcoal'; modifiers: era:1940s; not operative: weather:overcast; black/charcoal | re-resolved at mask-measured L=80",
+      "rationale": "The dark suits worn by some of the boys are a key element of the image, and their style and color are indicative of the late 1940s. | KB prior 'suit' mode 'charcoal'; modifiers: era:1940s; not operative: weather:overcast; black/charcoal | ABLATION: colour #000000 chosen by model, KB bypassed",
       "id": "suit"
     },
     {
       "object": "grass",
       "grounding_phrase": "the ground where the children are standing",
-      "base_prior": "kb:grass",
+      "base_prior": null,
       "modifiers": [
         {
           "family": "weather",
@@ -119,13 +119,13 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 79.6,
-        "a": 2.0,
-        "b": 19.0
+        "L": 25,
+        "a": -11.7,
+        "b": -3.7
       },
-      "tolerance_delta_e": 12.0,
+      "tolerance_delta_e": 10.5,
       "confidence": 0.6,
-      "rationale": "The ground appears to be grass, and the diffused lighting suggests an overcast day, which affects the overall color and tone of the image. | KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; healthy chlorophyll green | re-resolved at mask-measured L=80",
+      "rationale": "The ground appears to be grass, and the diffused lighting suggests an overcast day, which affects the overall color and tone of the image. | KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; healthy chlorophyll green | ABLATION: colour #2f4f4f chosen by model, KB bypassed",
       "id": "grass"
     }
   ],

@@ -136,6 +136,15 @@ families:
         - {op: scale_chroma, factor: 1.1}
       note: saturated greens; turquoise shallow water
       provenance: broadleaf evergreen flora; carbonate-shelf water colour.
+    usa:
+      applies_to: [vehicle, sports, urban]
+      ops:
+        - {op: reweight, mode: hard_blue, factor: 1.5}
+        - {op: reweight, mode: nsbgy, factor: 1.2}
+      note: US conventions - regulation school-bus yellow, US Open court blue
+      provenance: >
+        National School Bus Glossy Yellow (1939 standard); US Open hard-court
+        blue (post-2005). Use for 'american'/'US' prompts.
 
   time_of_day:
     golden_hour:
