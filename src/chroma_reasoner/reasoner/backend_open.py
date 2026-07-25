@@ -52,15 +52,18 @@ def extract_json(text: str) -> dict:
     raise ValueError("unbalanced JSON object in model output")
 
 
-def to_qwen_messages(system: str, messages: list[dict]) -> list[dict]:
+def to_qwen_messages(system: str, messages: list[dict],
+                     format_contract: str | None = None) -> list[dict]:
     """Convert our Anthropic-style messages to Qwen chat-template format.
 
     Image blocks (base64) become PIL images; text blocks pass through. The
-    JSON-format contract is appended to the first user text block, since open
-    backends have no structured-outputs equivalent.
+    JSON-format contract (selection contract by default) is appended to the
+    first user text block, since open backends have no structured-outputs
+    equivalent.
     """
     from PIL import Image
 
+    contract = format_contract if format_contract is not None else json_format_instructions()
     out = [{"role": "system", "content": [{"type": "text", "text": system}]}]
     format_added = False
     for message in messages:
@@ -78,7 +81,7 @@ def to_qwen_messages(system: str, messages: list[dict]) -> list[dict]:
             elif block["type"] == "text":
                 text = block["text"]
                 if message["role"] == "user" and not format_added:
-                    text += "\n" + json_format_instructions()
+                    text += "\n" + contract
                     format_added = True
                 blocks.append({"type": "text", "text": text})
         out.append({"role": message["role"], "content": blocks})
@@ -107,8 +110,9 @@ class QwenVLBackend:
         new_tokens = generated[:, inputs["input_ids"].shape[1]:]
         return self.processor.batch_decode(new_tokens, skip_special_tokens=True)[0]
 
-    def complete(self, system: str, messages: list[dict]) -> dict:
-        qwen_messages = to_qwen_messages(system, messages)
+    def complete(self, system: str, messages: list[dict],
+                 format_contract: str | None = None, **_ignored) -> dict:
+        qwen_messages = to_qwen_messages(system, messages, format_contract)
         raw = self._generate(qwen_messages)
         try:
             return extract_json(raw)

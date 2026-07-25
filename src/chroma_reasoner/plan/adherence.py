@@ -60,7 +60,14 @@ def evaluate_adherence(output_rgb: np.ndarray, masks: dict[str, np.ndarray], pla
     region isn't blamed for pixels that were handed to an object inside it.
     """
     excl = exclusive_masks(masks, plan)
-    regions = [region_adherence(output_rgb, excl[region_key(r)], r) for r in plan["regions"]]
+    regions = []
+    for r in plan["regions"]:
+        key = region_key(r)
+        if key not in excl:
+            regions.append({"region": key, "object": r["object"],
+                            "error": "no mask", "pass": False})
+            continue
+        regions.append(region_adherence(output_rgb, excl[key], r))
     des = [r["delta_e"] for r in regions if "delta_e" in r]
     return {
         "regions": regions,

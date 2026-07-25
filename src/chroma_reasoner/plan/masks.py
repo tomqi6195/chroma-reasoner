@@ -32,9 +32,14 @@ def save_mask(mask: np.ndarray, masks_root: Path, image_id: str, region: dict) -
 
 
 def load_masks(masks_root: Path, image_id: str, plan: dict,
-               shape: tuple[int, int] | None = None) -> dict[str, np.ndarray]:
-    """Load one bool mask per region. Raises if any region's mask is missing.
+               shape: tuple[int, int] | None = None,
+               allow_missing: bool = False) -> dict[str, np.ndarray]:
+    """Load one bool mask per region.
 
+    allow_missing=False: raises if any region's mask is missing (strict —
+    the Phase-2 hand-authored path). allow_missing=True: returns whatever
+    exists (grounding can legitimately fail on some regions; downstream
+    consumers process the subset rather than dropping the whole image).
     shape: optional (H, W) to assert against (catches image/mask mismatches).
     """
     masks: dict[str, np.ndarray] = {}
@@ -42,6 +47,8 @@ def load_masks(masks_root: Path, image_id: str, plan: dict,
         key = region_key(region)
         path = mask_path(masks_root, image_id, region)
         if not path.exists():
+            if allow_missing:
+                continue
             raise FileNotFoundError(f"mask missing for region '{key}': {path}")
         m = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
         if m is None:
@@ -53,14 +60,16 @@ def load_masks(masks_root: Path, image_id: str, plan: dict,
 
 
 def paint_order(masks: dict[str, np.ndarray], plan: dict) -> list[dict]:
-    """Regions sorted by mask area, largest first.
+    """Regions sorted by mask area, largest first; regions without a mask
+    (grounding failure under allow_missing) are dropped.
 
     Painting large->small makes specific objects override the broad
     backgrounds that swallow them (Phase-2 finding: "walls" masks contain the
     floor, a "mirror" mask contains the bus reflected in it). Broad first,
     specific last = specific wins.
     """
-    return sorted(plan["regions"], key=lambda r: -int(masks[region_key(r)].sum()))
+    with_masks = [r for r in plan["regions"] if region_key(r) in masks]
+    return sorted(with_masks, key=lambda r: -int(masks[region_key(r)].sum()))
 
 
 def exclusive_masks(masks: dict[str, np.ndarray], plan: dict) -> dict[str, np.ndarray]:

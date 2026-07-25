@@ -14,8 +14,13 @@ DEFAULT_MODEL = "claude-opus-4-8"
 
 
 class Backend(Protocol):
-    def complete(self, system: str, messages: list[dict]) -> dict:
-        """messages: Anthropic-style message dicts. Returns the parsed selection."""
+    def complete(self, system: str, messages: list[dict], **kwargs) -> dict:
+        """messages: Anthropic-style message dicts. Returns a parsed JSON dict.
+
+        Optional kwargs let callers override the output contract (the
+        default is the selection schema): `schema=` for structured-outputs
+        backends, `format_contract=` for prompt-contract backends.
+        """
         ...
 
 
@@ -33,7 +38,8 @@ class AnthropicBackend:
         self.client = anthropic.Anthropic()
         self.model = model
 
-    def complete(self, system: str, messages: list[dict]) -> dict:
+    def complete(self, system: str, messages: list[dict], schema: dict | None = None,
+                 **_ignored) -> dict:
         response = self.client.messages.create(
             model=self.model,
             max_tokens=16000,
@@ -42,7 +48,7 @@ class AnthropicBackend:
                      "cache_control": {"type": "ephemeral"}}],
             messages=messages,
             output_config={"format": {"type": "json_schema",
-                                      "schema": SELECTION_SCHEMA}},
+                                      "schema": schema or SELECTION_SCHEMA}},
         )
         if response.stop_reason == "refusal":
             raise RuntimeError("model declined the request (stop_reason=refusal)")
