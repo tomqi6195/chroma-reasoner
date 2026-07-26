@@ -9,11 +9,6 @@
       "base_prior": null,
       "modifiers": [
         {
-          "family": "geography",
-          "value": "britain",
-          "effect": "year-round lush green under maritime climate"
-        },
-        {
           "family": "weather",
           "value": "overcast",
           "effect": "diffuse illumination flattens chroma, slight cool cast"
@@ -27,7 +22,7 @@
       },
       "tolerance_delta_e": 12.0,
       "confidence": 0.8,
-      "rationale": "The brick wall is a prominent feature in the background, and its texture and color are consistent with a British school building from the 1940s. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: geography:britain; painted render | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "rationale": "The brick wall is a large, coherent region that serves as a backdrop for the children, and its texture and color are consistent with a typical school building in the late 1940s. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | ABLATION: colour #8b4513 chosen by model, KB bypassed",
       "id": "building_facade"
     },
     {
@@ -41,25 +36,25 @@
           "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
         },
         {
-          "family": "mood",
-          "value": "nostalgic",
-          "effect": "warm fade, as in aged prints"
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
         }
       ],
       "resolved_colour": {
         "space": "Lab",
         "L": 40,
-        "a": 36.0,
-        "b": -57.8
+        "a": 26.4,
+        "b": 41.0
       },
       "tolerance_delta_e": 12.0,
-      "confidence": 0.8,
-      "rationale": "The children are wearing dresses typical of the late 1940s, with a muted color palette and simple designs. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s, mood:nostalgic; white/grey/black garments | ABLATION: colour #6a5acd chosen by model, KB bypassed",
+      "confidence": 0.7,
+      "rationale": "The children's clothing is a visually dominant area, and the muted tones and style are characteristic of the late 1940s. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s; not operative: weather:overcast; white/grey/black garments | ABLATION: colour #8b4513 chosen by model, KB bypassed",
       "id": "dress"
     },
     {
-      "object": "sky",
-      "grounding_phrase": "the sky above the children",
+      "object": "brick",
+      "grounding_phrase": "the brick wall behind the children",
       "base_prior": null,
       "modifiers": [
         {
@@ -70,14 +65,63 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 20,
-        "a": 0.0,
-        "b": 0.0
+        "L": 45,
+        "a": 26.4,
+        "b": 41.0
       },
-      "tolerance_delta_e": 6.0,
+      "tolerance_delta_e": 10.5,
       "confidence": 0.8,
-      "rationale": "The sky is a large, uniform area with a low luminance value, suggesting an overcast condition. | KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; grey overcast cover | ABLATION: colour #000000 chosen by model, KB bypassed",
-      "id": "sky"
+      "rationale": "The brick wall is a large, coherent region that serves as a backdrop for the children, and its texture and color are consistent with a typical school building in the late 1940s. | KB prior 'brick' mode 'red'; modifiers: weather:overcast; fired clay red | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "brick"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the windows on the building",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.7,
+      "rationale": "The windows are a small but distinct region, and the diffused lighting indicates an overcast day. | KB prior 'window' mode 'glazing'; modifiers: weather:overcast; glass reflects sky - cool cast | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "window"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the children",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 18.0,
+      "confidence": 0.7,
+      "rationale": "The wall behind the children is a large, coherent region that serves as a backdrop, and its appearance is consistent with the late 1940s. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast; not operative: era:1940s; broad saturated accent-paint mode | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "wall_interior"
     }
   ],
   "global": {
@@ -88,11 +132,11 @@
         "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
       },
       {
-        "family": "mood",
-        "value": "nostalgic",
-        "effect": "warm fade, as in aged prints"
+        "family": "weather",
+        "value": "overcast",
+        "effect": "diffuse illumination flattens chroma, slight cool cast"
       }
     ],
-    "rationale": "A group of children posing for a school class photo in a British setting, likely taken during the late 1940s."
+    "rationale": "A British school class photo taken in the late 1940s under an overcast sky."
   }
 }

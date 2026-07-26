@@ -100,6 +100,31 @@ def test_unrepaired_selection_raises_with_errors(kb, gray_png):
     assert any("estimated_L" in e for e in exc.value.errors)
 
 
+def test_broken_regions_dropped_when_enough_valid_remain(kb, gray_png):
+    """Salvage policy: region-local failures (e.g. 'tennis_racket', a real
+    live-run case) are dropped after the failed repair round instead of
+    sinking the whole image, as long as >=2 valid regions survive."""
+    bad = {**GOOD_SELECTION, "regions": GOOD_SELECTION["regions"] + [
+        {**GOOD_SELECTION["regions"][0], "object": "tennis_racket"}]}
+    backend = MockBackend(bad, bad)   # repair round also fails
+    plan = reason_plan(kb, backend, gray_png)
+    assert len(plan["regions"]) == 3           # the 3 valid ones survive
+    assert len(backend.calls) == 2             # repair round was attempted
+    objects = {r["object"] for r in plan["regions"]}
+    assert "tennis_racket" not in objects
+
+
+def test_salvage_refuses_when_too_few_valid(kb, gray_png):
+    bad = {**GOOD_SELECTION, "regions": [
+        GOOD_SELECTION["regions"][0],
+        {**GOOD_SELECTION["regions"][1], "object": "unicorn"},
+        {**GOOD_SELECTION["regions"][2], "object": "dragon"},
+    ]}
+    backend = MockBackend(bad, bad)
+    with pytest.raises(ReasonerError):
+        reason_plan(kb, backend, gray_png)
+
+
 def test_duplicate_objects_get_unique_region_ids(kb, gray_png):
     sel = {**GOOD_SELECTION, "global_modifiers": [], "regions": [
         {**GOOD_SELECTION["regions"][1]},

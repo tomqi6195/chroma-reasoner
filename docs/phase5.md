@@ -46,6 +46,25 @@ python scripts/ablate_score.py --originals data/coco/val2017_subset `
     --out results/phase5/reference_scores.json
 ```
 
+## Current result (run 6, 2026-07-14 — 4 fresh images, both metrics)
+
+| arm | mean ΔE ↓ | chroma deficit ↓ | undercommitted |
+|---|---|---|---|
+| human | 18.4 | 5.4 | 2/17 |
+| **kb** | 18.0 | **4.4** | **2/21** |
+| llm | 16.3 | 8.3 | 5/21 |
+
+**The KB matches the human baseline on ΔE with the best chroma commitment of
+any arm, humans included.** The LLM's ΔE edge remains fully gray-bought
+(double the deficit; in 22755 its ΔE literally equals its deficit). On the
+freshly-cleared 139 with shared masks, KB beats LLM on both metrics
+(13.4/0.0 vs 15.8/0.8). Still n=4; scale next.
+
+Robustness added after this run: region-level salvage — when the repair round
+leaves only region-local errors (a 'tennis_racket') and ≥2 valid regions
+remain, the broken regions are dropped (recorded in scene_summary) instead of
+failing the image.
+
 ## The desaturation exploit (found 2026-07-14, fixed)
 
 Run 4's LLM arm "beat" the KB on mean ΔE (14.6 vs 17.8) by collapsing to the

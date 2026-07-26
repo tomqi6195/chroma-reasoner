@@ -1,0 +1,126 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000000139",
+  "prompt": "",
+  "regions": [
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug on the floor in the foreground",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "The diffused lighting and lack of strong shadows suggest an overcast day. | KB prior 'rug' mode 'warm'; not operative: weather:overcast; warm reds/browns common in rugs | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the television",
+      "base_prior": null,
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 55,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The wall appears to be a neutral tone, likely due to indoor lighting. | KB prior 'wall_interior' mode 'beige'; warm neutral | ABLATION: colour #808080 chosen by model, KB bypassed",
+      "id": "wall_interior"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the table in the kitchen area",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": 8.8,
+        "b": 25.7
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The table and surrounding area have soft lighting and lush greenery, suggesting summer and overcast weather. | KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast, season:summer; warm mid-brown finish | ABLATION: colour #6b4c29 chosen by model, KB bypassed",
+      "id": "wood_floor"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the chair at the dining table",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": 8.8,
+        "b": 25.7
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The chair has soft lighting and lush greenery, suggesting summer and overcast weather. | KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast, season:summer; warm mid-brown finish | ABLATION: colour #6b4c29 chosen by model, KB bypassed",
+      "id": "wood_floor_2"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the counter in the kitchen area",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": 8.8,
+        "b": 25.7
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The counter has soft lighting and lush greenery, suggesting summer and overcast weather. | KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast, season:summer; warm mid-brown finish | ABLATION: colour #6b4c29 chosen by model, KB bypassed",
+      "id": "wood_floor_3"
+    }
+  ]
+}

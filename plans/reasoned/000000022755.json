@@ -27,14 +27,9 @@
     },
     {
       "object": "car",
-      "grounding_phrase": "the vintage car reflected in the mirror",
+      "grounding_phrase": "the vintage car in the reflection",
       "base_prior": "kb:car",
       "modifiers": [
-        {
-          "family": "era",
-          "value": "1940s",
-          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
-        },
         {
           "family": "weather",
           "value": "overcast",
@@ -49,12 +44,12 @@
       },
       "tolerance_delta_e": 7.5,
       "confidence": 0.8,
-      "rationale": "The car is a prominent, reflective object in the scene, capturing the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=20",
+      "rationale": "The car is a prominent object in the reflection, and its details are visible despite the grayscale, suggesting a mid-grey tone. | KB prior 'car' mode 'achromatic'; not operative: weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=20",
       "id": "car"
     },
     {
       "object": "asphalt",
-      "grounding_phrase": "the street visible in the mirror",
+      "grounding_phrase": "the street in the reflection",
       "base_prior": "kb:asphalt",
       "modifiers": [
         {
@@ -65,13 +60,13 @@
       ],
       "resolved_colour": {
         "space": "Lab",
-        "L": 15.7,
+        "L": 14.1,
         "a": -1.0,
         "b": 0.2
       },
       "tolerance_delta_e": 6.0,
       "confidence": 0.8,
-      "rationale": "The street is a large, coherent area reflecting the overcast conditions. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=16",
+      "rationale": "The street is a large, reflective surface that captures the overcast conditions well. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=14",
       "id": "asphalt"
     },
     {
@@ -93,7 +88,7 @@
       },
       "tolerance_delta_e": 6.0,
       "confidence": 0.8,
-      "rationale": "The sky is a large, coherent area reflecting the overcast conditions. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | re-resolved at mask-measured L=16",
+      "rationale": "The sky is a large, reflective area that clearly shows the overcast state. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | re-resolved at mask-measured L=16",
       "id": "sky"
     }
   ],

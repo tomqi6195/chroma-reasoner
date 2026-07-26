@@ -156,6 +156,37 @@ def reason_plan(kb: KnowledgeBase, backend: Backend, image_path: str | Path,
         selection = backend.complete(system, messages)
         errors = _check_selection(kb, selection)
         if errors:
-            raise ReasonerError(errors)
+            # Salvage policy (Phase-4 live-run finding): when the surviving
+            # errors are confined to individual regions and enough valid
+            # regions remain, drop the broken ones instead of failing the
+            # image. Global/structural errors still raise.
+            selection, dropped = _drop_broken_regions(kb, selection)
+            if dropped and not _check_selection(kb, selection):
+                selection["scene_summary"] = (selection.get("scene_summary", "")
+                                              + f" [dropped invalid regions: {', '.join(dropped)}]")
+            else:
+                raise ReasonerError(errors)
 
     return _selection_to_plan(kb, selection, image_id, user_prompt)
+
+
+def _drop_broken_regions(kb: KnowledgeBase, selection: dict) -> tuple[dict, list[str]]:
+    """Remove regions that individually fail validation, if >=2 valid remain.
+
+    Returns (possibly-modified selection, names of dropped regions). Leaves
+    the selection untouched when salvage isn't possible.
+    """
+    valid, dropped = [], []
+    for region in selection.get("regions", []):
+        probe = {"regions": [region], "global_modifiers": []}
+        if _check_selection(kb, probe):
+            dropped.append(str(region.get("object", "?")))
+        else:
+            valid.append(region)
+    # global_modifiers errors are not region-salvageable
+    global_errors = bool(_check_selection(kb, {"regions": valid[:1] or [],
+                                               "global_modifiers": selection.get("global_modifiers", [])})) \
+        if valid else True
+    if len(valid) >= 2 and dropped and not global_errors:
+        return {**selection, "regions": valid}, dropped
+    return selection, []

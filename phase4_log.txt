@@ -1,65 +1,72 @@
-!! 000000000139: selection unrepairable:
+== 000000000139  prompt=''
+   [             rug] #8e604a conf=0.80 [weather:overcast]  the rug on the floor in the foreground
+   [   wall_interior] #93816f conf=0.80 []  the wall behind the television
+   [      wood_floor] #835331 conf=0.80 [weather:overcast, season:summer]  the table in the kitchen area
+   [      wood_floor] #835331 conf=0.80 [weather:overcast, season:summer]  the chair at the dining table
+   [      wood_floor] #835331 conf=0.80 [weather:overcast, season:summer]  the counter in the kitchen area
+!! 000000001000: selection unrepairable:
 reasoner selection invalid after repair:
-  - regions[4] (floor): object class not in KB: 'floor'
-== 000000001000  prompt='summer tennis camp group photo'
-   [ building_facade] #726961 conf=0.80 [weather:overcast]  the wooden structure behind the group
-   [           dress] #625e59 conf=0.80 [season:summer, weather:sunny]  the girl wearing a white dress in the center
-   [         asphalt] #3d3b36 conf=0.80 [weather:sunny]  the ground beneath the group
-   [    tennis_court] #144c62 conf=0.80 [season:summer, weather:sunny]  the area where the group is standing
-   [             rug] #734833 conf=0.80 [season:summer, weather:sunny]  the area near the group's feet
-   [           brick] #8e4c38 conf=0.80 [season:summer, weather:sunny]  the wall behind the group
+  - regions[2] (children): object class not in KB: 'children'
+  - regions[4] (tennis_racket): object class not in KB: 'tennis_racket'
 == 000000002299  prompt='British school class photo, late 1940s, overcast day'
-   [ building_facade] #726961 conf=0.80 [geography:britain, weather:overcast]  the brick wall behind the children
-   [           dress] #6e5b4d conf=0.80 [era:1940s, mood:nostalgic]  the children's clothing
-   [             sky] #27323a conf=0.80 [weather:overcast]  the sky above the children
+   [ building_facade] #726961 conf=0.80 [weather:overcast]  the brick wall behind the children
+   [           dress] #615e5b conf=0.70 [era:1940s, weather:overcast]  the children's clothing
+   [           brick] #905e51 conf=0.80 [weather:overcast]  the brick wall behind the children
+   [          window] #52606a conf=0.70 [weather:overcast]  the windows on the building
+   [   wall_interior] #7c563d conf=0.70 [era:1940s, weather:overcast]  the wall behind the children
 == 000000010092  prompt='tropical jungle lodge interior'
-   [         bedding] #666b6f conf=0.80 [weather:overcast, mood:melancholic]  the bed with a mosquito net
-   [          window] #596d7b conf=0.80 [weather:overcast, mood:melancholic]  the large windows on the left side
-   [         curtain] #696b6c conf=0.80 [weather:overcast, mood:melancholic]  the curtains on the left side
-   [   wall_interior] #7c665b conf=0.80 [weather:overcast, mood:melancholic]  the wall behind the bed
-   [      wood_floor] #826453 conf=0.80 [weather:overcast, mood:melancholic]  the small table next to the bed
+   [         bedding] #6e6a66 conf=0.80 [weather:overcast]  the bed with a mosquito net
+   [          window] #5e6d76 conf=0.80 [weather:overcast]  the large windows on the left side
+   [      wood_floor] #905f3c conf=0.80 [weather:overcast]  the tiled floor
+   [         curtain] #726961 conf=0.80 [weather:overcast]  the curtains on the left side
+   [   wall_interior] #896249 conf=0.80 [weather:overcast]  the walls behind the bed
+   [      wood_floor] #905f3c conf=0.80 [weather:overcast]  the small table next to the bed
 == 000000022755  prompt='overcast day in an American town'
    [ building_facade] #726961 conf=0.80 [weather:overcast]  the building behind the motorcycle
-   [             car] #6a6a6a conf=0.80 [era:1940s, weather:overcast]  the vintage car reflected in the mirror
-   [         asphalt] #696b6a conf=0.80 [weather:overcast]  the street visible in the mirror
+   [             car] #6a6a6a conf=0.80 [weather:overcast]  the vintage car in the reflection
+   [         asphalt] #696b6a conf=0.80 [weather:overcast]  the street in the reflection
    [             sky] #436f8e conf=0.80 [weather:overcast]  the sky reflected in the mirror
-== ablation 000000001000
-    building_facade: kb ab(2,5.5)  vs  llm ab(26.4,41)
-              dress: kb ab(1,3)  vs  llm ab(-0,0)
-            asphalt: kb ab(0,3.3)  vs  llm ab(-0,0)
-       tennis_court: kb ab(-9.9,-17.6)  vs  llm ab(-0,0)
-                rug: kb ab(16,20)  vs  llm ab(-0,0)
-              brick: kb ab(26,24)  vs  llm ab(26.4,41)
+== ablation 000000000139
+                rug: kb ab(16,20)  vs  llm ab(26.4,41)
+      wall_interior: kb ab(4,12)  vs  llm ab(-0,0)
+         wood_floor: kb ab(16,28)  vs  llm ab(8.8,25.7)
+       wood_floor_2: kb ab(16,28)  vs  llm ab(8.8,25.7)
+       wood_floor_3: kb ab(16,28)  vs  llm ab(8.8,25.7)
 == ablation 000000002299
     building_facade: kb ab(2,5.5)  vs  llm ab(26.4,41)
-              dress: kb ab(5.6,10.7)  vs  llm ab(36,-57.8)
-                sky: kb ab(-2.5,-6.5)  vs  llm ab(0,0)
+              dress: kb ab(0.7,2.1)  vs  llm ab(26.4,41)
+              brick: kb ab(18.5,16)  vs  llm ab(26.4,41)
+             window: kb ab(-3.2,-7.2)  vs  llm ab(26.4,41)
+      wall_interior: kb ab(12.5,20.5)  vs  llm ab(26.4,41)
 == ablation 000000010092
-            bedding: kb ab(-1.3,-2.9)  vs  llm ab(0.4,1.4)
-             window: kb ab(-4.3,-10.1)  vs  llm ab(0.4,1.4)
-            curtain: kb ab(-0.6,-0.8)  vs  llm ab(0.4,1.4)
-      wall_interior: kb ab(6.8,9.3)  vs  llm ab(0.4,1.4)
-         wood_floor: kb ab(9.2,14.6)  vs  llm ab(0.4,1.4)
+            bedding: kb ab(1,3)  vs  llm ab(-0,0)
+             window: kb ab(-3.2,-7.2)  vs  llm ab(-0,0)
+         wood_floor: kb ab(16,28)  vs  llm ab(-0,0)
+            curtain: kb ab(2,6)  vs  llm ab(-0,0)
+      wall_interior: kb ab(12.5,20.5)  vs  llm ab(-0,0)
+       wood_floor_2: kb ab(16,28)  vs  llm ab(-0,0)
 == ablation 000000022755
     building_facade: kb ab(2,5.5)  vs  llm ab(-0,0)
-                car: kb ab(0,0)  vs  llm ab(6.7,28.9)
+                car: kb ab(0,0)  vs  llm ab(-0,0)
             asphalt: kb ab(-1,0.2)  vs  llm ab(-0,0)
-                sky: kb ab(-6.2,-21.5)  vs  llm ab(-2.7,-8.1)
-000000001000/building_facade: dino 0.67, 29160 px
-000000001000/dress: dino 0.56, 15460 px
-000000001000/asphalt: dino 0.40, 42963 px
-000000001000/tennis_court: dino 0.33, 40782 px
-000000001000/rug: dino 0.37, 40773 px
-000000001000/brick: dino 0.49, 29158 px
+                sky: kb ab(-6.2,-21.5)  vs  llm ab(-0,0)
+000000000139/rug: dino 0.58, 13103 px
+000000000139/wall_interior: dino 0.48, 12824 px
+000000000139/wood_floor: dino 0.64, 2139 px
+000000000139/wood_floor_2: dino 0.38, 1697 px
+000000000139/wood_floor_3: dino 0.52, 2150 px
 000000002299/building_facade: dino 0.42, 2094 px
 000000002299/dress: dino 0.52, 2151 px
-000000002299/sky: dino 0.45, 2233 px
+000000002299/brick: dino 0.42, 2094 px
+000000002299/window: dino 0.46, 29300 px
+000000002299/wall_interior: dino 0.43, 2088 px
 000000010092/bedding: dino 0.44, 71507 px
 000000010092/window: dino 0.44, 12176 px
+000000010092/wood_floor: dino 0.69, 30367 px
 000000010092/curtain: dino 0.45, 10883 px
-000000010092/wall_interior: dino 0.58, 46911 px
-000000010092/wood_floor: dino 0.54, 46899 px
+000000010092/wall_interior: dino 0.60, 46908 px
+000000010092/wood_floor_2: dino 0.54, 46899 px
 000000022755/building_facade: dino 0.40, 183253 px
-000000022755/car: dino 0.52, 12797 px
-000000022755/asphalt: dino 0.54, 64155 px
+000000022755/car: dino 0.72, 12801 px
+000000022755/asphalt: dino 0.37, 27375 px
 000000022755/sky: dino 0.54, 64135 px
