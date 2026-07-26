@@ -18,7 +18,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from chroma_reasoner.eval import plan_vs_reference
+from chroma_reasoner.eval import compare_arms, format_comparison, plan_vs_reference
 from chroma_reasoner.plan import load_plan
 from chroma_reasoner.plan.colors import srgb_array_to_lab
 from chroma_reasoner.plan.masks import load_masks
@@ -86,10 +86,24 @@ def main() -> None:
                         "mean_chroma_deficit": deficit_summary,
                         "n_undercommitted": under, "n_regions": total}
 
+    # Paired analysis over shared regions — the defensible comparison when
+    # arms are matched region-for-region (kb vs llm). Arms with disjoint
+    # region ids (e.g. human) simply produce 0 shared regions.
+    comparisons = []
+    names = list(report)
+    for i, name_a in enumerate(names):
+        for name_b in names[i + 1:]:
+            cmp = compare_arms(report[name_a], report[name_b], name_a, name_b)
+            if cmp["n_paired_regions"] == 0:
+                continue
+            comparisons.append(cmp)
+            print(format_comparison(cmp))
+            print()
+
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with open(args.out, "w", encoding="utf-8") as f:
-            json.dump(report, f, indent=2)
+            json.dump({"arms": report, "paired": comparisons}, f, indent=2)
         print(f"report: {args.out}")
 
 

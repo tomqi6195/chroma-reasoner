@@ -29,6 +29,40 @@ class KBError(ValueError):
     pass
 
 
+def _name_candidates(name: str) -> list[str]:
+    """Progressively normalized forms to try for an object name.
+
+    Live-run finding: reasoners emit phrasings, not identifiers — "woman's
+    dress", "The Wall", "leafy greens". Normalizing here is far cheaper than
+    enumerating every phrasing as an alias, and it is conservative: only
+    case, separators, articles, and possessive prefixes are stripped. No
+    last-word fallback (that would wrongly match "fire truck" to "truck"
+    semantics we did not intend).
+    """
+    seen, out = set(), []
+
+    def add(candidate: str) -> None:
+        if candidate and candidate not in seen:
+            seen.add(candidate)
+            out.append(candidate)
+
+    add(name)
+    base = name.strip().lower().replace("-", " ")
+    add(base.replace(" ", "_"))
+    for article in ("the ", "a ", "an "):
+        if base.startswith(article):
+            base = base[len(article):]
+    add(base.replace(" ", "_"))
+    if "'s " in base:                       # "woman's dress" -> "dress"
+        add(base.split("'s ", 1)[1].strip().replace(" ", "_"))
+    if "s' " in base:                       # "boys' jumpers" -> "jumpers"
+        add(base.split("s' ", 1)[1].strip().replace(" ", "_"))
+    for candidate in list(out):             # naive singular
+        if candidate.endswith("s") and not candidate.endswith("ss"):
+            add(candidate[:-1])
+    return out
+
+
 @dataclass
 class KnowledgeBase:
     objects: dict
@@ -39,14 +73,14 @@ class KnowledgeBase:
     _selector_index: dict = field(default_factory=dict, repr=False)
 
     def object_entry(self, name: str) -> dict:
-        entry = self.objects.get(name)
-        if entry is None:
-            # try aliases
+        for candidate in _name_candidates(name):
+            entry = self.objects.get(candidate)
+            if entry is not None:
+                return {**entry, "_canonical": candidate}
             for canonical, e in self.objects.items():
-                if name in e.get("aliases", []):
+                if candidate in e.get("aliases", []):
                     return {**e, "_canonical": canonical}
-            raise KBError(f"object class not in KB: {name!r}")
-        return {**entry, "_canonical": name}
+        raise KBError(f"object class not in KB: {name!r}")
 
     def modifier_entry(self, family: str, value: str) -> dict:
         fam = self.modifiers.get(family)

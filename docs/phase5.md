@@ -46,6 +46,81 @@ python scripts/ablate_score.py --originals data/coco/val2017_subset `
     --out results/phase5/reference_scores.json
 ```
 
+## HEADLINE — scaled ablation, 61 shared regions (2026-07-14)
+
+30 smoke-subset images, COCO captions as context prompts, 23 reasoned
+successfully, 18 scorable (5 originals are monochrome), **61 region pairs**.
+Both arms share masks by construction.
+
+| kb vs llm | wins (decided) | median margin | 95% CI | sign test |
+|---|---|---|---|---|
+| ΔE-to-reality | 23/49 | −0.14 | [−1.23, +0.55] | **p = 0.78** |
+| chroma deficit | **32/39** | +1.02 | [+0.00, +1.85] | **p = 0.00007** |
+
+Arm means: ΔE 14.8 (kb) vs 17.8 (llm); chroma deficit 3.3 vs 5.5;
+undercommitted regions 5/61 vs 10/61.
+
+**This confirms the n=21 finding at 3× the sample, and it is the project's
+first decision-grade result:**
+
+1. **On colour accuracy the two arms are indistinguishable** — 23/49 is a
+   coin flip, the median margin is essentially zero, and the CI straddles it.
+   The mean difference (14.8 vs 17.8) is heavy-tail artefact, exactly what
+   the paired test exists to strip out. *For scenes a model can describe,
+   the explicit KB does not beat implicit model knowledge on accuracy.*
+2. **On chroma commitment the KB wins decisively** — 32 of 39 decided
+   regions, p < 1e-4. The LLM arm hedges toward gray; the KB commits to real
+   colour. This is the roadmap's §2.8 desaturation failure mode reproduced
+   as a measurable, significant difference between arms.
+
+Per the roadmap's own kill-criterion, result (1) means the KB is **not**
+earning its keep on realistic prompts, and the response is the one §7
+prescribes: concentrate it where reality is unavailable to either arm —
+under-determined regions and counterfactual (era/mood) prompts. Result (2)
+is the standing evidence that it does something implicit knowledge does not.
+
+Consistent per-region losses are actionable KB feedback, not noise, and
+repeat across runs: `wood_floor` and `rug` (warm-varnished priors vs pale
+near-neutral reality), `curtain`/`bedding` (over-warm), `building_facade`.
+These priors' mode weights want revisiting before any further scaling.
+
+Robustness fixes prompted by this run (7/30 reasoner failures, all
+vocabulary): object-name **normalization** in the KB lookup (possessives,
+articles, case, separators, naive plurals — "woman's dress" now resolves to
+`dress`), plus a COCO-common vocabulary batch (food, vegetables, fruit,
+hair, flowers, porcelain/bathroom, metal fixtures, towels, animal fur,
+zebra, `ground`).
+
+## Paired analysis changes the reading (2026-07-14)
+
+Means over images are the wrong summary when the arms are **matched
+region-for-region** (the ablation copies the KB arm's regions and masks). The
+paired view (`eval/paired.py`, printed by `ablate_score.py`) — per-region
+margins, win/loss counts, exact sign test, bootstrap CI on the median margin
+— tells a different and more honest story on the same run-6 data:
+
+| kb vs llm (21 shared regions) | result |
+|---|---|
+| ΔE-to-reality | kb wins **10/19** decided, median margin **+0.0**, p = 1.0 |
+| chroma deficit | kb wins **15/16** decided, median margin **+3.2**, p = **0.0005** |
+
+**Revised claim: on realistic prompts the two arms are statistically
+indistinguishable in colour accuracy; the KB's decisive, significant
+advantage is chroma commitment.** The earlier mean-based readings (both the
+"LLM wins" of run 4 and the "KB matches human" of run 6) were being swung by
+a handful of badly-grounded regions — exactly what a paired test exists to
+neutralise.
+
+This is the roadmap's §7 redundancy risk landing in the data: on scenes a
+model can simply describe, an explicit KB does not beat implicit knowledge on
+accuracy. It earns its keep by refusing to hedge into gray — and, per §6, the
+place to look for a decisive accuracy win is **under-determined regions and
+counterfactual prompts**, where reality is not available to either arm.
+
+The per-region losses are also actionable KB feedback rather than noise: the
+worst are `wood_floor` (prior is warm varnished brown; both test floors were
+near-neutral pale) and `rug` — priors whose mode weights want revisiting.
+
 ## Current result (run 6, 2026-07-14 — 4 fresh images, both metrics)
 
 | arm | mean ΔE ↓ | chroma deficit ↓ | undercommitted |

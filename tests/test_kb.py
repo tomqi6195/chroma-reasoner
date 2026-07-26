@@ -111,6 +111,25 @@ def test_alias_resolution(kb):
     assert res.object == "dress"
 
 
+def test_object_name_normalization(kb):
+    """Reasoners emit phrasings, not identifiers (Phase-5 scaled-run finding:
+    "woman's dress" failed while 'dress' existed)."""
+    for phrasing, canonical in [("woman's dress", "dress"), ("The Wall", "wall_interior"),
+                                ("man's face", "skin"), ("Tennis Court", "tennis_court"),
+                                ("flowers", "flower"), ("school-bus", "school_bus"),
+                                ("the grass", "grass")]:
+        assert resolve(kb, phrasing, []).object == canonical, phrasing
+
+
+def test_coco_vocabulary_batch(kb):
+    """Everyday classes the scaled run needed and lacked."""
+    for name, canonical in [("donut", "baked_food"), ("leafy greens", "vegetable"),
+                            ("zebra", "zebra"), ("shower_tub", "porcelain"),
+                            ("towel_rack", "metal_fixture"), ("hair", "hair"),
+                            ("ground", "soil"), ("apple", "fruit")]:
+        assert resolve(kb, name, []).object == canonical, name
+
+
 def test_phase4_vocabulary_expansion(kb):
     """Classes the reasoner needed in the first live runs and lacked."""
     for name, canonical in [("table", "wood_floor"), ("street", "asphalt"),

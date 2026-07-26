@@ -67,7 +67,7 @@ objects:
     provenance: Quartz/feldspar sands are warm neutrals; iron oxides deepen toward gold.
 
   soil:
-    aliases: [dirt, earth]
+    aliases: [dirt, earth, ground]
     categories: [ground]
     modes:
       - {name: loam, ab: [8, 16],  sigma: 6, weight: 0.6, L_range: [20, 55], note: brown topsoil}
@@ -256,6 +256,95 @@ objects:
       - {name: white_gauze, ab: [1, 2],  sigma: 3, weight: 0.6, L_range: [55, 90], note: white gauze}
       - {name: olive,       ab: [-6, 20], sigma: 6, weight: 0.4, L_range: [35, 70], note: military-style olive netting}
     provenance: Nets are white gauze or field olive; translucency mixes underlying tones.
+
+  # --- COCO-common vocabulary (Phase-5 scaled-run finding: 7/30 images
+  # failed purely on missing everyday classes — food, animals, bathroom,
+  # people details) ---
+
+  hair:
+    aliases: [head_hair, hairstyle]
+    categories: [person]
+    modes:
+      - {name: dark,   ab: [6, 10],  sigma: 5, weight: 0.6, L_range: [5, 35],  note: black/dark brown}
+      - {name: brown,  ab: [12, 22], sigma: 6, weight: 0.25, L_range: [25, 55], note: mid brown}
+      - {name: blonde, ab: [6, 32],  sigma: 7, weight: 0.15, L_range: [55, 85], note: blonde/light}
+    provenance: >
+      Human hair pigment (eumelanin/pheomelanin) spans dark neutral-warm to
+      golden; global distribution is dark-dominant.
+
+  flower:
+    aliases: [flowers, blossom, bouquet, petal]
+    categories: [vegetation]
+    modes:
+      - {name: white,  ab: [0, 4],   sigma: 4,  weight: 0.3, L_range: [70, 95], note: white blooms}
+      - {name: warm,   ab: [40, 22], sigma: 12, weight: 0.4, L_range: [40, 75], note: red/pink/orange blooms}
+      - {name: yellow, ab: [2, 48],  sigma: 10, weight: 0.3, L_range: [65, 90], note: yellow blooms}
+    provenance: >
+      Pollinator-signalling pigments (anthocyanins, carotenoids) cluster
+      cultivated blooms into white, warm-red, and yellow families.
+
+  baked_food:
+    aliases: [donut, doughnut, pastry, bread, cake, pizza, sandwich, bun]
+    categories: [food]
+    modes:
+      - {name: golden, ab: [14, 32], sigma: 7, weight: 0.7, L_range: [45, 78], note: Maillard crust gold-brown}
+      - {name: pale,   ab: [5, 18],  sigma: 6, weight: 0.3, L_range: [65, 88], note: underbaked/dusted pale}
+    provenance: Maillard browning drives baked-good colour to warm gold-brown.
+
+  vegetable:
+    aliases: [vegetables, leafy_greens, greens, salad, lettuce, broccoli, herbs]
+    categories: [food]
+    modes:
+      - {name: green,  ab: [-26, 30], sigma: 8, weight: 0.75, L_range: [30, 70], note: chlorophyll green}
+      - {name: root,   ab: [16, 30],  sigma: 8, weight: 0.25, L_range: [40, 70], note: carrot/squash orange}
+    provenance: Chlorophyll dominates leaf/stem vegetables; carotenoids the roots.
+
+  fruit:
+    aliases: [fruits, apple, orange, banana, berries]
+    categories: [food]
+    modes:
+      - {name: warm,   ab: [36, 34], sigma: 12, weight: 0.5, L_range: [40, 75], note: red/orange fruit}
+      - {name: yellow, ab: [0, 46],  sigma: 10, weight: 0.3, L_range: [65, 88], note: banana/citrus yellow}
+      - {name: green,  ab: [-22, 28], sigma: 9, weight: 0.2, L_range: [45, 75], note: green apple/lime}
+    provenance: Ripening pigments (anthocyanin, carotenoid, chlorophyll) give three clusters.
+
+  porcelain:
+    aliases: [sink, toilet, bathtub, tub, shower_tub, basin, washbasin, ceramic]
+    categories: [interior]
+    modes:
+      - {name: white, ab: [0, 2], sigma: 3, weight: 1.0, L_range: [70, 97], note: glazed white sanitaryware}
+    provenance: Vitreous china sanitaryware is near-universally glazed white.
+
+  metal_fixture:
+    aliases: [towel_rack, rail, faucet, tap, handle, pipe, chrome]
+    categories: [interior, material]
+    modes:
+      - {name: chrome, ab: [-1, 1], sigma: 3, weight: 0.7, L_range: [45, 85], note: polished steel/chrome, neutral}
+      - {name: brass,  ab: [8, 28], sigma: 6, weight: 0.3, L_range: [45, 75], note: brass/bronze warm metal}
+    provenance: Chrome/stainless reflect neutrally; brass fixtures carry warm chroma.
+
+  towel:
+    aliases: [towels, cloth, linen]
+    categories: [interior]
+    modes:
+      - {name: white,  ab: [0, 3], sigma: 4, weight: 0.6, L_range: [65, 92], note: white bath linen}
+      - {name: pastel, ab: [5, 8], sigma: 9, weight: 0.4, L_range: [50, 85], note: soft coloured linen}
+    provenance: Bath textiles skew white/pastel; weakly constrained otherwise.
+
+  animal_fur:
+    aliases: [animal, dog, cat, horse, cow, bear, sheep, fur, hide, coat_fur]
+    categories: [animal]
+    modes:
+      - {name: brown, ab: [10, 22], sigma: 7, weight: 0.45, L_range: [20, 60], note: brown/tan coat}
+      - {name: dark,  ab: [3, 6],   sigma: 4, weight: 0.3,  L_range: [8, 35],  note: black/dark coat}
+      - {name: light, ab: [4, 12],  sigma: 5, weight: 0.25, L_range: [60, 90], note: white/cream coat}
+    provenance: Mammalian coats are melanin-based — warm browns, blacks, creams.
+
+  zebra:
+    categories: [animal]
+    modes:
+      - {name: monochrome, ab: [0, 2], sigma: 3, weight: 1.0, L_range: [20, 85], note: black/white striping averages neutral}
+    provenance: Zebra pelage is achromatic by species — one of the tightest animal priors.
 
   building_facade:
     aliases: [building, house, facade, storefront]
