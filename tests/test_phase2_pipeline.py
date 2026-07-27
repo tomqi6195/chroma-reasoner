@@ -63,6 +63,39 @@ def test_hint_image_only_touches_eroded_masks(synthetic):
     assert changed.sum() < inside_any.sum()
 
 
+def test_global_prompt_terms_translate_era_and_mood():
+    """The plan's global block must reach the colorizer: per-region hints
+    cannot express film rendering, and unconstrained pixels are exactly where
+    the showcase run went neon."""
+    from chroma_reasoner.plan.hints import global_prompt_terms
+
+    plan = {"plan_version": "1.0", "regions": [], "global": {"modifiers": [
+        {"family": "era", "value": "1940s", "effect": "wartime austerity"},
+        {"family": "mood", "value": "melancholic", "effect": "cool, dull"},
+    ]}}
+    positive, negative = global_prompt_terms(plan)
+    assert "1940s" in positive and "muted" in positive
+    assert "sombre" in positive
+    assert "neon" in negative and "saturated" in negative
+
+
+def test_global_prompt_terms_fall_back_to_effect_text():
+    from chroma_reasoner.plan.hints import global_prompt_terms
+
+    plan = {"plan_version": "1.0", "regions": [], "global": {"modifiers": [
+        {"family": "era", "value": "1830s", "effect": "hand-tinted daguerreotype"},
+    ]}}
+    positive, negative = global_prompt_terms(plan)
+    assert positive == "hand-tinted daguerreotype"
+    assert negative == ""
+
+
+def test_global_prompt_terms_empty_without_global_block():
+    from chroma_reasoner.plan.hints import global_prompt_terms
+
+    assert global_prompt_terms({"plan_version": "1.0", "regions": []}) == ("", "")
+
+
 def test_erode_frac_never_erases():
     tiny = np.zeros((20, 20), dtype=bool)
     tiny[9:11, 9:11] = True  # 4-pixel region
