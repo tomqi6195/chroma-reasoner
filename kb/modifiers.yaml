@@ -14,15 +14,18 @@ families:
 
   era:
     1910s:
-      applies_to: [clothing]
+      applies_to: [clothing, vehicle]
       ops:
         - {op: scale_chroma, factor: 0.6}
         - {op: clamp_chroma, max: 32}
         - {op: reweight, mode: earth, factor: 1.8}
-      note: muted palette; garment dyes and photographic record both subdued
+        - {op: reweight, mode: achromatic, factor: 3.0}
+      note: muted palette; sober dyes, and cars essentially all black
       provenance: >
         Pre-WWI garment palettes: natural and early synthetic dyes in sober
         fashion norms; autochrome-era colour records show low-chroma dress.
+        Vehicles: Ford's 1914-25 black-only policy ("any colour so long as it
+        is black") reflected industry-wide japan-enamel practice.
     1950s:
       applies_to: [vehicle]
       ops:
@@ -33,26 +36,32 @@ families:
         1950s US auto marketing and surviving colour chip catalogues; the
         roadmap's own canonical era-object example.
     1970s:
-      applies_to: [interior, material]
+      applies_to: [interior, material, clothing, vehicle]
       ops:
         - {op: add_mode, mode: {name: avocado, ab: [-8, 30], sigma: 7, weight: 0.35, L_range: [35, 65], note: avocado green}}
         - {op: add_mode, mode: {name: harvest_gold, ab: [10, 45], sigma: 7, weight: 0.35, L_range: [45, 75], note: harvest gold}}
         - {op: add_mode, mode: {name: burnt_orange, ab: [32, 42], sigma: 7, weight: 0.25, L_range: [35, 60], note: burnt orange}}
-      note: domestic objects lived in avocado / harvest gold / burnt orange
+        - {op: reweight, mode: earth, factor: 2.5}
+      note: avocado / harvest gold / burnt orange across decor, dress, and cars
       provenance: >
         1970s appliance and interior-decor colourways, extensively documented
-        in consumer-culture histories (roadmap example).
+        in consumer-culture histories (roadmap example). The same triad ran
+        through fashion (earth tones, mustard, rust) and automotive paint
+        catalogues of the decade, so it applies beyond the home.
     1940s:
-      applies_to: [clothing]
+      applies_to: [clothing, vehicle]
       ops:
         - {op: scale_chroma, factor: 0.7}
         - {op: clamp_chroma, max: 30}
         - {op: reweight, mode: earth, factor: 2.0}
         - {op: reweight, mode: neutral, factor: 1.5}
+        - {op: reweight, mode: achromatic, factor: 2.0}
       note: wartime austerity; drab wools, home-dyed knitwear, utility schemes
       provenance: >
         Utility clothing schemes (UK CC41) and rationed dye supply; period
-        colour photography shows drab/earth-dominant dress.
+        colour photography shows drab/earth-dominant dress. Wartime and
+        immediate-postwar vehicle paint was similarly restricted to dark,
+        low-chroma finishes.
 
   season:
     spring:
