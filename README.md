@@ -111,6 +111,7 @@ python scripts/counterfactual.py --plans plans/reasoned --out results/phase6/cou
 | [phase4_reasoner_colab](notebooks/phase4_reasoner_colab.ipynb) | Reason plans end to end, ground them, render, score |
 | [phase5_scaled_ablation_colab](notebooks/phase5_scaled_ablation_colab.ipynb) | Ablation at ~30 images with captions as prompts |
 | [phase6_counterfactual_colab](notebooks/phase6_counterfactual_colab.ipynb) | KB vs LLM under counterfactual context prompts |
+| [showcase_render_colab](notebooks/showcase_render_colab.ipynb) | The visual artifact: original / greyscale / DDColor / plan-conditioned |
 
 The Phase 4–6 notebooks write a run log into their output zip, so failures are
 diagnosable locally without re-running the GPU work.

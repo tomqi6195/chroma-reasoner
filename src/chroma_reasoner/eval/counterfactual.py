@@ -167,6 +167,35 @@ def _median(values: list[float]) -> float:
     return s[mid] if len(s) % 2 else (s[mid - 1] + s[mid]) / 2
 
 
+def palette_diversity(plans: dict[str, dict]) -> dict:
+    """Within-image palette spread for one condition.
+
+    Separation alone is gameable: a system that paints the whole image a
+    single dull colour under "melancholic" and a single vivid one under
+    "cheerful" scores enormous separation while doing no object-level
+    reasoning at all. (Phase-6 finding — the third time a magnitude metric
+    has needed a companion; cf. chroma deficit next to ΔE in Phase 5.)
+
+    Diversity is the mean pairwise ab distance between regions inside one
+    image, averaged over images. A collapsed palette scores ~0.
+    """
+    spreads, distinct_counts = [], []
+    for plan in plans.values():
+        colours = [r["resolved_colour"] for r in plan["regions"]]
+        if len(colours) < 2:
+            continue
+        pairs = [math.hypot(x["a"] - y["a"], x["b"] - y["b"])
+                 for i, x in enumerate(colours) for y in colours[i + 1:]]
+        spreads.append(sum(pairs) / len(pairs))
+        distinct_counts.append(len({(round(c["a"], 1), round(c["b"], 1)) for c in colours}))
+    return {
+        "mean_palette_spread": round(sum(spreads) / len(spreads), 2) if spreads else None,
+        "mean_distinct_colours": round(sum(distinct_counts) / len(distinct_counts), 2)
+        if distinct_counts else None,
+        "n_images": len(spreads),
+    }
+
+
 def evaluate_contrast(plans_a: dict[str, dict], plans_b: dict[str, dict],
                       contrast: Contrast, active_threshold: float = 1.0) -> dict:
     """Compare two conditions across images.
@@ -215,7 +244,10 @@ def evaluate_contrast(plans_a: dict[str, dict], plans_b: dict[str, dict],
             "median_margin": round(_median(b["margins"]), 2),
             "sign_test_p": round(sign_test(b["wins"], b["losses"]), 5),
         }
-    return result.to_dict()
+    out = result.to_dict()
+    out["diversity_a"] = palette_diversity(plans_a)
+    out["diversity_b"] = palette_diversity(plans_b)
+    return out
 
 
 def evaluate_all(plans_by_condition: dict[str, dict[str, dict]],
@@ -236,6 +268,13 @@ def format_contrast(res: dict) -> str:
              f"mean {res['mean_separation']}  "
              f"active {res['n_active']}/{res['n_regions']} regions "
              f"({res['active_share']})"]
+    da, db = res.get("diversity_a", {}), res.get("diversity_b", {})
+    if da.get("mean_palette_spread") is not None:
+        lines.append(f"  palette spread within image: "
+                     f"{res['a']} {da['mean_palette_spread']} "
+                     f"({da['mean_distinct_colours']} distinct)  |  "
+                     f"{res['b']} {db['mean_palette_spread']} "
+                     f"({db['mean_distinct_colours']} distinct)")
     for metric, d in res["directions"].items():
         decided = d["as_expected"] + d["against"]
         lines.append(f"  {metric:>8} {d['expected']:>10}: "

@@ -98,6 +98,41 @@ def test_unpaired_images_are_skipped(kb):
     assert res["n_regions"] == 0
 
 
+def test_palette_diversity_catches_collapse(kb):
+    """A plan painted one colour scores ~0 spread; a varied one scores high.
+    This is the companion metric that stops 'separation' rewarding a system
+    that just global-tints the image (the Phase-6 finding)."""
+    from chroma_reasoner.eval.counterfactual import palette_diversity
+
+    def flat(colour):
+        return {"plan_version": "1.0", "image_id": "i", "prompt": "", "regions": [
+            {"id": f"r{n}", "object": "dress", "grounding_phrase": "x", "modifiers": [],
+             "resolved_colour": {"space": "Lab", "L": 50, **colour},
+             "confidence": 0.8, "rationale": "t"} for n in range(4)]}
+
+    collapsed = flat({"a": 5, "b": 5})
+    varied = {"plan_version": "1.0", "image_id": "i", "prompt": "", "regions": [
+        {"id": f"r{n}", "object": "dress", "grounding_phrase": "x", "modifiers": [],
+         "resolved_colour": {"space": "Lab", "L": 50, "a": a, "b": b},
+         "confidence": 0.8, "rationale": "t"}
+        for n, (a, b) in enumerate([(30, 20), (-25, 10), (0, -30), (10, 40)])]}
+
+    assert palette_diversity({"i": collapsed})["mean_palette_spread"] == 0
+    assert palette_diversity({"i": collapsed})["mean_distinct_colours"] == 1
+    assert palette_diversity({"i": varied})["mean_palette_spread"] > 30
+    assert palette_diversity({"i": varied})["mean_distinct_colours"] == 4
+
+
+def test_contrast_reports_diversity_for_both_conditions(kb):
+    plan = _plan([("dress", 45), ("sky", 70), ("grass", 40)])
+    v = condition_variants(kb, plan, ["mood_melancholic", "mood_cheerful"])
+    res = evaluate_contrast({"img": v["mood_melancholic"]}, {"img": v["mood_cheerful"]},
+                            Contrast("mood_melancholic", "mood_cheerful",
+                                     (("chroma", "lower"),)))
+    assert res["diversity_a"]["mean_palette_spread"] > 0
+    assert res["diversity_b"]["mean_palette_spread"] > 0
+
+
 def test_format_contrast_is_readable(kb):
     plan = _plan([("dress", 45)])
     v = condition_variants(kb, plan, ["mood_melancholic", "mood_cheerful"])

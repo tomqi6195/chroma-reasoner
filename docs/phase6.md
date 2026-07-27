@@ -73,13 +73,56 @@ pillar"*):
    roadmap's own decomposition: era as global film/dye rendering via the
    plan's `global` block rather than per-object modifiers.
 
+## The LLM arm — prediction wrong, mechanism right (2026-07-14)
+
+Both arms, same 26 regions, same condition prompts. The **pre-registered
+prediction was that the LLM would show weaker separation. It is wrong**: the
+LLM separates roughly twice as far as the KB.
+
+| mood_melancholic vs mood_cheerful | KB | LLM |
+|---|---|---|
+| median separation | 13.1 | **25.7** |
+| active share | **96%** | 77% |
+| direction: chroma / warmth | 21/25, **24/25** | 17/20, 16/20 |
+| **palette spread within image** | **11.4 → 20.8** | **0.4 → 26.7** |
+| **distinct colours per image** | **4.8 / 5.0** | **1.2 / 4.2** |
+
+The last two rows explain the first. Under "melancholic" the LLM assigns
+**1.2 distinct colours per image** — it paints the whole scene a single flat
+tone, then blasts everything saturated under "cheerful". Its large separation
+is a **global tint swing, not object-aware reasoning**. The KB keeps ~5
+distinct colours in both conditions: each object is muted or warmed relative
+to *its own* prior, so a sky still reads as sky and wood as wood.
+
+So the mechanism cited in the prediction (degenerate hedging) is what is
+happening — it simply shows up as *too much* uniform movement rather than too
+little. The defensible claim is not "the LLM ignores context" (it does not;
+directions are correct, p < 0.05) but:
+
+> **Both arms respond to counterfactual context; only the KB applies it
+> per-object while preserving the scene's palette structure.**
+
+That is the object-centric thesis of the project, measured.
+
+This is the third time a magnitude metric alone proved gameable — ΔE rewarded
+grey (Phase 5), separation rewards global tinting (here). Each needed a
+companion: **chroma deficit** next to ΔE, **palette spread** next to
+separation. Treat any single-number colour metric as exploitable until paired.
+
+Caveat: 5 images / 26 regions (the notebook read the repo's older plan set).
+Re-run with the 23-image set for publishable n.
+
 ## Not yet done
 
-- **The LLM counterfactual arm** — the decisive comparison. Same fixed
-  regions, but colours chosen by the model under each condition prompt
-  (`eval/ablation.py` already supports this; the condition plans are written
-  by `--write-plans`). Prediction to test: the LLM shows *weaker separation*
-  than the KB, because it has no systematic period/mood mapping and its
-  gray-hedging habit gives it nowhere to move. Needs one Colab run.
+- **Re-run the LLM arm at n=23** (commit `plans/reasoned/` first, or use the
+  notebook's upload cell). The mechanism is unambiguous but the sample is small.
+- **A paraphrase control.** (A same-condition rerun would be uninformative:
+  the backend decodes greedily, so identical input gives identical output and
+  separation is 0 by construction.) The informative control is to re-run a
+  condition under a *paraphrase* — "a sombre, downcast scene" against "a
+  melancholic, sombre scene". If paraphrase separation approaches
+  opposite-mood separation, the arm is reacting to surface wording rather
+  than meaning. This is the last alternative explanation still standing for
+  the LLM arm's response.
 - Human/VLM-judge protocol for plan quality (roadmap §6's subjective half).
 - Era evaluated on era-appropriate imagery (MHMD).
