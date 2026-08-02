@@ -1,0 +1,83 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000033854",
+  "prompt": "A bus, old cabin cars, and motor cycles with people",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building with scaffolding on the right",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 28.6,
+        "a": 15.5,
+        "b": 14.5
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The building with scaffolding is a prominent structure in the background, and its lightness is consistent with an overcast sky. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=29",
+      "id": "building_facade"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the group of motorcycles in the center",
+      "base_prior": "kb:car",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 12.2,
+        "a": 0,
+        "b": 0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The motorcycles are central to the scene and their lightness aligns with the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=12",
+      "id": "car"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car on the left",
+      "base_prior": "kb:car",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 10.6,
+        "a": 0,
+        "b": 0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The vintage car is a key feature and its lightness aligns with the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=11",
+      "id": "car_2"
+    }
+  ]
+}

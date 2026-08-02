@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000018770",
+  "prompt": "A man in a suit with a blue tie and vest.",
+  "regions": [
+    {
+      "object": "suit",
+      "grounding_phrase": "the dark suit of the man",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 5.5,
+        "a": -2.0,
+        "b": -5.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The suit is the most prominent object in the foreground, and its dark tone and the man's expression contribute to a melancholic mood. | KB prior 'suit' mode 'charcoal'; modifiers: mood:melancholic; black/charcoal | re-resolved at mask-measured L=5",
+      "id": "suit"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the dark wall behind the man",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 8.2,
+        "a": -1.3,
+        "b": -2.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The background is mostly dark, which contrasts with the man's suit and tie, emphasizing the melancholic mood. | KB prior 'wall_interior' mode 'white'; modifiers: mood:melancholic; off-white paint | re-resolved at mask-measured L=8",
+      "id": "wall_interior"
+    }
+  ]
+}

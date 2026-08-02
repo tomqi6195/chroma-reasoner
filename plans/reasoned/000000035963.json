@@ -1,0 +1,55 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000035963",
+  "prompt": "A statue with two stuffed animals on top of it sitting in a patch of dirt.",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the patch of dirt surrounding the statue",
+      "base_prior": "kb:grass",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -30,
+        "b": 36
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "The grass appears somewhat desaturated, indicating a lower luminance. | KB prior 'grass' mode 'verdant'; healthy chlorophyll green | re-resolved at mask-measured L=65",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building facade in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.9,
+        "a": 22,
+        "b": 22
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The building facade appears to have a mid-grey tone, suggesting it is in the shade. | KB prior 'building_facade' mode 'painted'; painted render | re-resolved at mask-measured L=26",
+      "id": "building_facade"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the plants behind the statue",
+      "base_prior": "kb:foliage",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -28,
+        "b": 34
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The plants appear to have a mid-grey tone, suggesting they are in the shade. | KB prior 'foliage' mode 'verdant'; broadleaf summer canopy | re-resolved at mask-measured L=65",
+      "id": "foliage"
+    }
+  ]
+}

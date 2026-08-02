@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000012576",
+  "prompt": "A woman sitting at a table topped with pizza.",
+  "regions": [
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the table where the pizza and glasses are placed",
+      "base_prior": "kb:wood_floor",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 68.6,
+        "a": 8,
+        "b": 20
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "The table surface is smooth and reflective, typical of a dining table used for meals. | KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast; warm mid-brown finish | re-resolved at mask-measured L=69",
+      "id": "wood_floor"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the woman",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.0,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The wall appears to be part of an indoor setting, possibly a home or restaurant. | KB prior 'wall_interior' mode 'accent'; modifiers: weather:overcast; broad saturated accent-paint mode | re-resolved at mask-measured L=9",
+      "id": "wall_interior"
+    }
+  ]
+}

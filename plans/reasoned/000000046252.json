@@ -1,0 +1,117 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000046252",
+  "prompt": "A batter ready to swing at home plate with an umpire and catcher behind him",
+  "regions": [
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the dirt around home plate",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 67.8,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The dirt around home plate appears slightly darker than the surrounding field, indicating a distinct area. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=68",
+      "id": "asphalt"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the batter's uniform",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 76.5,
+        "a": 1,
+        "b": 3
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The uniform is the most prominent object in the foreground and its texture and shading suggest an overcast environment. | KB prior 'dress' mode 'neutral'; not operative: weather:overcast; white/grey/black garments | re-resolved at mask-measured L=76",
+      "id": "dress"
+    },
+    {
+      "object": "suit",
+      "grounding_phrase": "the umpire's attire",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.8,
+        "a": 0,
+        "b": 0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The umpire's attire is distinct and stands out against the background, suggesting an overcast setting. | KB prior 'suit' mode 'brown'; not operative: weather:overcast; brown/tweed | re-resolved at mask-measured L=10",
+      "id": "suit"
+    },
+    {
+      "object": "grass",
+      "grounding_phrase": "the outfield grass",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 56.9,
+        "a": -23.5,
+        "b": 25.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The outfield grass is a large, coherent region and its even lighting supports the overcast condition. | KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; healthy chlorophyll green | re-resolved at mask-measured L=57",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the distant building",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 18.0,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The building in the background is barely discernible, indicating the presence of diffused overcast light. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=18",
+      "id": "building_facade"
+    }
+  ]
+}

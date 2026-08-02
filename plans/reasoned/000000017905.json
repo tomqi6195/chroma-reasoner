@@ -1,0 +1,78 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000017905",
+  "prompt": "A man standing next to a light and a sign.",
+  "regions": [
+    {
+      "object": "foliage",
+      "grounding_phrase": "the dense foliage behind the man",
+      "base_prior": "kb:foliage",
+      "modifiers": [
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 82.0,
+        "a": -22.0,
+        "b": 23.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The dense, green foliage indicates summer conditions, and the diffused lighting suggests an overcast day. | KB prior 'foliage' mode 'verdant'; modifiers: season:summer, weather:overcast; broadleaf summer canopy | re-resolved at mask-measured L=82",
+      "id": "foliage"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building facade behind the man",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 82.0,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The building facade is part of the urban infrastructure, and the diffused lighting suggests an overcast day. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=82",
+      "id": "building_facade"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the gravel path beneath the man",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 82.0,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The gravel path is part of the urban infrastructure, and the diffused lighting suggests an overcast day. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=82",
+      "id": "asphalt"
+    }
+  ]
+}

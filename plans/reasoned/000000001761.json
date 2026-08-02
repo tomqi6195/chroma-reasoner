@@ -1,0 +1,73 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001761",
+  "prompt": "Two planes flying in the sky over a bridge.",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the Sydney Harbour Bridge",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": 15.5,
+        "b": 14.5
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The bridge is a prominent structure in the foreground, and the overcast sky suggests diffused lighting. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=34",
+      "id": "building_facade"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the bridge",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": 9.5,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 13.5,
+      "confidence": 0.8,
+      "rationale": "The sky occupies a significant portion of the image and appears uniformly overcast. | KB prior 'sky' mode 'dusk'; modifiers: weather:overcast; warm low-sun sky | re-resolved at mask-measured L=34",
+      "id": "sky"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the road surface of the bridge",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The road surface is a large, flat area on the bridge, and the overcast sky affects its appearance. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=34",
+      "id": "asphalt"
+    }
+  ]
+}

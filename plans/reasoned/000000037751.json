@@ -1,0 +1,56 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000037751",
+  "prompt": "A person on dirt bike riding down a hill with mountains in background.",
+  "regions": [
+    {
+      "object": "soil",
+      "grounding_phrase": "the gravel path the rider is on",
+      "base_prior": "kb:soil",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 36.9,
+        "a": 5.0,
+        "b": 10.0
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "The gravel path has a consistent texture and tone, suggesting a single material. The overcast weather modifier is applied due to the diffused lighting seen in the image. | KB prior 'soil' mode 'loam'; modifiers: weather:overcast; brown topsoil | re-resolved at mask-measured L=37",
+      "id": "soil"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the cloudy sky above the mountains",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 85.9,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The sky has a consistent tone, indicating a single material. The overcast weather modifier is applied due to the diffused lighting, and the season modifier reflects the summer setting suggested by the clear horizon and mountainous terrain. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; not operative: season:summer; clear daytime sky blue | re-resolved at mask-measured L=86",
+      "id": "sky"
+    }
+  ]
+}

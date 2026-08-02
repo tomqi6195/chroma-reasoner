@@ -180,6 +180,63 @@ def test_vocabulary_lists_aliases(kb):
     assert "jumper" in vocab   # dress alias, needed for garment selection
 
 
+def test_ungrounded_globals_are_dropped(kb, gray_png):
+    """Global modifiers reshape the whole image via the colorizer prompt, so
+    an invented one is the costliest hallucination available. Two rounds of
+    prompt-tuning did not stop the 7B ("overcast day in an American town"
+    -> era:1940s, mood:nostalgic), so groundedness is enforced here."""
+    sel = {**GOOD_SELECTION, "global_modifiers": [
+        {"family": "weather", "value": "overcast", "why": "stated"},
+        {"family": "geography", "value": "usa", "why": "stated"},
+        {"family": "era", "value": "1940s", "why": "a vintage car"},
+        {"family": "mood", "value": "nostalgic", "why": "vibes"},
+    ]}
+    plan = reason_plan(kb, MockBackend(sel), gray_png,
+                       user_prompt="overcast day in an American town")
+    kept = {m["value"] for m in plan["global"]["modifiers"]}
+    assert kept == {"overcast", "usa"}                 # prompt-supported only
+    assert "era:1940s" in plan["global"]["rationale"]  # the drop is recorded
+    assert "mood:nostalgic" in plan["global"]["rationale"]
+
+
+def test_empty_prompt_yields_no_global_block(kb, gray_png):
+    sel = {**GOOD_SELECTION, "global_modifiers": [
+        {"family": "era", "value": "1940s", "why": "guessed"}]}
+    plan = reason_plan(kb, MockBackend(sel), gray_png, user_prompt="")
+    assert "global" not in plan
+
+
+def test_grounding_matches_synonyms_not_just_literals(kb):
+    from chroma_reasoner.reasoner.planner import ground_global_modifiers
+
+    mods = [{"family": "geography", "value": "britain", "why": ""},
+            {"family": "era", "value": "1940s", "why": ""},
+            {"family": "geography", "value": "tropics", "why": ""}]
+    kept, dropped = ground_global_modifiers(mods, "a wartime British schoolroom")
+    assert {m["value"] for m in kept} == {"britain", "1940s"}   # 'British', 'wartime'
+    assert dropped == ["geography:tropics"]
+
+
+def test_grounding_declines_vague_references(kb):
+    """Precision over recall: 'the war' does not pin a decade, so it must not
+    licence era:1940s. A missed global costs one prompt term; an invented one
+    restyles the whole image."""
+    from chroma_reasoner.reasoner.planner import ground_global_modifiers
+
+    kept, dropped = ground_global_modifiers(
+        [{"family": "era", "value": "1940s", "why": ""}], "a schoolroom during the war")
+    assert kept == [] and dropped == ["era:1940s"]
+
+
+def test_region_modifiers_are_not_grounded_against_the_prompt(kb, gray_png):
+    """Only globals are gated - per-region modifiers stay the reasoner's call,
+    and the KB's applies_to already constrains them."""
+    plan = reason_plan(kb, MockBackend({**GOOD_SELECTION, "global_modifiers": []}),
+                       gray_png, user_prompt="")
+    jumper = plan["regions"][1]
+    assert {m["value"] for m in jumper["modifiers"]} == {"1940s", "nostalgic"}
+
+
 def test_system_prompt_pushes_for_a_global_block(kb):
     """Showcase finding: the global block is the only lever over unmasked
     pixels, and only 2/23 plans carried one under the old 'use sparingly'

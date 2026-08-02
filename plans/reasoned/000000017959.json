@@ -1,0 +1,55 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000017959",
+  "prompt": "A large kite with three orange, white and black fish.",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the grassy field where the kites are flying",
+      "base_prior": "kb:grass",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 26.7,
+        "a": -29.5,
+        "b": 35.4
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "The grass is in the foreground and has a lower luminance due to its texture and the lighting conditions. | KB prior 'grass' mode 'verdant'; healthy chlorophyll green | re-resolved at mask-measured L=27",
+      "id": "grass"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": "kb:foliage",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40.8,
+        "a": -28,
+        "b": 34
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.6,
+      "rationale": "The trees are in the background and have a moderate luminance, typical of a park setting. | KB prior 'foliage' mode 'verdant'; broadleaf summer canopy | re-resolved at mask-measured L=41",
+      "id": "foliage"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large building in the distance",
+      "base_prior": "kb:building_facade",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": 22,
+        "b": 22
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "The building is a significant structure in the background and has a moderate luminance. | KB prior 'building_facade' mode 'brick_red'; brick construction | re-resolved at mask-measured L=40",
+      "id": "building_facade"
+    }
+  ]
+}

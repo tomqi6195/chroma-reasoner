@@ -1,0 +1,95 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000015517",
+  "prompt": "Buses parked on a road outside a large bus station.",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large building behind the buses",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 52.9,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The large building behind the buses has a uniform texture and tone, suggesting a cloudy day. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=53",
+      "id": "building_facade"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the smaller building near the buses",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 52.9,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The smaller building near the buses has a uniform texture and tone, suggesting a cloudy day. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=53",
+      "id": "building_facade_2"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the buildings",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 88.6,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The sky appears uniformly gray, indicative of an overcast condition. | KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; grey overcast cover | re-resolved at mask-measured L=89",
+      "id": "sky"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the road surface",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The road surface has a consistent texture and tone, suggesting a cloudy day. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=40",
+      "id": "asphalt"
+    }
+  ]
+}

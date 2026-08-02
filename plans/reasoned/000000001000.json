@@ -4,156 +4,62 @@
   "prompt": "summer tennis camp group photo",
   "regions": [
     {
-      "object": "building_facade",
-      "grounding_phrase": "the wooden structure behind the group",
-      "base_prior": "kb:building_facade",
-      "modifiers": [
-        {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 20.4,
-        "a": 2.0,
-        "b": 5.5
-      },
-      "tolerance_delta_e": 12.0,
-      "confidence": 0.8,
-      "rationale": "The wooden structure appears to be part of a tennis court shelter, with diffused lighting suggesting an overcast day. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=20",
-      "id": "building_facade"
-    },
-    {
-      "object": "dress",
-      "grounding_phrase": "the girl wearing a white dress in the center",
-      "base_prior": "kb:dress",
-      "modifiers": [
-        {
-          "family": "season",
-          "value": "summer",
-          "effect": "peak canopy green"
-        },
-        {
-          "family": "weather",
-          "value": "sunny",
-          "effect": "direct sun deepens chroma"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 45.9,
-        "a": 1,
-        "b": 3
-      },
-      "tolerance_delta_e": 12.0,
-      "confidence": 0.8,
-      "rationale": "The girl's white dress contrasts with the darker tones of the surrounding environment, indicating a sunny summer day. | KB prior 'dress' mode 'neutral'; not operative: season:summer, weather:sunny; white/grey/black garments | re-resolved at mask-measured L=46",
-      "id": "dress"
-    },
-    {
-      "object": "asphalt",
+      "object": "grass",
       "grounding_phrase": "the ground beneath the group",
-      "base_prior": "kb:asphalt",
-      "modifiers": [
-        {
-          "family": "weather",
-          "value": "sunny",
-          "effect": "direct sun deepens chroma"
-        }
-      ],
+      "base_prior": "kb:grass",
+      "modifiers": [],
       "resolved_colour": {
         "space": "Lab",
         "L": 63.5,
-        "a": 0.0,
-        "b": 3.3
+        "a": -30,
+        "b": 36
       },
-      "tolerance_delta_e": 6.0,
-      "confidence": 0.8,
-      "rationale": "The ground shows distinct shadows, suggesting a sunny day with clear skies. | KB prior 'asphalt' mode 'worn'; modifiers: weather:sunny; neutral grey | re-resolved at mask-measured L=64",
-      "id": "asphalt"
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.7,
+      "rationale": "The ground appears to be grass, which is typically lighter in shade during summer. | KB prior 'grass' mode 'verdant'; healthy chlorophyll green | re-resolved at mask-measured L=64",
+      "id": "grass"
     },
     {
       "object": "tennis_court",
       "grounding_phrase": "the area where the group is standing",
       "base_prior": "kb:tennis_court",
-      "modifiers": [
-        {
-          "family": "season",
-          "value": "summer",
-          "effect": "peak canopy green"
-        },
-        {
-          "family": "weather",
-          "value": "sunny",
-          "effect": "direct sun deepens chroma"
-        }
-      ],
+      "modifiers": [],
       "resolved_colour": {
         "space": "Lab",
         "L": 63.9,
-        "a": -9.9,
-        "b": -17.6
+        "a": -9,
+        "b": -16
       },
       "tolerance_delta_e": 9.0,
-      "confidence": 0.8,
-      "rationale": "The group is gathered on a tennis court, with bright clothing and shadows indicating a sunny summer day. | KB prior 'tennis_court' mode 'hard_blue'; modifiers: weather:sunny; not operative: season:summer; acrylic hard-court blue | re-resolved at mask-measured L=64",
+      "confidence": 0.7,
+      "rationale": "The area where the group is standing appears to be a tennis court, indicated by the presence of tennis rackets and the group's attire. | KB prior 'tennis_court' mode 'hard_green'; classic green acrylic | re-resolved at mask-measured L=64",
       "id": "tennis_court"
     },
     {
-      "object": "rug",
-      "grounding_phrase": "the area near the group's feet",
-      "base_prior": "kb:rug",
-      "modifiers": [
-        {
-          "family": "season",
-          "value": "summer",
-          "effect": "peak canopy green"
-        },
-        {
-          "family": "weather",
-          "value": "sunny",
-          "effect": "direct sun deepens chroma"
-        }
-      ],
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": "kb:foliage",
+      "modifiers": [],
       "resolved_colour": {
         "space": "Lab",
-        "L": 63.9,
-        "a": 16,
-        "b": 20
+        "L": 58.4,
+        "a": -28,
+        "b": 34
       },
-      "tolerance_delta_e": 15.0,
-      "confidence": 0.8,
-      "rationale": "The area near the group's feet appears to be a rug, with bright clothing and shadows indicating a sunny summer day. | KB prior 'rug' mode 'warm'; not operative: season:summer, weather:sunny; warm reds/browns common in rugs | re-resolved at mask-measured L=64",
-      "id": "rug"
-    },
-    {
-      "object": "brick",
-      "grounding_phrase": "the wall behind the group",
-      "base_prior": "kb:brick",
-      "modifiers": [
-        {
-          "family": "season",
-          "value": "summer",
-          "effect": "peak canopy green"
-        },
-        {
-          "family": "weather",
-          "value": "sunny",
-          "effect": "direct sun deepens chroma"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 20.6,
-        "a": 26,
-        "b": 24
-      },
-      "tolerance_delta_e": 10.5,
-      "confidence": 0.8,
-      "rationale": "The wall behind the group appears to be made of brick, with bright clothing and shadows indicating a sunny summer day. | KB prior 'brick' mode 'red'; not operative: season:summer, weather:sunny; fired clay red | re-resolved at mask-measured L=21",
-      "id": "brick"
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.7,
+      "rationale": "The trees in the background have a consistent tone, indicating they are part of the same environment and are likely in a shaded area. | KB prior 'foliage' mode 'verdant'; broadleaf summer canopy | re-resolved at mask-measured L=58",
+      "id": "foliage"
     }
-  ]
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "season",
+        "value": "summer",
+        "effect": "peak canopy green"
+      }
+    ],
+    "rationale": "A group of children posing for a summer tennis camp photo under a shaded area. [dropped invalid regions: brick_wall, children] [dropped ungrounded globals: mood:cheerful]"
+  }
 }

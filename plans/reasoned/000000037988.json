@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000037988",
+  "prompt": "a woman is throwing a tennis ball to serve",
+  "regions": [
+    {
+      "object": "tennis_court",
+      "grounding_phrase": "the gray surface where the player is standing",
+      "base_prior": "kb:tennis_court",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": -14.5,
+        "b": 8.5
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "The gray tone of the court and the diffused lighting suggest overcast weather. | KB prior 'tennis_court' mode 'hard_blue'; modifiers: weather:overcast; acrylic hard-court blue | re-resolved at mask-measured L=40",
+      "id": "tennis_court"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the tennis player's attire",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": 1,
+        "b": 3
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The player's attire appears to be a dress, and the lighting suggests overcast weather. | KB prior 'dress' mode 'neutral'; not operative: weather:overcast; white/grey/black garments | re-resolved at mask-measured L=40",
+      "id": "dress"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000033707",
+  "prompt": "Two giraffes are standing next to a building.",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building behind the giraffes",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 74.9,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The building's surface appears uniformly lit, indicating a mid-grey value. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=75",
+      "id": "building_facade"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": "kb:foliage",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 31.4,
+        "a": -22.0,
+        "b": 23.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The trees' silhouettes are visible against the lighter sky, suggesting a mid-light value. | KB prior 'foliage' mode 'verdant'; modifiers: weather:overcast; broadleaf summer canopy | re-resolved at mask-measured L=31",
+      "id": "foliage"
+    }
+  ]
+}

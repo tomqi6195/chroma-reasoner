@@ -95,12 +95,36 @@ invented — the plan's own rationale gives it away ("a *vintage car* driving
 down a street"), inferring a decade from one object glimpsed in a mirror.
 Pushing for globals traded under-application for over-application.
 
-The instruction now carries its own bound: at most 2 global modifiers, each
+The instruction was bounded in response — at most 2 global modifiers, each
 stated in the prompt or beyond doubt from the whole image, with the failure
-named explicitly ("one old-looking car does not make a 1940s photograph") and
-an empty prompt required to yield no globals. Worth re-checking on the next
-run — the general lesson is that this model needs *both* directions of a
-constraint stated, since strengthening one side reliably breaks the other.
+named inline ("one old-looking car does not make a 1940s photograph"). The
+next run showed the cap held (exactly 2 everywhere) but **invention did
+not stop**: `22755` swapped its two correct globals for two invented ones
+(era:1940s, mood:nostalgic), and mood was invented on `1000` and `10092` too.
+
+### Enforcing groundedness instead of asking for it
+
+After two prompt rounds, this moved into the planner
+(`reasoner.planner.ground_global_modifiers`): a global modifier survives only
+if the user's prompt supports it, matched against the value plus a cue table
+for the cases where prompts use different words (`geography:usa` ← "American",
+`era:1940s` ← "wartime"/"forties"). Dropped ones are recorded in the plan's
+rationale rather than silently discarded.
+
+This is a deliberate precision-over-recall trade, and it is specific to
+globals: a missed global costs one prompt term, while an invented one
+restyles the entire image. Per-region modifiers are untouched — they are
+cheap to get wrong and the KB's `applies_to` already constrains them. Vague
+references are declined by design ("during the war" does not pin a decade).
+
+Applied to the current plans: `mood:cheerful` dropped from 1000,
+`mood:nostalgic` from 10092, both invented globals from 22755; `2299` kept
+`era:1940s` + `weather:overcast` intact. **Three of five images now carry
+correctly-grounded global blocks, up from one.**
+
+The general lesson from the two failed prompt rounds: this model needs *both*
+directions of a constraint stated, and when a constraint is cheap to check
+deterministically, checking beats asking.
 
 - **Coverage is the real lever.** The reasoner selects 3–6 regions regardless
   of scene complexity; a 40-child class photo needs far more, or a background

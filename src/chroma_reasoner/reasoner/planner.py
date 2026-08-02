@@ -62,6 +62,56 @@ def _check_selection(kb: KnowledgeBase, selection: dict) -> list[str]:
     return errors
 
 
+# Prompt cues for global modifiers. A global modifier reshapes the WHOLE
+# image (it becomes the colorizer's prompt terms), so an invented one is the
+# most expensive kind of hallucination available to the reasoner. Two rounds
+# of prompt-tuning failed to stop the 7B inventing era and mood — "overcast
+# day in an American town" yielded era:1940s + mood:nostalgic — so
+# groundedness is enforced here instead of asked for.
+#
+# Deliberate precision-over-recall trade: a global must be traceable to the
+# user's words. Per-region modifiers are unaffected; they are cheap to get
+# wrong and the KB's applies_to already contains them.
+GLOBAL_PROMPT_CUES: dict[tuple[str, str], tuple[str, ...]] = {
+    ("geography", "usa"): ("usa", "u.s.", "american", "america"),
+    ("geography", "britain"): ("britain", "british", "england", "english", "uk"),
+    ("geography", "tropics"): ("tropic", "jungle", "rainforest"),
+    ("geography", "mediterranean"): ("mediterranean", "greek", "italian", "spanish"),
+    ("era", "1910s"): ("1910", "edwardian", "wwi", "first world war"),
+    ("era", "1940s"): ("1940", "forties", "wartime", "wwii", "second world war"),
+    ("era", "1950s"): ("1950", "fifties"),
+    ("era", "1970s"): ("1970", "seventies"),
+    ("time_of_day", "golden_hour"): ("golden hour", "sunset", "sunrise", "dusk", "dawn"),
+    ("time_of_day", "night"): ("night", "evening", "nocturnal", "after dark"),
+}
+
+
+def _global_cues(family: str, value: str) -> tuple[str, ...]:
+    """Words in the user's prompt that would justify this global modifier."""
+    explicit = GLOBAL_PROMPT_CUES.get((family, value))
+    if explicit:
+        return explicit
+    # default: the value itself, minus any underscores ("melancholic",
+    # "overcast", "summer"), which covers mood/season/weather directly
+    return (value.replace("_", " "),)
+
+
+def ground_global_modifiers(modifiers: list[dict], user_prompt: str) -> tuple[list[dict], list[str]]:
+    """Keep only global modifiers the user's prompt actually supports.
+
+    Returns (kept, dropped_labels).
+    """
+    text = (user_prompt or "").lower()
+    kept, dropped = [], []
+    for modifier in modifiers:
+        cues = _global_cues(modifier["family"], modifier["value"])
+        if text and any(cue in text for cue in cues):
+            kept.append(modifier)
+        else:
+            dropped.append(f"{modifier['family']}:{modifier['value']}")
+    return kept, dropped
+
+
 def _dedupe_regions(regions: list[dict]) -> list[dict]:
     """Small open models sometimes emit the same region twice verbatim
     (Phase-4 finding). Keep the first of each (object, grounding_phrase)."""
@@ -103,12 +153,17 @@ def _selection_to_plan(kb: KnowledgeBase, selection: dict, image_id: str,
 
     plan: dict = {"plan_version": "1.0", "image_id": image_id,
                   "prompt": user_prompt, "regions": regions}
-    if selection.get("global_modifiers"):
+    grounded, dropped = ground_global_modifiers(selection.get("global_modifiers", []),
+                                                user_prompt)
+    if grounded:
+        rationale = selection.get("scene_summary", "")
+        if dropped:
+            rationale += f" [dropped ungrounded globals: {', '.join(dropped)}]"
         plan["global"] = {
             "modifiers": [{"family": m["family"], "value": m["value"],
                            "effect": kb.modifier_entry(m["family"], m["value"]).get("note", m["why"])}
-                          for m in selection["global_modifiers"]],
-            "rationale": selection.get("scene_summary", ""),
+                          for m in grounded],
+            "rationale": rationale.strip(),
         }
     return assert_valid(plan)
 

@@ -1,0 +1,56 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000042628",
+  "prompt": "Snow piled high around pipes with people walking in background",
+  "regions": [
+    {
+      "object": "snow",
+      "grounding_phrase": "the snow-covered ground",
+      "base_prior": "kb:snow",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 69.4,
+        "a": -3.2,
+        "b": -8.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The snow appears uniformly bright but slightly desaturated, indicating diffused overcast light. | KB prior 'snow' mode 'shadow'; modifiers: weather:overcast; blue cast from skylight | re-resolved at mask-measured L=69",
+      "id": "snow"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": 8.8,
+        "b": 5.1
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.7,
+      "rationale": "The building is partially obscured by snow, and its light appearance suggests a melancholic winter setting. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast, mood:melancholic; painted render | re-resolved at mask-measured L=25",
+      "id": "building_facade"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000028993",
+  "prompt": "a couple of yellow poles are on the street",
+  "regions": [
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street in the middle of the image",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 85.9,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The street surface reflects the diffused light from the overcast sky, giving it a muted appearance. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=86",
+      "id": "asphalt"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 23.1,
+        "a": 4,
+        "b": 10
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The building appears to be a large urban structure with a neutral tone, typical of a cityscape. | KB prior 'building_facade' mode 'painted'; painted render | re-resolved at mask-measured L=23",
+      "id": "building_facade"
+    },
+    {
+      "object": "brick",
+      "grounding_phrase": "the facade of the building in the background",
+      "base_prior": "kb:brick",
+      "modifiers": [],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 23.5,
+        "a": 26,
+        "b": 24
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The facade of the building has a neutral tone, consistent with the urban environment. | KB prior 'brick' mode 'red'; fired clay red | re-resolved at mask-measured L=24",
+      "id": "brick"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the buildings",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 99.6,
+        "a": -0.6,
+        "b": -1.6
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The sky appears very dark, indicating an overcast condition with minimal direct sunlight. | KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; grey overcast cover | re-resolved at mask-measured L=100",
+      "id": "sky"
+    }
+  ]
+}

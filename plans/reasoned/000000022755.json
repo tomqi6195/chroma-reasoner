@@ -4,32 +4,15 @@
   "prompt": "overcast day in an American town",
   "regions": [
     {
-      "object": "building_facade",
-      "grounding_phrase": "the building behind the motorcycle",
-      "base_prior": "kb:building_facade",
-      "modifiers": [
-        {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 25.5,
-        "a": 15.5,
-        "b": 14.5
-      },
-      "tolerance_delta_e": 10.5,
-      "confidence": 0.8,
-      "rationale": "The building facade is a large, coherent area reflecting the overcast conditions. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | re-resolved at mask-measured L=25",
-      "id": "building_facade"
-    },
-    {
       "object": "car",
-      "grounding_phrase": "the vintage car in the reflection",
+      "grounding_phrase": "the vintage car reflected in the side mirror",
       "base_prior": "kb:car",
       "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
         {
           "family": "weather",
           "value": "overcast",
@@ -39,39 +22,17 @@
       "resolved_colour": {
         "space": "Lab",
         "L": 20.0,
-        "a": 0,
-        "b": 0
+        "a": 0.0,
+        "b": 0.0
       },
       "tolerance_delta_e": 7.5,
       "confidence": 0.8,
-      "rationale": "The car is a prominent object in the reflection, and its details are visible despite the grayscale, suggesting a mid-grey tone. | KB prior 'car' mode 'achromatic'; not operative: weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=20",
+      "rationale": "The car's design and the overcast sky in the reflection are key visual elements that support the 1940s era and overcast mood. | KB prior 'car' mode 'achromatic'; modifiers: era:1940s; not operative: weather:overcast; white/silver/grey/black majority | re-resolved at mask-measured L=20",
       "id": "car"
     },
     {
-      "object": "asphalt",
-      "grounding_phrase": "the street in the reflection",
-      "base_prior": "kb:asphalt",
-      "modifiers": [
-        {
-          "family": "weather",
-          "value": "overcast",
-          "effect": "diffuse illumination flattens chroma, slight cool cast"
-        }
-      ],
-      "resolved_colour": {
-        "space": "Lab",
-        "L": 14.1,
-        "a": -1.0,
-        "b": 0.2
-      },
-      "tolerance_delta_e": 6.0,
-      "confidence": 0.8,
-      "rationale": "The street is a large, reflective surface that captures the overcast conditions well. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=14",
-      "id": "asphalt"
-    },
-    {
       "object": "sky",
-      "grounding_phrase": "the sky reflected in the mirror",
+      "grounding_phrase": "the sky reflected in the side mirror",
       "base_prior": "kb:sky",
       "modifiers": [
         {
@@ -88,23 +49,57 @@
       },
       "tolerance_delta_e": 6.0,
       "confidence": 0.8,
-      "rationale": "The sky is a large, reflective area that clearly shows the overcast state. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | re-resolved at mask-measured L=16",
+      "rationale": "The overcast sky in the reflection is a key visual element that supports the overcast mood. | KB prior 'sky' mode 'clear'; modifiers: weather:overcast; clear daytime sky blue | re-resolved at mask-measured L=16",
       "id": "sky"
-    }
-  ],
-  "global": {
-    "modifiers": [
-      {
-        "family": "era",
-        "value": "1940s",
-        "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": 22.6,
+        "b": 26.6
       },
-      {
-        "family": "geography",
-        "value": "usa",
-        "effect": "US conventions - regulation school-bus yellow, US Open court blue"
-      }
-    ],
-    "rationale": "A motorcycle side mirror reflects a street scene under an overcast sky in an American town."
-  }
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "The building's architectural style and the overall scene are key visual elements that support the 1940s era and nostalgic mood. | KB prior 'building_facade' mode 'painted'; modifiers: mood:nostalgic; not operative: era:1940s; painted render | re-resolved at mask-measured L=25",
+      "id": "building_facade"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street reflected in the side mirror",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The overcast sky in the reflection is a key visual element that supports the overcast mood. | KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; neutral grey | re-resolved at mask-measured L=16",
+      "id": "asphalt"
+    }
+  ]
 }

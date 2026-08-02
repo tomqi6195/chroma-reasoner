@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000026941",
+  "prompt": "A bunch of suitcases that are on a cart.",
+  "regions": [
+    {
+      "object": "suit",
+      "grounding_phrase": "the suitcases on the cart",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 53.7,
+        "a": 0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "The suitcases' design and the lighting suggest a 1940s setting with overcast weather. | KB prior 'suit' mode 'brown'; modifiers: era:1940s; not operative: weather:overcast; brown/tweed | re-resolved at mask-measured L=54",
+      "id": "suit"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the wall behind the cart",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 49.0,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The architectural style of the building and the lighting suggest a 1940s setting with overcast weather. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1940s; painted render | re-resolved at mask-measured L=49",
+      "id": "building_facade"
+    }
+  ]
+}
