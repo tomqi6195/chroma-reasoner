@@ -57,7 +57,12 @@ Rules:
   (facts first, stylistic intent last). If the user's prompt implies a factor that
   does not apply to an object, leave it off that object.
 - global_modifiers: factors that act image-wide rather than through one object
-  (era film rendering, overall mood). Use sparingly.
+  — period film rendering, overall mood, ambient weather. **Include one
+  whenever the context prompt implies a period, mood, or lighting condition
+  for the whole scene.** You will only select a handful of regions, and this
+  is the only control over everything you do not select: without it those
+  areas are coloured by the colorizer's own defaults, which are modern and
+  vivid regardless of the stated period.
 - confidence: high (>0.8) when content strongly constrains colour (sky, foliage,
   regulation objects), low (<0.6) when luminance under-determines it (garments).
   Vary it region by region; identical confidence everywhere is wrong.

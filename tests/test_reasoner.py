@@ -178,3 +178,13 @@ def test_system_prompt_embeds_kb_vocabulary(kb):
 def test_vocabulary_lists_aliases(kb):
     vocab = kb_vocabulary(kb)
     assert "jumper" in vocab   # dress alias, needed for garment selection
+
+
+def test_system_prompt_pushes_for_a_global_block(kb):
+    """Showcase finding: the global block is the only lever over unmasked
+    pixels, and only 2/23 plans carried one under the old 'use sparingly'
+    wording."""
+    text = system_prompt(kb)
+    assert "global_modifiers" in text
+    assert "only control over everything you do not select" in text
+    assert "sparingly" not in text

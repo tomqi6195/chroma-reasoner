@@ -46,7 +46,37 @@ colours"), now applied in the showcase notebook's render cell. Unmapped
 modifiers fall back to their `effect` text, so the KB can grow without code
 changes.
 
+## Result of the fix (re-run, same seed)
+
+Only 2 of 23 reasoned plans carry a `global` block at all, so only those
+images could change — a clean natural control:
+
+| image | global block | CF before | CF after | CF outside masks |
+|---|---|---|---|---|
+| **000000002299** | `era:1940s` | **79.4** | **51.6** (−35%) | 77.4 → **49.0** |
+| 000000022755 | none | 45.9 | 47.4 | 27.5 → 26.8 |
+| 000000000139 / 001000 / 010092 | none | unchanged | unchanged | unchanged |
+
+**The one image with an era global block dropped 35% in colourfulness; every
+image without one is bit-identical.** Visually the change is larger than the
+number suggests: the neon purple and magenta cardigans are gone, replaced by
+amber and maroon knitwear that reads as period-plausible — 1940s home-dyed
+wool is exactly what the KB's era table describes. The remaining artefacts
+are a teal cast on the unmasked back wall and an overall amber heaviness.
+
+So the global block was a real, load-bearing part of the design that had
+simply never been connected. It is worth ~a third of the anachronism on the
+image it applies to — and does nothing at all elsewhere, which is the correct
+behaviour, not a limitation.
+
 ## Still open after that fix
+
+- **51.6 is still far from DDColor's 1.8** on a monochrome original. The
+  prompt fix addresses the symptom; coverage is the cause.
+- **Reasoners rarely emit a `global` block** (2/23 plans). The system prompt
+  should encourage one whenever the context prompt implies whole-image
+  rendering — era, mood, weather — since that is now the only lever over
+  unmasked pixels.
 
 - **Coverage is the real lever.** The reasoner selects 3–6 regions regardless
   of scene complexity; a 40-child class photo needs far more, or a background
