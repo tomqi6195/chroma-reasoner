@@ -188,3 +188,8 @@ def test_system_prompt_pushes_for_a_global_block(kb):
     assert "global_modifiers" in text
     assert "only control over everything you do not select" in text
     assert "sparingly" not in text
+    # ...but bounded: pushing for globals made the 7B invent era/season
+    # (a "vintage car" in a mirror became era:1940s on a modern street scene)
+    assert "At most 2 global modifiers" in text
+    assert "Do not infer a period from a" in text
+    assert "one old-looking car does not make a 1940s photograph" in text

@@ -73,10 +73,34 @@ behaviour, not a limitation.
 
 - **51.6 is still far from DDColor's 1.8** on a monochrome original. The
   prompt fix addresses the symptom; coverage is the cause.
-- **Reasoners rarely emit a `global` block** (2/23 plans). The system prompt
-  should encourage one whenever the context prompt implies whole-image
-  rendering — era, mood, weather — since that is now the only lever over
-  unmasked pixels.
+## Global-block rate: the prompt fix, and its side effect (2026-07-27)
+
+Under the original wording (*"use sparingly"*) only **2 of 23** plans carried
+a global block — advice that was backwards once the block became the only
+lever over unmasked pixels. Rewriting it to require one whenever the context
+prompt implies a period, mood, or lighting condition took the regenerated
+showcase set to **4 of 5**, and the fifth (`000000000139`) has no context
+prompt at all, so no global block is correct. Every prompted image gained one:
+
+| image | context prompt | global modifiers |
+|---|---|---|
+| 000000001000 | "summer tennis camp group photo" | season:summer, mood:cheerful |
+| 000000002299 | "British school class photo, late 1940s, overcast day" | era:1940s |
+| 000000010092 | "tropical jungle lodge interior" | geography:tropics, mood:nostalgic |
+| 000000022755 | "overcast day in an American town" | era:1940s, geography:usa, **season:autumn**, weather:overcast |
+
+**The side effect is visible in the last row.** Only `geography:usa` and
+`weather:overcast` are in that prompt; `era:1940s` and `season:autumn` are
+invented — the plan's own rationale gives it away ("a *vintage car* driving
+down a street"), inferring a decade from one object glimpsed in a mirror.
+Pushing for globals traded under-application for over-application.
+
+The instruction now carries its own bound: at most 2 global modifiers, each
+stated in the prompt or beyond doubt from the whole image, with the failure
+named explicitly ("one old-looking car does not make a 1940s photograph") and
+an empty prompt required to yield no globals. Worth re-checking on the next
+run — the general lesson is that this model needs *both* directions of a
+constraint stated, since strengthening one side reliably breaks the other.
 
 - **Coverage is the real lever.** The reasoner selects 3–6 regions regardless
   of scene complexity; a 40-child class photo needs far more, or a background

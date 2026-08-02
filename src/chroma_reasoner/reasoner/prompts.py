@@ -63,6 +63,11 @@ Rules:
   is the only control over everything you do not select: without it those
   areas are coloured by the colorizer's own defaults, which are modern and
   vivid regardless of the stated period.
+  At most 2 global modifiers, and each must be **stated in the context prompt**
+  or beyond doubt from the image as a whole. Do not infer a period from a
+  single object — one old-looking car does not make a 1940s photograph — and
+  do not add a season unless the scene plainly shows one. If the context
+  prompt is empty, emit no global modifiers.
 - confidence: high (>0.8) when content strongly constrains colour (sky, foliage,
   regulation objects), low (<0.6) when luminance under-determines it (garments).
   Vary it region by region; identical confidence everywhere is wrong.
