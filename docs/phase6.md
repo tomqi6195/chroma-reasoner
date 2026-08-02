@@ -73,7 +73,62 @@ pillar"*):
    roadmap's own decomposition: era as global film/dye rendering via the
    plan's `global` block rather than per-object modifiers.
 
-## The LLM arm — prediction wrong, mechanism right (2026-07-14)
+## HEADLINE — counterfactual arms at n=23 (2026-07-27)
+
+23 images × 4 conditions, 72 shared region pairs, zero failures. Both arms
+get identical regions and identical condition prompts.
+
+### Era: the KB knows the period, the model does not
+
+| era_1910s vs era_1970s | KB | LLM |
+|---|---|---|
+| chroma direction (1910s must be duller) | **6/6 as expected** | **6/12 — chance** |
+| sign test | **p = 0.031** | **p = 1.0** |
+| active regions | 6/72 | 13/72 |
+
+**This is the project's first clean accuracy win, and it is exactly the one
+the roadmap predicted.** Asked to colour the same regions for "1910s" versus
+"1970s", the open VLM is a coin flip on which decade should be more muted —
+it moves colours, but not in any systematic period direction. The KB is right
+every time, because `era:1910s` (scale chroma ×0.6, clamp 32) and `era:1970s`
+(add avocado / harvest-gold / burnt-orange modes) are documented operations,
+not recollection. At n=5 the LLM scored 8/8 here; at n=23 it regresses to
+chance, which is what a small sample of a coin flip looks like.
+
+### Mood: both respond, but only the KB keeps a palette
+
+| mood_melancholic vs mood_cheerful | KB | LLM |
+|---|---|---|
+| warmth direction | **69/69** (p ≈ 0) | 50/68 (p = 0.0001) |
+| chroma direction | 50/69 (p = 0.0002) | 66/67 (p ≈ 0) |
+| median separation | 13.1 | 29.9 |
+| **palette spread / distinct colours under "melancholic"** | **14.4 / 3.0** | **9.2 / 1.5** |
+
+The n=5 collapse finding holds at scale: under "melancholic" the LLM assigns
+**1.5 distinct colours per image**, flattening the scene to a single tone,
+then swings to 45.4 spread under "cheerful". Its larger separation and better
+chroma score are both products of that global tint. The KB moves every object
+relative to its own prior — 3.0 distinct colours in both conditions — and
+gets the warmth direction **perfectly, 69 out of 69**, where the model manages
+73%.
+
+(The KB's 50/69 on chroma is expected, not a defect: melancholic scales chroma
+×0.7 *and* applies a cool shift, so on already-neutral objects the shift adds
+a little chroma. Muting a grey wall by 30% leaves it grey; tinting it cool
+makes it slightly blue.)
+
+### What this establishes
+
+> On realistic prompts the KB matches implicit model knowledge (Phase 5,
+> p = 0.78). On **counterfactual** prompts it separates from it: the model
+> has no systematic period mapping and collapses the palette under mood,
+> while the KB applies documented, per-object, correctly-signed deformations.
+
+That is the roadmap's §7 prescription carried out and confirmed — concentrate
+the KB where reality is unavailable to either arm — and it is the evidence
+behind narrowing to mood with era as a disambiguation prior.
+
+## The LLM arm at n=5 — prediction wrong, mechanism right (2026-07-14)
 
 Both arms, same 26 regions, same condition prompts. The **pre-registered
 prediction was that the LLM would show weaker separation. It is wrong**: the

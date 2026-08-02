@@ -55,13 +55,16 @@ first intent metric had to be redesigned when a degenerate model output
 exploited it, re-deriving the field's PSNR bias; ΔE is now always paired with
 a **chroma-deficit** term.
 
-**Counterfactual context works, and mood is the axis with reach.** Every
-pre-registered direction held with no counter-examples: melancholic vs cheerful
-moves 97% of regions (warmth 73/74 correct, p ≈ 0); autumn, 1910s and 1970s
-contrasts are correct but touch ~10% of regions, because most scenes contain
-no era-bearing or vegetated content. This quantifies the roadmap's prose
-prediction that mood is the cleaner novelty claim and era is one family among
-several, not a pillar.
+**On counterfactual prompts the KB separates from the model decisively.**
+Over 72 shared region pairs, asked to colour the same regions for "1910s"
+versus "1970s", the open VLM is a **coin flip** on which decade should be
+duller (6/12, p = 1.0) while the KB is right every time (6/6, p = 0.031) —
+documented operations rather than recollection. Under "melancholic" the model
+collapses each image to **1.5 distinct colours**, a global tint; the KB holds
+3.0 and gets the warmth direction **69/69**. This is the roadmap's own
+prescription confirmed: the KB earns its keep where reality is unavailable to
+both arms, which is why the contribution narrows to mood, with era as a
+disambiguation prior on era-bearing content.
 
 ## Setup
 
