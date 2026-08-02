@@ -69,6 +69,41 @@ simply never been connected. It is worth ~a third of the anachronism on the
 image it applies to — and does nothing at all elsewhere, which is the correct
 behaviour, not a limitation.
 
+## The coverage hypothesis tested at n=23 (2026-07-27)
+
+The first showcase ran 5 images; this one ran all 23 reasoned plans, which is
+enough to test the hypothesis rather than eyeball it. Excluding `2299` (a
+monochrome original, where CF-error is undefined rather than zero — the same
+exclusion `ablate_score.py` makes), n = 22:
+
+| measurement | result |
+|---|---|
+| coverage vs colourfulness **outside** the masks | Spearman ρ = **−0.46** |
+| unmasked CF, coverage ≥ 50% (n=8) | **31.1** |
+| unmasked CF, coverage < 50% (n=14) | **50.6** |
+| mean \|CF − original\|: plan-conditioned vs DDColor | 15.8 vs **14.4** |
+| closer to the original's colourfulness | plan 9/22, **DDColor 13/22** |
+| mean \|CF − original\| with a global block (n=2) | **8.3** |
+| mean \|CF − original\| without (n=20) | 16.5 |
+
+**Coverage is confirmed as a driver** — the unmasked remainder is 63% more
+colourful when the plan constrains less than half the image — though ρ = −0.46
+leaves plenty unexplained, so it is a driver, not the whole story.
+
+**The global block looks strongly beneficial** (roughly half the colourfulness
+error), but n = 2 and this needs the ungrounded-globals fix to propagate
+through a fresh reasoner run before it means much.
+
+**And the plan-conditioned renderer still trails DDColor** on this metric.
+That deserves an honest caveat rather than a fix, because *colourfulness
+distance to the original is a realism proxy, and realism is DDColor's job,
+not this system's*. Twenty of these 22 images carry neutral COCO-caption
+prompts — there is no context to apply, so the plan is competing on the
+automatic baseline's home turf with extra machinery and no instruction to
+follow. The one image where context genuinely matters (`2299`) cannot be
+scored this way at all, which is precisely why the counterfactual protocol
+(docs/phase6.md) exists. **Do not tune the system against CF-to-original.**
+
 ## Still open after that fix
 
 - **51.6 is still far from DDColor's 1.8** on a monochrome original. The
