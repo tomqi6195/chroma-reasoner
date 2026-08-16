@@ -1,0 +1,51 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000018770",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "suit",
+      "grounding_phrase": "the dark suit of the man",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 5.5,
+        "a": 7.6,
+        "b": -25.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'suit' mode 'charcoal'; modifiers: mood:cheerful; black/charcoal | ABLATION: colour #007bff chosen by model, KB bypassed",
+      "id": "suit"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the dark wall behind the man",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 8.2,
+        "a": 0.6,
+        "b": 13.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'wall_interior' mode 'white'; modifiers: mood:cheerful; off-white paint | ABLATION: colour #ffcc00 chosen by model, KB bypassed",
+      "id": "wall_interior"
+    }
+  ]
+}

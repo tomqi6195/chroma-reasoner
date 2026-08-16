@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000026941",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "suit",
+      "grounding_phrase": "the suitcases on the cart",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 53.7,
+        "a": -8,
+        "b": 30
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'suit' mode 'avocado'; modifiers: era:1970s; not operative: weather:overcast; avocado green",
+      "id": "suit"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the wall behind the cart",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 49.0,
+        "a": 2.0,
+        "b": 5.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1970s; painted render",
+      "id": "building_facade"
+    }
+  ]
+}

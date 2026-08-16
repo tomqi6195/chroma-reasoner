@@ -1,0 +1,73 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000035963",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the patch of dirt surrounding the statue",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -30,
+        "b": 36
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "[era_1970s] KB prior 'grass' mode 'verdant'; not operative: era:1970s; healthy chlorophyll green",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building facade in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.9,
+        "a": 22,
+        "b": 22
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'building_facade' mode 'brick_red'; not operative: era:1970s; brick construction",
+      "id": "building_facade"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the plants behind the statue",
+      "base_prior": "kb:foliage",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -28,
+        "b": 34
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'foliage' mode 'verdant'; not operative: era:1970s; broadleaf summer canopy",
+      "id": "foliage"
+    }
+  ]
+}

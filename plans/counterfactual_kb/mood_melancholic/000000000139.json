@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000000139",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug on the floor in the foreground",
+      "base_prior": "kb:rug",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 58.4,
+        "a": 9.2,
+        "b": 9.0
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'rug' mode 'warm'; modifiers: mood:melancholic; not operative: weather:overcast; warm reds/browns common in rugs",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the television",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.4,
+        "a": -2.2,
+        "b": -4.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast, mood:melancholic; off-white paint",
+      "id": "wall_interior"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the window in the kitchen area",
+      "base_prior": "kb:window",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 74.1,
+        "a": -4.3,
+        "b": -10.1
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'window' mode 'glazing'; modifiers: weather:overcast, mood:melancholic; glass reflects sky - cool cast",
+      "id": "window"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the wooden floor in the living room",
+      "base_prior": "kb:wood_floor",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 34.1,
+        "a": 9.2,
+        "b": 14.6
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'wood_floor' mode 'varnished'; modifiers: mood:melancholic; not operative: weather:overcast; warm mid-brown finish",
+      "id": "wood_floor"
+    }
+  ]
+}

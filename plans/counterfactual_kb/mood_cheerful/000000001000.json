@@ -1,0 +1,83 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001000",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the ground beneath the group",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.5,
+        "a": -35.5,
+        "b": 49.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.7,
+      "rationale": "[mood_cheerful] KB prior 'grass' mode 'verdant'; modifiers: mood:cheerful; healthy chlorophyll green",
+      "id": "grass"
+    },
+    {
+      "object": "tennis_court",
+      "grounding_phrase": "the area where the group is standing",
+      "base_prior": "kb:tennis_court",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.9,
+        "a": -9.2,
+        "b": -16.0
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.7,
+      "rationale": "[mood_cheerful] KB prior 'tennis_court' mode 'hard_blue'; modifiers: mood:cheerful; acrylic hard-court blue",
+      "id": "tennis_court"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": "kb:foliage",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 58.4,
+        "a": -33.0,
+        "b": 46.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.7,
+      "rationale": "[mood_cheerful] KB prior 'foliage' mode 'verdant'; modifiers: mood:cheerful; broadleaf summer canopy",
+      "id": "foliage"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "season",
+        "value": "summer",
+        "effect": "peak canopy green"
+      }
+    ],
+    "rationale": "A group of children posing for a summer tennis camp photo under a shaded area. [dropped invalid regions: brick_wall, children] [dropped ungrounded globals: mood:cheerful]"
+  }
+}

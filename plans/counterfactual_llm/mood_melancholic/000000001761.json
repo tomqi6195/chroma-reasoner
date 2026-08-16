@@ -1,0 +1,88 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001761",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the Sydney Harbour Bridge",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'building_facade' mode 'brick_red'; modifiers: weather:overcast, mood:melancholic; brick construction | ABLATION: colour #808080 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the bridge",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 13.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'sky' mode 'dusk'; modifiers: weather:overcast, mood:melancholic; warm low-sun sky | ABLATION: colour #d3d3d3 chosen by model, KB bypassed",
+      "id": "sky"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the road surface of the bridge",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast, mood:melancholic; neutral grey | ABLATION: colour #696969 chosen by model, KB bypassed",
+      "id": "asphalt"
+    }
+  ]
+}

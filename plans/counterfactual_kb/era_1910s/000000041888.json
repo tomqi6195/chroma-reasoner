@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000041888",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the dry grass field where the birds are foraging",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 59.6,
+        "a": -23.5,
+        "b": 25.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; not operative: era:1910s; healthy chlorophyll green",
+      "id": "grass"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the birds",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 87.5,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; not operative: era:1910s; grey overcast cover",
+      "id": "sky"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001353",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large structure behind the children",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 8.2,
+        "a": -0.3,
+        "b": 13.3
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast, mood:cheerful; painted render | ABLATION: colour #FFD700 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the dark jumper of the child in the foreground",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 4.3,
+        "a": 0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'dress' mode 'neutral'; modifiers: era:1940s, mood:cheerful; white/grey/black garments | ABLATION: colour #000000 chosen by model, KB bypassed",
+      "id": "dress"
+    },
+    {
+      "object": "rug",
+      "grounding_phrase": "the patterned surface beneath the train",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 46.7,
+        "a": -12.2,
+        "b": 53.4
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.7,
+      "rationale": "[mood_cheerful] KB prior 'rug' mode 'warm'; modifiers: mood:cheerful; warm reds/browns common in rugs | ABLATION: colour #FFFF00 chosen by model, KB bypassed",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall to the right of the children",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 12.9,
+        "a": 6.1,
+        "b": 20.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'wall_interior' mode 'white'; modifiers: mood:cheerful; off-white paint | ABLATION: colour #FFA500 chosen by model, KB bypassed",
+      "id": "wall_interior"
+    }
+  ]
+}

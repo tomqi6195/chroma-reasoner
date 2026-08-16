@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000012576",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the table where the pizza and glasses are placed",
+      "base_prior": "kb:wood_floor",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 68.6,
+        "a": 8,
+        "b": 20
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wood_floor' mode 'pale'; not operative: weather:overcast, era:1910s; birch/pine blond",
+      "id": "wood_floor"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the woman",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.0,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast; not operative: era:1910s; off-white paint",
+      "id": "wall_interior"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000041888",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the dry grass field where the birds are foraging",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 59.6,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'grass' mode 'verdant'; modifiers: weather:overcast, mood:melancholic; healthy chlorophyll green | ABLATION: colour #808080 chosen by model, KB bypassed",
+      "id": "grass"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the birds",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 87.5,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast, mood:melancholic; grey overcast cover | ABLATION: colour #d3d3d3 chosen by model, KB bypassed",
+      "id": "sky"
+    }
+  ]
+}

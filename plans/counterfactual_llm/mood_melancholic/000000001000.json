@@ -1,0 +1,83 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001000",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the ground beneath the group",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.5,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.7,
+      "rationale": "[mood_melancholic] KB prior 'grass' mode 'verdant'; modifiers: mood:melancholic; healthy chlorophyll green | ABLATION: colour #707070 chosen by model, KB bypassed",
+      "id": "grass"
+    },
+    {
+      "object": "tennis_court",
+      "grounding_phrase": "the area where the group is standing",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 63.9,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.7,
+      "rationale": "[mood_melancholic] KB prior 'tennis_court' mode 'hard_blue'; modifiers: mood:melancholic; acrylic hard-court blue | ABLATION: colour #707070 chosen by model, KB bypassed",
+      "id": "tennis_court"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 58.4,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.7,
+      "rationale": "[mood_melancholic] KB prior 'foliage' mode 'verdant'; modifiers: mood:melancholic; broadleaf summer canopy | ABLATION: colour #707070 chosen by model, KB bypassed",
+      "id": "foliage"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "season",
+        "value": "summer",
+        "effect": "peak canopy green"
+      }
+    ],
+    "rationale": "A group of children posing for a summer tennis camp photo under a shaded area. [dropped invalid regions: brick_wall, children] [dropped ungrounded globals: mood:cheerful]"
+  }
+}

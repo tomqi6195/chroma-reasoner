@@ -1,0 +1,66 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000037751",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "soil",
+      "grounding_phrase": "the gravel path the rider is on",
+      "base_prior": "kb:soil",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 36.9,
+        "a": 5.0,
+        "b": 10.0
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'soil' mode 'loam'; modifiers: weather:overcast; not operative: era:1910s; brown topsoil",
+      "id": "soil"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the cloudy sky above the mountains",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 85.9,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; not operative: season:summer, era:1910s; grey overcast cover",
+      "id": "sky"
+    }
+  ]
+}

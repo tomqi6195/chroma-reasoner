@@ -1,0 +1,88 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000013659",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the desk where the man is seated",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 87.1,
+        "a": 13.4,
+        "b": 20.7
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast, era:1910s; warm mid-brown finish | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "wood_floor"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the chair the man is sitting on",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.0,
+        "a": 36.0,
+        "b": -57.8
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast, era:1910s; warm mid-brown finish | ABLATION: colour #6a5acd chosen by model, KB bypassed",
+      "id": "wood_floor_2"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the man",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 27.8,
+        "a": 0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast; not operative: era:1910s; off-white paint | ABLATION: colour #000000 chosen by model, KB bypassed",
+      "id": "wall_interior"
+    }
+  ]
+}

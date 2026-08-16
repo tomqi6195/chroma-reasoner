@@ -1,0 +1,66 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000037751",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "soil",
+      "grounding_phrase": "the gravel path the rider is on",
+      "base_prior": "kb:soil",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 36.9,
+        "a": 8.2,
+        "b": 16.5
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'soil' mode 'loam'; modifiers: weather:overcast, mood:cheerful; brown topsoil",
+      "id": "soil"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the cloudy sky above the mountains",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 85.9,
+        "a": -1.1,
+        "b": -4.1
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast, mood:cheerful; not operative: season:summer; grey overcast cover",
+      "id": "sky"
+    }
+  ]
+}

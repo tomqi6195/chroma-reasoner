@@ -1,0 +1,88 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001761",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the Sydney Harbour Bridge",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -3.7,
+        "b": -33.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'building_facade' mode 'brick_red'; modifiers: weather:overcast, mood:cheerful; brick construction | ABLATION: colour #80c1ff chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the bridge",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -1.5,
+        "b": -7.6
+      },
+      "tolerance_delta_e": 13.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'sky' mode 'dusk'; modifiers: weather:overcast, mood:cheerful; warm low-sun sky | ABLATION: colour #e6f2ff chosen by model, KB bypassed",
+      "id": "sky"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the road surface of the bridge",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 33.7,
+        "a": -1.7,
+        "b": -19.7
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast, mood:cheerful; neutral grey | ABLATION: colour #99b4d5 chosen by model, KB bypassed",
+      "id": "asphalt"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000046252",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the dirt around home plate",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 67.8,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; not operative: era:1970s; neutral grey | ABLATION: colour #4a4a4a chosen by model, KB bypassed",
+      "id": "asphalt"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the batter's uniform",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 76.5,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'dress' mode 'neutral'; modifiers: era:1970s; not operative: weather:overcast; white/grey/black garments | ABLATION: colour #2b2b2b chosen by model, KB bypassed",
+      "id": "dress"
+    },
+    {
+      "object": "suit",
+      "grounding_phrase": "the umpire's attire",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.8,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'suit' mode 'charcoal'; modifiers: era:1970s; not operative: weather:overcast; black/charcoal | ABLATION: colour #333333 chosen by model, KB bypassed",
+      "id": "suit"
+    },
+    {
+      "object": "grass",
+      "grounding_phrase": "the outfield grass",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 56.9,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; not operative: era:1970s; healthy chlorophyll green | ABLATION: colour #4d4d4d chosen by model, KB bypassed",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the distant building",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 18.0,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1970s; painted render | ABLATION: colour #1e1e1e chosen by model, KB bypassed",
+      "id": "building_facade"
+    }
+  ]
+}

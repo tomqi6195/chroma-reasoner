@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000022755",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car reflected in the side mirror",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.0,
+        "a": 32.7,
+        "b": 24.5
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'car' mode 'achromatic'; modifiers: era:1970s; not operative: weather:overcast; white/silver/grey/black majority | ABLATION: colour #8a3b2e chosen by model, KB bypassed",
+      "id": "car"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky reflected in the side mirror",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -1.3,
+        "b": -11.6
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; not operative: era:1970s; grey overcast cover | ABLATION: colour #6c7b8d chosen by model, KB bypassed",
+      "id": "sky"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'building_facade' mode 'brick_red'; modifiers: mood:nostalgic; not operative: era:1970s; brick construction | ABLATION: colour #8f8f8f chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street reflected in the side mirror",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; not operative: era:1970s; neutral grey | ABLATION: colour #4a4a4a chosen by model, KB bypassed",
+      "id": "asphalt"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000035963",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the patch of dirt surrounding the statue",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -21.5,
+        "b": 47.9
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "[era_1910s] KB prior 'grass' mode 'verdant'; not operative: era:1910s; healthy chlorophyll green | ABLATION: colour #8a9e3b chosen by model, KB bypassed",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building facade in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.9,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'building_facade' mode 'brick_red'; not operative: era:1910s; brick construction | ABLATION: colour #4d4d4d chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the plants behind the statue",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -21.5,
+        "b": 47.9
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'foliage' mode 'verdant'; not operative: era:1910s; broadleaf summer canopy | ABLATION: colour #8a9e3b chosen by model, KB bypassed",
+      "id": "foliage"
+    }
+  ]
+}

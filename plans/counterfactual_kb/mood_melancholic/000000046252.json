@@ -1,0 +1,142 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000046252",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the dirt around home plate",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 67.8,
+        "a": -2.7,
+        "b": -4.8
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast, mood:melancholic; neutral grey",
+      "id": "asphalt"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the batter's uniform",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 76.5,
+        "a": -1.3,
+        "b": -2.9
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'dress' mode 'neutral'; modifiers: mood:melancholic; not operative: weather:overcast; white/grey/black garments",
+      "id": "dress"
+    },
+    {
+      "object": "suit",
+      "grounding_phrase": "the umpire's attire",
+      "base_prior": "kb:suit",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.8,
+        "a": -2.0,
+        "b": -5.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'suit' mode 'charcoal'; modifiers: mood:melancholic; not operative: weather:overcast; black/charcoal",
+      "id": "suit"
+    },
+    {
+      "object": "grass",
+      "grounding_phrase": "the outfield grass",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 56.9,
+        "a": -18.4,
+        "b": 12.5
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'grass' mode 'verdant'; modifiers: weather:overcast, mood:melancholic; healthy chlorophyll green",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the distant building",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 18.0,
+        "a": -0.6,
+        "b": -1.2
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast, mood:melancholic; painted render",
+      "id": "building_facade"
+    }
+  ]
+}

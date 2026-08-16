@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000042628",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "snow",
+      "grounding_phrase": "the snow-covered ground",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 69.4,
+        "a": -16.5,
+        "b": 72.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'snow' mode 'shadow'; modifiers: weather:overcast, mood:cheerful; blue cast from skylight | ABLATION: colour #FFFF00 chosen by model, KB bypassed",
+      "id": "snow"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": -3.1,
+        "b": -27.8
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.7,
+      "rationale": "[mood_cheerful] KB prior 'building_facade' mode 'brick_red'; modifiers: weather:overcast, mood:cheerful; brick construction | ABLATION: colour #80C1FF chosen by model, KB bypassed",
+      "id": "building_facade"
+    }
+  ]
+}

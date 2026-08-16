@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000022755",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car reflected in the side mirror",
+      "base_prior": "kb:car",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.0,
+        "a": 0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'car' mode 'achromatic'; modifiers: era:1910s; not operative: weather:overcast; white/silver/grey/black majority",
+      "id": "car"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky reflected in the side mirror",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -2.5,
+        "b": -6.5
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; not operative: era:1910s; grey overcast cover",
+      "id": "sky"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": 22.6,
+        "b": 26.6
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'building_facade' mode 'brick_red'; modifiers: mood:nostalgic; not operative: era:1910s; brick construction",
+      "id": "building_facade"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street reflected in the side mirror",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -1.0,
+        "b": 0.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; not operative: era:1910s; neutral grey",
+      "id": "asphalt"
+    }
+  ]
+}

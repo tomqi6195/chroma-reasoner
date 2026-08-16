@@ -1,0 +1,98 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000033854",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building with scaffolding on the right",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 28.6,
+        "a": 11.3,
+        "b": 10.5
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'building_facade' mode 'brick_red'; modifiers: weather:overcast, mood:melancholic; brick construction | ABLATION: colour #5d4037 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the group of motorcycles in the center",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 12.2,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'car' mode 'achromatic'; modifiers: era:1940s, mood:melancholic; not operative: weather:overcast; white/silver/grey/black majority | ABLATION: colour #4a4a4a chosen by model, KB bypassed",
+      "id": "car"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car on the left",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 10.6,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'car' mode 'achromatic'; modifiers: era:1940s, mood:melancholic; not operative: weather:overcast; white/silver/grey/black majority | ABLATION: colour #333333 chosen by model, KB bypassed",
+      "id": "car_2"
+    }
+  ]
+}
