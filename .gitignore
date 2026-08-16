@@ -223,3 +223,8 @@ __marimo__/
 /third_party/
 *.pt
 *.ckpt
+
+# Generated hints and run logs
+/.claude/
+/hints/
+phase*_log.txt
