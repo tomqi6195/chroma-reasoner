@@ -1,0 +1,120 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000022755",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car reflected in the side mirror",
+      "base_prior": "kb:car",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.0,
+        "a": -2.0,
+        "b": -5.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'car' mode 'achromatic'; modifiers: era:1940s, mood:melancholic; not operative: weather:overcast; white/silver/grey/black majority",
+      "id": "car"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky reflected in the side mirror",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -3.8,
+        "b": -9.6
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast, mood:melancholic; grey overcast cover",
+      "id": "sky"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": 13.4,
+        "b": 10.4
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'building_facade' mode 'brick_red'; modifiers: mood:melancholic; not operative: era:1940s; brick construction",
+      "id": "building_facade"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street reflected in the side mirror",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -2.7,
+        "b": -4.8
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast, mood:melancholic; neutral grey",
+      "id": "asphalt"
+    }
+  ]
+}

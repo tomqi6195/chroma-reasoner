@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000033707",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building behind the giraffes",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 74.9,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1970s; painted render | ABLATION: colour #808080 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 31.4,
+        "a": -18.8,
+        "b": 30.6
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'foliage' mode 'verdant'; modifiers: weather:overcast; not operative: era:1970s; broadleaf summer canopy | ABLATION: colour #556B2F chosen by model, KB bypassed",
+      "id": "foliage"
+    }
+  ]
+}

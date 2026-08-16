@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000000139",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug on the floor in the foreground",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 58.4,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'rug' mode 'warm'; modifiers: era:1970s; not operative: weather:overcast; warm reds/browns common in rugs | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the television",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.4,
+        "a": -11.7,
+        "b": -3.7
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast, era:1970s; off-white paint | ABLATION: colour #2f4f4f chosen by model, KB bypassed",
+      "id": "wall_interior"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the window in the kitchen area",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 74.1,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'window' mode 'glazing'; modifiers: weather:overcast, era:1970s; glass reflects sky - cool cast | ABLATION: colour #d3d3d3 chosen by model, KB bypassed",
+      "id": "window"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the wooden floor in the living room",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 34.1,
+        "a": 8.8,
+        "b": 25.7
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'wood_floor' mode 'varnished'; modifiers: era:1970s; not operative: weather:overcast; warm mid-brown finish | ABLATION: colour #6b4c29 chosen by model, KB bypassed",
+      "id": "wood_floor"
+    }
+  ]
+}

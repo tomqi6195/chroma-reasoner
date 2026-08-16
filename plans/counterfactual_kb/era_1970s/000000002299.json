@@ -1,0 +1,157 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000002299",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "brick",
+      "grounding_phrase": "the brick wall behind the children",
+      "base_prior": "kb:brick",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 18.5,
+        "b": 16.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'brick' mode 'red'; modifiers: weather:overcast; not operative: era:1970s; fired clay red",
+      "id": "brick"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the dresses worn by the girls in the front row",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 1,
+        "b": 3
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'dress' mode 'neutral'; modifiers: era:1970s; not operative: weather:overcast; white/grey/black garments",
+      "id": "dress"
+    },
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug beneath the children",
+      "base_prior": "kb:rug",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 2,
+        "b": 5
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'rug' mode 'neutral'; modifiers: era:1970s; not operative: weather:overcast; grey/beige carpet",
+      "id": "rug"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the window on the right side of the image",
+      "base_prior": "kb:window",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.8,
+        "a": -3.2,
+        "b": -7.2
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'window' mode 'glazing'; modifiers: weather:overcast, era:1970s; glass reflects sky - cool cast",
+      "id": "window"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the children",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast, era:1970s; off-white paint",
+      "id": "wall_interior"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1940s",
+        "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+      },
+      {
+        "family": "weather",
+        "value": "overcast",
+        "effect": "diffuse illumination flattens chroma, slight cool cast"
+      }
+    ],
+    "rationale": "A group of children posing for a school class photo in a British setting, likely taken during the late 1940s."
+  }
+}

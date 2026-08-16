@@ -1,0 +1,105 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000001353",
+  "prompt": "some children are riding on a mini orange train",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large structure behind the children",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The large structure behind the children appears to be part of a building, likely a museum or exhibition space, given the context of the scene. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast, mood:nostalgic; painted render | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the dark jumper of the child in the foreground",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25,
+        "a": 0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The child in the foreground is wearing a dark-colored garment, which is consistent with the 1940s era aesthetic mentioned in the prompt. | KB prior 'dress' mode 'neutral'; modifiers: era:1940s, mood:nostalgic; white/grey/black garments | ABLATION: colour #000000 chosen by model, KB bypassed",
+      "id": "dress"
+    },
+    {
+      "object": "rug",
+      "grounding_phrase": "the patterned surface beneath the train",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 35,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.7,
+      "rationale": "The patterned surface beneath the train appears to be a rug, which adds to the vintage ambiance of the scene. | KB prior 'rug' mode 'warm'; modifiers: mood:nostalgic; warm reds/browns common in rugs | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall to the right of the children",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "nostalgic",
+          "effect": "warm fade, as in aged prints"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 18.0,
+      "confidence": 0.8,
+      "rationale": "The wall to the right of the children is plain and appears to be part of the interior of a building, possibly a museum or exhibition space. | KB prior 'wall_interior' mode 'accent'; modifiers: mood:nostalgic; broad saturated accent-paint mode | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "wall_interior"
+    }
+  ]
+}

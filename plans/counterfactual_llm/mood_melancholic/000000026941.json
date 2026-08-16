@@ -1,0 +1,71 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000026941",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "suit",
+      "grounding_phrase": "the suitcases on the cart",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 53.7,
+        "a": 26.4,
+        "b": 41.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'suit' mode 'charcoal'; modifiers: era:1940s, mood:melancholic; not operative: weather:overcast; black/charcoal | ABLATION: colour #8b4513 chosen by model, KB bypassed",
+      "id": "suit"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the wall behind the cart",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 49.0,
+        "a": 36.0,
+        "b": -57.8
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast, mood:melancholic; not operative: era:1940s; painted render | ABLATION: colour #6a5acd chosen by model, KB bypassed",
+      "id": "building_facade"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000000139",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug on the floor in the foreground",
+      "base_prior": "kb:rug",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 58.4,
+        "a": 16,
+        "b": 20
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'rug' mode 'warm'; not operative: weather:overcast, era:1910s; warm reds/browns common in rugs",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the television",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.4,
+        "a": -0.2,
+        "b": 1.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast; not operative: era:1910s; off-white paint",
+      "id": "wall_interior"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the window in the kitchen area",
+      "base_prior": "kb:window",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 74.1,
+        "a": -3.2,
+        "b": -7.2
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'window' mode 'glazing'; modifiers: weather:overcast; not operative: era:1910s; glass reflects sky - cool cast",
+      "id": "window"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the wooden floor in the living room",
+      "base_prior": "kb:wood_floor",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 34.1,
+        "a": 16,
+        "b": 28
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'wood_floor' mode 'varnished'; not operative: weather:overcast, era:1910s; warm mid-brown finish",
+      "id": "wood_floor"
+    }
+  ]
+}

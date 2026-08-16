@@ -1,0 +1,177 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000002299",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "brick",
+      "grounding_phrase": "the brick wall behind the children",
+      "base_prior": "kb:brick",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 25.1,
+        "b": 24.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'brick' mode 'red'; modifiers: weather:overcast, mood:cheerful; fired clay red",
+      "id": "brick"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the dresses worn by the girls in the front row",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 2.9,
+        "b": 6.6
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'dress' mode 'neutral'; modifiers: era:1940s, mood:cheerful; not operative: weather:overcast; white/grey/black garments",
+      "id": "dress"
+    },
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug beneath the children",
+      "base_prior": "kb:rug",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 4.5,
+        "b": 10.2
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'rug' mode 'neutral'; modifiers: mood:cheerful; not operative: era:1940s, weather:overcast; grey/beige carpet",
+      "id": "rug"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the window on the right side of the image",
+      "base_prior": "kb:window",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.8,
+        "a": -2.1,
+        "b": -5.1
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'window' mode 'glazing'; modifiers: weather:overcast, mood:cheerful; not operative: era:1940s; glass reflects sky - cool cast",
+      "id": "window"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the children",
+      "base_prior": "kb:wall_interior",
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 79.6,
+        "a": 1.7,
+        "b": 5.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast, mood:cheerful; not operative: era:1940s; off-white paint",
+      "id": "wall_interior"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1940s",
+        "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+      },
+      {
+        "family": "weather",
+        "value": "overcast",
+        "effect": "diffuse illumination flattens chroma, slight cool cast"
+      }
+    ],
+    "rationale": "A group of children posing for a school class photo in a British setting, likely taken during the late 1940s."
+  }
+}

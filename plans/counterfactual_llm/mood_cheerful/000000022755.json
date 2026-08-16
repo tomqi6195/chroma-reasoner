@@ -1,0 +1,120 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000022755",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car reflected in the side mirror",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 20.0,
+        "a": -0.6,
+        "b": 29.4
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'car' mode 'achromatic'; modifiers: era:1940s, mood:cheerful; not operative: weather:overcast; white/silver/grey/black majority | ABLATION: colour #FFD700 chosen by model, KB bypassed",
+      "id": "car"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky reflected in the side mirror",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -10.6,
+        "b": -11.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast, mood:cheerful; grey overcast cover | ABLATION: colour #ADD8E6 chosen by model, KB bypassed",
+      "id": "sky"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": 1.5,
+        "b": 24.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'building_facade' mode 'brick_red'; modifiers: mood:cheerful; not operative: era:1940s; brick construction | ABLATION: colour #F5DEB3 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street reflected in the side mirror",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 15.7,
+        "a": -6.6,
+        "b": -16.4
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast, mood:cheerful; neutral grey | ABLATION: colour #AED6F1 chosen by model, KB bypassed",
+      "id": "asphalt"
+    }
+  ]
+}

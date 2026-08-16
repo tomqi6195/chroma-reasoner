@@ -1,0 +1,142 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000046252",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the dirt around home plate",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 67.8,
+        "a": 3.5,
+        "b": 9.2
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; not operative: era:1910s; neutral grey | ABLATION: colour #8a7b6e chosen by model, KB bypassed",
+      "id": "asphalt"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the batter's uniform",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 76.5,
+        "a": 5.3,
+        "b": 10.9
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'dress' mode 'neutral'; modifiers: era:1910s; not operative: weather:overcast; white/grey/black garments | ABLATION: colour #4d3c2f chosen by model, KB bypassed",
+      "id": "dress"
+    },
+    {
+      "object": "suit",
+      "grounding_phrase": "the umpire's attire",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.8,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'suit' mode 'charcoal'; modifiers: era:1910s; not operative: weather:overcast; black/charcoal | ABLATION: colour #1a1a1a chosen by model, KB bypassed",
+      "id": "suit"
+    },
+    {
+      "object": "grass",
+      "grounding_phrase": "the outfield grass",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 56.9,
+        "a": -17.2,
+        "b": 13.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'grass' mode 'verdant'; modifiers: weather:overcast; not operative: era:1910s; healthy chlorophyll green | ABLATION: colour #5d7b5d chosen by model, KB bypassed",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the distant building",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 18.0,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1910s; painted render | ABLATION: colour #222222 chosen by model, KB bypassed",
+      "id": "building_facade"
+    }
+  ]
+}

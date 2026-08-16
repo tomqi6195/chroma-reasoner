@@ -1,0 +1,98 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000033854",
+  "prompt": "A bus, old cabin cars, and motor cycles with people",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building with scaffolding on the right",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 45,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "The building with scaffolding is a prominent structure in the background, and its lightness is consistent with an overcast sky. | KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; painted render | ABLATION: colour #808080 chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the group of motorcycles in the center",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The motorcycles are central to the scene and their lightness aligns with the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | ABLATION: colour #666666 chosen by model, KB bypassed",
+      "id": "car"
+    },
+    {
+      "object": "car",
+      "grounding_phrase": "the vintage car on the left",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "era",
+          "value": "1940s",
+          "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+        },
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "The vintage car is a key feature and its lightness aligns with the overcast conditions. | KB prior 'car' mode 'achromatic'; not operative: era:1940s, weather:overcast; white/silver/grey/black majority | ABLATION: colour #4d4d4d chosen by model, KB bypassed",
+      "id": "car_2"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "era",
+        "value": "1940s",
+        "effect": "wartime austerity; drab wools, home-dyed knitwear, utility schemes"
+      },
+      {
+        "family": "weather",
+        "value": "overcast",
+        "effect": "diffuse illumination flattens chroma, slight cool cast"
+      }
+    ],
+    "rationale": "A vintage gathering featuring classic cars, motorcycles, and a bus under an overcast sky. [dropped invalid regions: bus, people]"
+  }
+}

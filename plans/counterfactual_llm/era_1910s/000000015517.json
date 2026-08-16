@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000015517",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large building behind the buses",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 52.9,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1910s; painted render | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the smaller building near the buses",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 52.9,
+        "a": 0.4,
+        "b": 1.4
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'building_facade' mode 'painted'; modifiers: weather:overcast; not operative: era:1910s; painted render | ABLATION: colour #807e7c chosen by model, KB bypassed",
+      "id": "building_facade_2"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the buildings",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 88.6,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast; not operative: era:1910s; grey overcast cover | ABLATION: colour #f0f0f0 chosen by model, KB bypassed",
+      "id": "sky"
+    },
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the road surface",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": -0.0,
+        "b": 0.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast; not operative: era:1910s; neutral grey | ABLATION: colour #4a4a4a chosen by model, KB bypassed",
+      "id": "asphalt"
+    }
+  ]
+}

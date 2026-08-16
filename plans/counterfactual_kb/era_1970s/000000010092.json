@@ -1,0 +1,152 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000010092",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "bedding",
+      "grounding_phrase": "the bed with a mosquito net canopy",
+      "base_prior": "kb:bedding",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 43.9,
+        "a": -8,
+        "b": 30
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'bedding' mode 'avocado'; modifiers: era:1970s; not operative: weather:overcast; avocado green",
+      "id": "bedding"
+    },
+    {
+      "object": "curtain",
+      "grounding_phrase": "the curtains on the left side of the room",
+      "base_prior": "kb:curtain",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 43.5,
+        "a": 2,
+        "b": 6
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'curtain' mode 'neutral'; modifiers: era:1970s; not operative: weather:overcast; cream/white window dressing",
+      "id": "curtain"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the large window on the left side of the room",
+      "base_prior": "kb:window",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 97.3,
+        "a": -2.3,
+        "b": -5.1
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'window' mode 'glazing'; modifiers: weather:overcast, era:1970s; glass reflects sky - cool cast",
+      "id": "window"
+    },
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug beneath the bed",
+      "base_prior": "kb:rug",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 51.8,
+        "a": 16,
+        "b": 20
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'rug' mode 'warm'; modifiers: era:1970s; not operative: weather:overcast; warm reds/browns common in rugs",
+      "id": "rug"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the small table next to the bed",
+      "base_prior": "kb:wood_floor",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 51.8,
+        "a": 16,
+        "b": 28
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'wood_floor' mode 'varnished'; modifiers: era:1970s; not operative: weather:overcast; warm mid-brown finish",
+      "id": "wood_floor"
+    }
+  ],
+  "global": {
+    "modifiers": [
+      {
+        "family": "geography",
+        "value": "tropics",
+        "effect": "saturated greens; turquoise shallow water"
+      }
+    ],
+    "rationale": "A tranquil bedroom interior with a mosquito net canopy bed, surrounded by large windows and tropical foliage visible outside. [dropped ungrounded globals: mood:nostalgic]"
+  }
+}

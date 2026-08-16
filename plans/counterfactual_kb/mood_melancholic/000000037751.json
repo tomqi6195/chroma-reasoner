@@ -1,0 +1,66 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000037751",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "soil",
+      "grounding_phrase": "the gravel path the rider is on",
+      "base_prior": "kb:soil",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 36.9,
+        "a": 1.5,
+        "b": 2.0
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'soil' mode 'loam'; modifiers: weather:overcast, mood:melancholic; brown topsoil",
+      "id": "soil"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the cloudy sky above the mountains",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "season",
+          "value": "summer",
+          "effect": "peak canopy green"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 85.9,
+        "a": -3.8,
+        "b": -9.6
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_melancholic] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast, mood:melancholic; not operative: season:summer; grey overcast cover",
+      "id": "sky"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000037988",
+  "prompt": "a photograph taken in the 1970s",
+  "regions": [
+    {
+      "object": "tennis_court",
+      "grounding_phrase": "the gray surface where the player is standing",
+      "base_prior": "kb:tennis_court",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": -14.5,
+        "b": 8.5
+      },
+      "tolerance_delta_e": 9.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'tennis_court' mode 'hard_green'; modifiers: weather:overcast; not operative: era:1970s; classic green acrylic",
+      "id": "tennis_court"
+    },
+    {
+      "object": "dress",
+      "grounding_phrase": "the tennis player's attire",
+      "base_prior": "kb:dress",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1970s",
+          "effect": "avocado / harvest gold / burnt orange across decor, dress, and cars"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": 12,
+        "b": 22
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "[era_1970s] KB prior 'dress' mode 'earth'; modifiers: era:1970s; not operative: weather:overcast; browns/olives",
+      "id": "dress"
+    }
+  ]
+}

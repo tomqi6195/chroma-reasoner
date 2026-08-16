@@ -1,0 +1,115 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000000139",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "rug",
+      "grounding_phrase": "the rug on the floor in the foreground",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 58.4,
+        "a": -1.4,
+        "b": 64.0
+      },
+      "tolerance_delta_e": 15.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'rug' mode 'warm'; modifiers: mood:cheerful; not operative: weather:overcast; warm reds/browns common in rugs | ABLATION: colour #FFD700 chosen by model, KB bypassed",
+      "id": "rug"
+    },
+    {
+      "object": "wall_interior",
+      "grounding_phrase": "the wall behind the television",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 9.4,
+        "a": -3.0,
+        "b": 15.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'wall_interior' mode 'white'; modifiers: weather:overcast, mood:cheerful; off-white paint | ABLATION: colour #F0E68C chosen by model, KB bypassed",
+      "id": "wall_interior"
+    },
+    {
+      "object": "window",
+      "grounding_phrase": "the window in the kitchen area",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 74.1,
+        "a": -17.4,
+        "b": 76.2
+      },
+      "tolerance_delta_e": 7.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'window' mode 'glazing'; modifiers: weather:overcast, mood:cheerful; glass reflects sky - cool cast | ABLATION: colour #FFFF00 chosen by model, KB bypassed",
+      "id": "window"
+    },
+    {
+      "object": "wood_floor",
+      "grounding_phrase": "the wooden floor in the living room",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 34.1,
+        "a": -8.8,
+        "b": 39.3
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'wood_floor' mode 'varnished'; modifiers: mood:cheerful; not operative: weather:overcast; warm mid-brown finish | ABLATION: colour #BDB76B chosen by model, KB bypassed",
+      "id": "wood_floor"
+    }
+  ]
+}

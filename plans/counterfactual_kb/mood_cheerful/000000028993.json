@@ -1,0 +1,105 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000028993",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "asphalt",
+      "grounding_phrase": "the street in the middle of the image",
+      "base_prior": "kb:asphalt",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 85.9,
+        "a": 0.8,
+        "b": 4.3
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'asphalt' mode 'worn'; modifiers: weather:overcast, mood:cheerful; neutral grey",
+      "id": "asphalt"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 23.1,
+        "a": 7.0,
+        "b": 16.5
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'building_facade' mode 'painted'; modifiers: mood:cheerful; painted render",
+      "id": "building_facade"
+    },
+    {
+      "object": "brick",
+      "grounding_phrase": "the facade of the building in the background",
+      "base_prior": "kb:brick",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 23.5,
+        "a": 34.5,
+        "b": 34.0
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'brick' mode 'red'; modifiers: mood:cheerful; fired clay red",
+      "id": "brick"
+    },
+    {
+      "object": "sky",
+      "grounding_phrase": "the sky above the buildings",
+      "base_prior": "kb:sky",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 99.6,
+        "a": -0.4,
+        "b": -1.6
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'sky' mode 'overcast'; modifiers: weather:overcast, mood:cheerful; grey overcast cover",
+      "id": "sky"
+    }
+  ]
+}

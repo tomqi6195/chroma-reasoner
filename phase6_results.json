@@ -1,0 +1,158 @@
+{
+  "kb": [
+    {
+      "a": "era_1910s",
+      "b": "era_1970s",
+      "note": "1910s muted dyes vs 1970s avocado/harvest-gold saturation",
+      "n_regions": 72,
+      "n_active": 6,
+      "active_share": 0.083,
+      "mean_separation": 1.23,
+      "median_separation": 0.0,
+      "median_separation_ci95": [
+        0.0,
+        0.0
+      ],
+      "directions": {
+        "chroma": {
+          "expected": "A lower",
+          "as_expected": 6,
+          "against": 0,
+          "ties": 0,
+          "median_margin": 12.66,
+          "sign_test_p": 0.03125
+        }
+      },
+      "diversity_a": {
+        "mean_palette_spread": 20.17,
+        "mean_distinct_colours": 3.04,
+        "n_images": 23
+      },
+      "diversity_b": {
+        "mean_palette_spread": 21.93,
+        "mean_distinct_colours": 3.04,
+        "n_images": 23
+      }
+    },
+    {
+      "a": "mood_melancholic",
+      "b": "mood_cheerful",
+      "note": "melancholic desaturates and cools; cheerful saturates and warms",
+      "n_regions": 72,
+      "n_active": 69,
+      "active_share": 0.958,
+      "mean_separation": 15.19,
+      "median_separation": 13.13,
+      "median_separation_ci95": [
+        11.02,
+        14.77
+      ],
+      "directions": {
+        "chroma": {
+          "expected": "A lower",
+          "as_expected": 50,
+          "against": 19,
+          "ties": 0,
+          "median_margin": 10.45,
+          "sign_test_p": 0.00024
+        },
+        "warmth": {
+          "expected": "A lower",
+          "as_expected": 69,
+          "against": 0,
+          "ties": 0,
+          "median_margin": 12.1,
+          "sign_test_p": 0.0
+        }
+      },
+      "diversity_a": {
+        "mean_palette_spread": 14.41,
+        "mean_distinct_colours": 3.0,
+        "n_images": 23
+      },
+      "diversity_b": {
+        "mean_palette_spread": 25.76,
+        "mean_distinct_colours": 3.04,
+        "n_images": 23
+      }
+    }
+  ],
+  "llm": [
+    {
+      "a": "era_1910s",
+      "b": "era_1970s",
+      "note": "1910s muted dyes vs 1970s avocado/harvest-gold saturation",
+      "n_regions": 72,
+      "n_active": 13,
+      "active_share": 0.181,
+      "mean_separation": 2.77,
+      "median_separation": 0.0,
+      "median_separation_ci95": [
+        0.0,
+        0.0
+      ],
+      "directions": {
+        "chroma": {
+          "expected": "A lower",
+          "as_expected": 6,
+          "against": 6,
+          "ties": 1,
+          "median_margin": 0.35,
+          "sign_test_p": 1.0
+        }
+      },
+      "diversity_a": {
+        "mean_palette_spread": 18.15,
+        "mean_distinct_colours": 1.96,
+        "n_images": 23
+      },
+      "diversity_b": {
+        "mean_palette_spread": 20.29,
+        "mean_distinct_colours": 1.87,
+        "n_images": 23
+      }
+    },
+    {
+      "a": "mood_melancholic",
+      "b": "mood_cheerful",
+      "note": "melancholic desaturates and cools; cheerful saturates and warms",
+      "n_regions": 72,
+      "n_active": 68,
+      "active_share": 0.944,
+      "mean_separation": 35.1,
+      "median_separation": 29.86,
+      "median_separation_ci95": [
+        25.18,
+        34.51
+      ],
+      "directions": {
+        "chroma": {
+          "expected": "A lower",
+          "as_expected": 66,
+          "against": 1,
+          "ties": 1,
+          "median_margin": 27.77,
+          "sign_test_p": 0.0
+        },
+        "warmth": {
+          "expected": "A lower",
+          "as_expected": 50,
+          "against": 18,
+          "ties": 0,
+          "median_margin": 24.35,
+          "sign_test_p": 0.00013
+        }
+      },
+      "diversity_a": {
+        "mean_palette_spread": 9.21,
+        "mean_distinct_colours": 1.52,
+        "n_images": 23
+      },
+      "diversity_b": {
+        "mean_palette_spread": 45.4,
+        "mean_distinct_colours": 3.04,
+        "n_images": 23
+      }
+    }
+  ]
+}

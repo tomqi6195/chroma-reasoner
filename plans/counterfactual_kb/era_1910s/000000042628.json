@@ -1,0 +1,66 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000042628",
+  "prompt": "a photograph taken in the 1910s",
+  "regions": [
+    {
+      "object": "snow",
+      "grounding_phrase": "the snow-covered ground",
+      "base_prior": "kb:snow",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 69.4,
+        "a": -3.2,
+        "b": -8.0
+      },
+      "tolerance_delta_e": 6.0,
+      "confidence": 0.8,
+      "rationale": "[era_1910s] KB prior 'snow' mode 'shadow'; modifiers: weather:overcast; not operative: era:1910s; blue cast from skylight",
+      "id": "snow"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building in the background",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "weather",
+          "value": "overcast",
+          "effect": "diffuse illumination flattens chroma, slight cool cast"
+        },
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        },
+        {
+          "family": "era",
+          "value": "1910s",
+          "effect": "muted palette; sober dyes, and cars essentially all black"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.5,
+        "a": 8.8,
+        "b": 5.1
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.7,
+      "rationale": "[era_1910s] KB prior 'building_facade' mode 'brick_red'; modifiers: weather:overcast, mood:melancholic; not operative: era:1910s; brick construction",
+      "id": "building_facade"
+    }
+  ]
+}

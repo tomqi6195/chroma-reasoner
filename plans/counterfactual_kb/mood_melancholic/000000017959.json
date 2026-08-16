@@ -1,0 +1,73 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000017959",
+  "prompt": "a melancholic, sombre scene",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the grassy field where the kites are flying",
+      "base_prior": "kb:grass",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 26.7,
+        "a": -23.0,
+        "b": 20.2
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "[mood_melancholic] KB prior 'grass' mode 'verdant'; modifiers: mood:melancholic; healthy chlorophyll green",
+      "id": "grass"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the trees in the background",
+      "base_prior": "kb:foliage",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 40.8,
+        "a": -21.6,
+        "b": 18.8
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.6,
+      "rationale": "[mood_melancholic] KB prior 'foliage' mode 'verdant'; modifiers: mood:melancholic; broadleaf summer canopy",
+      "id": "foliage"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the large building in the distance",
+      "base_prior": "kb:building_facade",
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "melancholic",
+          "effect": "desaturate + cool bias (the project's canonical mood)"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 39.6,
+        "a": 13.4,
+        "b": 10.4
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "[mood_melancholic] KB prior 'building_facade' mode 'brick_red'; modifiers: mood:melancholic; brick construction",
+      "id": "building_facade"
+    }
+  ]
+}

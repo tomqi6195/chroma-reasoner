@@ -1,0 +1,73 @@
+{
+  "plan_version": "1.0",
+  "image_id": "000000035963",
+  "prompt": "a cheerful, upbeat scene",
+  "regions": [
+    {
+      "object": "grass",
+      "grounding_phrase": "the patch of dirt surrounding the statue",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -41.5,
+        "b": 67.2
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.6,
+      "rationale": "[mood_cheerful] KB prior 'grass' mode 'verdant'; modifiers: mood:cheerful; healthy chlorophyll green | ABLATION: colour #80c100 chosen by model, KB bypassed",
+      "id": "grass"
+    },
+    {
+      "object": "building_facade",
+      "grounding_phrase": "the building facade in the background",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 25.9,
+        "a": -1.5,
+        "b": -7.6
+      },
+      "tolerance_delta_e": 10.5,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'building_facade' mode 'brick_red'; modifiers: mood:cheerful; brick construction | ABLATION: colour #e6f2ff chosen by model, KB bypassed",
+      "id": "building_facade"
+    },
+    {
+      "object": "foliage",
+      "grounding_phrase": "the plants behind the statue",
+      "base_prior": null,
+      "modifiers": [
+        {
+          "family": "mood",
+          "value": "cheerful",
+          "effect": "saturated, warm-leaning"
+        }
+      ],
+      "resolved_colour": {
+        "space": "Lab",
+        "L": 65.1,
+        "a": -41.5,
+        "b": 67.2
+      },
+      "tolerance_delta_e": 12.0,
+      "confidence": 0.8,
+      "rationale": "[mood_cheerful] KB prior 'foliage' mode 'verdant'; modifiers: mood:cheerful; broadleaf summer canopy | ABLATION: colour #80c100 chosen by model, KB bypassed",
+      "id": "foliage"
+    }
+  ]
+}
