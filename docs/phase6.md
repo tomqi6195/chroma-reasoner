@@ -30,7 +30,7 @@ Two pre-registered measurements per contrast:
 python scripts/counterfactual.py --plans plans/reasoned --out results/phase6/counterfactual.json
 ```
 
-## Results (KB arm, 23 images / 76 regions, 2026-07-14)
+## KB-only results (23 images / 76 regions, 2026-07-14)
 
 | contrast | active share | median margin | direction | sign test |
 |---|---|---|---|---|
@@ -73,7 +73,7 @@ pillar"*):
    roadmap's own decomposition: era as global film/dye rendering via the
    plan's `global` block rather than per-object modifiers.
 
-## HEADLINE — counterfactual arms at n=23 (2026-07-27)
+## Counterfactual arms at n=23 (2026-07-27)
 
 23 images × 4 conditions, 72 shared region pairs, zero failures. Both arms
 get identical regions and identical condition prompts.
@@ -117,7 +117,7 @@ gets the warmth direction **perfectly, 69 out of 69**, where the model manages
 a little chroma. Muting a grey wall by 30% leaves it grey; tinting it cool
 makes it slightly blue.)
 
-### What this establishes
+### Implication
 
 > On realistic prompts the KB matches implicit model knowledge (Phase 5,
 > p = 0.78). On **counterfactual** prompts it separates from it: the model
@@ -128,7 +128,7 @@ That is the roadmap's §7 prescription carried out and confirmed — concentrate
 the KB where reality is unavailable to either arm — and it is the evidence
 behind narrowing to mood with era as a disambiguation prior.
 
-## The LLM arm at n=5 — prediction wrong, mechanism right (2026-07-14)
+## Earlier pilot: the LLM arm at n=5 (2026-07-14)
 
 Both arms, same 26 regions, same condition prompts. The **pre-registered
 prediction was that the LLM would show weaker separation. It is wrong**: the
@@ -167,7 +167,7 @@ separation. Treat any single-number colour metric as exploitable until paired.
 Caveat: 5 images / 26 regions (the notebook read the repo's older plan set).
 Re-run with the 23-image set for publishable n.
 
-## Not yet done
+## Next steps
 
 - **Re-run the LLM arm at n=23** (commit `plans/reasoned/` first, or use the
   notebook's upload cell). The mechanism is unambiguous but the sample is small.

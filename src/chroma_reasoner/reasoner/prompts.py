@@ -22,8 +22,9 @@ def kb_vocabulary(kb: KnowledgeBase) -> str:
 
     lines.append("")
     lines.append("## Modifier catalog (family:value -> what it does, and what it applies to)")
-    for family in sorted(kb.modifiers, key=lambda f: (CANONICAL_ORDER.index(f)
-                                                      if f in CANONICAL_ORDER else 99)):
+    for family in sorted(
+        kb.modifiers, key=lambda f: CANONICAL_ORDER.index(f) if f in CANONICAL_ORDER else 99
+    ):
         for value in sorted(kb.modifiers[family]):
             entry = kb.modifiers[family][value]
             applies = ", ".join(entry["applies_to"])
@@ -84,11 +85,15 @@ Rules:
 
 def user_message_text(user_prompt: str) -> str:
     if user_prompt.strip():
-        return (f"Context prompt from the user: {user_prompt!r}\n\n"
-                "Analyze the grayscale image above and produce your selection.")
-    return ("No context prompt was given; select objects and only the modifiers "
-            "evident from the image itself.\n\nAnalyze the grayscale image above "
-            "and produce your selection.")
+        return (
+            f"Context prompt from the user: {user_prompt!r}\n\n"
+            "Analyze the grayscale image above and produce your selection."
+        )
+    return (
+        "No context prompt was given; select objects and only the modifiers "
+        "evident from the image itself.\n\nAnalyze the grayscale image above "
+        "and produce your selection."
+    )
 
 
 def json_format_instructions() -> str:
@@ -123,6 +128,8 @@ global_modifiers and modifiers may be empty arrays. 3-6 regions."""
 
 def repair_message(errors: list[str]) -> str:
     listing = "\n".join(f"- {e}" for e in errors)
-    return (f"Your selection had problems that must be fixed:\n{listing}\n\n"
-            "Re-emit the FULL corrected selection. Use only object names/aliases and "
-            "modifier family:value pairs from the vocabulary in the system prompt.")
+    return (
+        f"Your selection had problems that must be fixed:\n{listing}\n\n"
+        "Re-emit the FULL corrected selection. Use only object names/aliases and "
+        "modifier family:value pairs from the vocabulary in the system prompt."
+    )

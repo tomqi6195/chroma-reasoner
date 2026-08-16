@@ -48,12 +48,13 @@ def extract_json(text: str) -> dict:
         elif c == "}":
             depth -= 1
             if depth == 0:
-                return json.loads(text[start:i + 1])
+                return json.loads(text[start : i + 1])
     raise ValueError("unbalanced JSON object in model output")
 
 
-def to_qwen_messages(system: str, messages: list[dict],
-                     format_contract: str | None = None) -> list[dict]:
+def to_qwen_messages(
+    system: str, messages: list[dict], format_contract: str | None = None
+) -> list[dict]:
     """Convert our Anthropic-style messages to Qwen chat-template format.
 
     Image blocks (base64) become PIL images; text blocks pass through. The
@@ -69,15 +70,15 @@ def to_qwen_messages(system: str, messages: list[dict],
     for message in messages:
         content = message["content"]
         if isinstance(content, str):
-            out.append({"role": message["role"],
-                        "content": [{"type": "text", "text": content}]})
+            out.append({"role": message["role"], "content": [{"type": "text", "text": content}]})
             continue
         blocks = []
         for block in content:
             if block["type"] == "image":
                 raw = base64.standard_b64decode(block["source"]["data"])
-                blocks.append({"type": "image",
-                               "image": Image.open(io.BytesIO(raw)).convert("RGB")})
+                blocks.append(
+                    {"type": "image", "image": Image.open(io.BytesIO(raw)).convert("RGB")}
+                )
             elif block["type"] == "text":
                 text = block["text"]
                 if message["role"] == "user" and not format_added:
@@ -95,33 +96,46 @@ class QwenVLBackend:
 
         self.processor = AutoProcessor.from_pretrained(model_id)
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-            model_id, torch_dtype=torch.bfloat16, device_map="auto")
+            model_id, torch_dtype=torch.bfloat16, device_map="auto"
+        )
         self.max_new_tokens = max_new_tokens
 
     def _generate(self, qwen_messages: list[dict]) -> str:
-        images = [b["image"] for m in qwen_messages for b in m["content"]
-                  if b.get("type") == "image"]
+        images = [
+            b["image"] for m in qwen_messages for b in m["content"] if b.get("type") == "image"
+        ]
         text = self.processor.apply_chat_template(
-            qwen_messages, tokenize=False, add_generation_prompt=True)
-        inputs = self.processor(text=[text], images=images or None,
-                                return_tensors="pt").to(self.model.device)
-        generated = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens,
-                                        do_sample=False)
-        new_tokens = generated[:, inputs["input_ids"].shape[1]:]
+            qwen_messages, tokenize=False, add_generation_prompt=True
+        )
+        inputs = self.processor(text=[text], images=images or None, return_tensors="pt").to(
+            self.model.device
+        )
+        generated = self.model.generate(
+            **inputs, max_new_tokens=self.max_new_tokens, do_sample=False
+        )
+        new_tokens = generated[:, inputs["input_ids"].shape[1] :]
         return self.processor.batch_decode(new_tokens, skip_special_tokens=True)[0]
 
-    def complete(self, system: str, messages: list[dict],
-                 format_contract: str | None = None, **_ignored) -> dict:
+    def complete(
+        self, system: str, messages: list[dict], format_contract: str | None = None, **_ignored
+    ) -> dict:
         qwen_messages = to_qwen_messages(system, messages, format_contract)
         raw = self._generate(qwen_messages)
         try:
             return extract_json(raw)
         except (ValueError, json.JSONDecodeError):
             # one format-repair attempt before handing back to the planner
-            qwen_messages.append({"role": "assistant",
-                                  "content": [{"type": "text", "text": raw}]})
-            qwen_messages.append({"role": "user", "content": [{
-                "type": "text",
-                "text": "That was not a single valid JSON object. Re-emit the full "
-                        "selection as ONLY valid JSON, matching the required shape."}]})
+            qwen_messages.append({"role": "assistant", "content": [{"type": "text", "text": raw}]})
+            qwen_messages.append(
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "That was not a single valid JSON object. Re-emit the full "
+                            "selection as ONLY valid JSON, matching the required shape.",
+                        }
+                    ],
+                }
+            )
             return extract_json(self._generate(qwen_messages))

@@ -46,7 +46,9 @@ python scripts/ablate_score.py --originals data/coco/val2017_subset `
     --out results/phase5/reference_scores.json
 ```
 
-## HEADLINE — scaled ablation, 61 shared regions (2026-07-14)
+## Results
+
+### Scaled ablation: 61 shared regions (2026-07-14)
 
 30 smoke-subset images, COCO captions as context prompts, 23 reasoned
 successfully, 18 scorable (5 originals are monochrome), **61 region pairs**.
@@ -91,7 +93,7 @@ articles, case, separators, naive plurals — "woman's dress" now resolves to
 hair, flowers, porcelain/bathroom, metal fixtures, towels, animal fur,
 zebra, `ground`).
 
-## Paired analysis changes the reading (2026-07-14)
+### Paired analysis changes the reading
 
 Means over images are the wrong summary when the arms are **matched
 region-for-region** (the ablation copies the KB arm's regions and masks). The
@@ -121,7 +123,7 @@ The per-region losses are also actionable KB feedback rather than noise: the
 worst are `wood_floor` (prior is warm varnished brown; both test floors were
 near-neutral pale) and `rug` — priors whose mode weights want revisiting.
 
-## Current result (run 6, 2026-07-14 — 4 fresh images, both metrics)
+### Earlier result: run 6 (four fresh images)
 
 | arm | mean ΔE ↓ | chroma deficit ↓ | undercommitted |
 |---|---|---|---|
@@ -140,7 +142,7 @@ leaves only region-local errors (a 'tennis_racket') and ≥2 valid regions
 remain, the broken regions are dropped (recorded in scene_summary) instead of
 failing the image.
 
-## The desaturation exploit (found 2026-07-14, fixed)
+### The desaturation exploit
 
 Run 4's LLM arm "beat" the KB on mean ΔE (14.6 vs 17.8) by collapsing to the
 same near-gray hex for almost every region — and since real walls, asphalt,
@@ -166,7 +168,7 @@ commit — yellow-green tennis court, purple 1940s dresses. The KB commits to
 real chroma at human-baseline deficit. Small-n caveats stand; the metric
 pair is now exploit-resistant in both directions.
 
-## Earlier three-arm numbers (2026-07-13/14)
+### Earlier three-arm numbers
 
 - `human`: mean ΔE-to-reality **18.4** (4 images, own masks — context only)
 - `kb` (7B reasoner): **17.9** (2 images)
@@ -181,7 +183,7 @@ prior gave drab neutral. Direction strongly favours the KB; n is far too
 small to close the question. Per-region rows remain the grounding auditor
 (large ΔEs still trace to mask errors more often than colour errors).
 
-## Phase-4 live-run feedback loop (what the log-driven runs fixed)
+## Phase 4 feedback loop
 
 - 2/5 image failures were **KB vocabulary gaps**, not model errors: the
   reasoner wanted table/chair/rug/counter, mosquito_net/tile_floor/window,
@@ -192,7 +194,7 @@ small to close the question. Per-region rows remain the grounding auditor
   next; 1000's classes changed between runs). Expected to shrink with the
   vocabulary fix; a larger open model is the next lever if not.
 
-## Known limitations (v1)
+## Limitations
 
 - ΔE-to-reality only works where prompt ≈ reality; counterfactual prompts
   ("make it autumn") need the VLM-judge/human protocol (not yet built).

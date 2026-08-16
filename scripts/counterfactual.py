@@ -13,8 +13,12 @@ import argparse
 import json
 from pathlib import Path
 
-from chroma_reasoner.eval.counterfactual import (CONDITIONS, condition_variants,
-                                                 evaluate_all, format_contrast)
+from chroma_reasoner.eval.counterfactual import (
+    CONDITIONS,
+    condition_variants,
+    evaluate_all,
+    format_contrast,
+)
 from chroma_reasoner.kb import load_kb
 from chroma_reasoner.plan import load_plan
 
@@ -23,10 +27,15 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plans", type=Path, required=True, help="dir of reasoned plans")
     ap.add_argument("--out", type=Path, default=None)
-    ap.add_argument("--write-plans", type=Path, default=None,
-                    help="also write per-condition plans here (for the LLM arm / rendering)")
-    ap.add_argument("--conditions", type=str, default=None,
-                    help="comma-separated subset of condition names")
+    ap.add_argument(
+        "--write-plans",
+        type=Path,
+        default=None,
+        help="also write per-condition plans here (for the LLM arm / rendering)",
+    )
+    ap.add_argument(
+        "--conditions", type=str, default=None, help="comma-separated subset of condition names"
+    )
     args = ap.parse_args()
 
     kb = load_kb()
@@ -54,8 +63,9 @@ def main() -> None:
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with open(args.out, "w", encoding="utf-8") as f:
-            json.dump({"n_images": n_images, "conditions": names,
-                       "contrasts": results}, f, indent=2)
+            json.dump(
+                {"n_images": n_images, "conditions": names, "contrasts": results}, f, indent=2
+            )
         print(f"report: {args.out}")
 
 

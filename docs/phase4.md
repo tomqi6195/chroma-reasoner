@@ -110,7 +110,7 @@ Quality levers, in expected order of impact: a larger open model
 backend as a quality ceiling for comparison, richer grounding-phrase
 instructions, and KB vocabulary growth.
 
-## Next
+## Next steps
 
 1. Rerun the Phase-4 notebook after pulling (dedup + re-resolve + prompt
    rules); diagnose the 2 unrepairable images from their printed error lists.

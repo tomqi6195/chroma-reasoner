@@ -39,16 +39,18 @@ ABLATION_SCHEMA = {
 
 
 def ablation_format_contract() -> str:
-    return ('\nRespond with ONLY a JSON object, no commentary, exactly:\n'
-            '{"colours": [{"id": "region_id", "hex": "#rrggbb"}]}\n'
-            'One entry per region, ids exactly as given.')
+    return (
+        "\nRespond with ONLY a JSON object, no commentary, exactly:\n"
+        '{"colours": [{"id": "region_id", "hex": "#rrggbb"}]}\n'
+        "One entry per region, ids exactly as given."
+    )
 
 
 def _hex_to_lab(hex_str: str) -> LabColor:
     h = hex_str.strip().lstrip("#")
     if len(h) != 6:
         raise ValueError(f"bad hex colour: {hex_str!r}")
-    r, g, b = (int(h[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
+    r, g, b = (int(h[i : i + 2], 16) / 255.0 for i in (0, 2, 4))
     return srgb_to_lab((r, g, b))
 
 
@@ -64,16 +66,25 @@ def llm_color_plan(plan: dict, backend: Backend, image_path: str) -> dict:
     for region in plan["regions"]:
         L = region["resolved_colour"]["L"]
         mods = ", ".join(f"{m['family']}:{m['value']}" for m in region.get("modifiers", []))
-        region_lines.append(f"- id={region['id']!r} object={region['object']} "
-                            f"lightness L~{L:g} context=[{mods}] — {region['grounding_phrase']}")
+        region_lines.append(
+            f"- id={region['id']!r} object={region['object']} "
+            f"lightness L~{L:g} context=[{mods}] — {region['grounding_phrase']}"
+        )
     prompt_txt = plan.get("prompt") or "(none)"
-    user_text = (f"Context prompt: {prompt_txt}\n\nRegions:\n" + "\n".join(region_lines)
-                 + "\n\nChoose one colour per region.")
+    user_text = (
+        f"Context prompt: {prompt_txt}\n\nRegions:\n"
+        + "\n".join(region_lines)
+        + "\n\nChoose one colour per region."
+    )
 
     selection = backend.complete(
         ABLATION_SYSTEM,
-        [{"role": "user", "content": [image_block(image_path),
-                                      {"type": "text", "text": user_text}]}],
+        [
+            {
+                "role": "user",
+                "content": [image_block(image_path), {"type": "text", "text": user_text}],
+            }
+        ],
         schema=ABLATION_SCHEMA,
         format_contract=ablation_format_contract(),
     )
@@ -89,8 +100,12 @@ def llm_color_plan(plan: dict, backend: Backend, image_path: str) -> dict:
         # take the model's chroma, made feasible at that L
         L = region["resolved_colour"]["L"]
         feasible = project_chroma_into_gamut(LabColor(L, lab.a, lab.b))
-        region["resolved_colour"] = {"space": "Lab", "L": round(L, 1),
-                                     "a": round(feasible.a, 1), "b": round(feasible.b, 1)}
+        region["resolved_colour"] = {
+            "space": "Lab",
+            "L": round(L, 1),
+            "a": round(feasible.a, 1),
+            "b": round(feasible.b, 1),
+        }
         region["base_prior"] = None
         region["rationale"] += f" | ABLATION: colour {hex_str} chosen by model, KB bypassed"
     return assert_valid(out)

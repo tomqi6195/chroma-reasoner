@@ -32,8 +32,9 @@ def _import_ddcolor():
     return DDColor, ColorizationPipeline
 
 
-def load_pipeline(model_name: str = "ddcolor_paper_tiny", input_size: int = 512,
-                  device: str | None = None):
+def load_pipeline(
+    model_name: str = "ddcolor_paper_tiny", input_size: int = 512, device: str | None = None
+):
     DDColor, ColorizationPipeline = _import_ddcolor()
     from huggingface_hub import PyTorchModelHubMixin
 
@@ -49,8 +50,13 @@ def load_pipeline(model_name: str = "ddcolor_paper_tiny", input_size: int = 512,
     return ColorizationPipeline(model, input_size=input_size, device=torch.device(device))
 
 
-def colorize_dir(input_dir: Path, output_dir: Path, model_name: str = "ddcolor_paper_tiny",
-                 input_size: int = 512, device: str | None = None) -> int:
+def colorize_dir(
+    input_dir: Path,
+    output_dir: Path,
+    model_name: str = "ddcolor_paper_tiny",
+    input_size: int = 512,
+    device: str | None = None,
+) -> int:
     """Colorize every image in input_dir; outputs saved as PNG, same stems."""
     pipeline = load_pipeline(model_name, input_size=input_size, device=device)
     output_dir.mkdir(parents=True, exist_ok=True)

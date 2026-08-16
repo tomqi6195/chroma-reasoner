@@ -13,7 +13,7 @@ import cv2
 from tqdm import tqdm
 
 
-def to_l_channel(image_bgr) -> "cv2.typing.MatLike":
+def to_l_channel(image_bgr) -> cv2.typing.MatLike:
     lab = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2LAB)
     return lab[:, :, 0]
 

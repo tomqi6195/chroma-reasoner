@@ -3,9 +3,14 @@ direction measurements."""
 
 import pytest
 
-from chroma_reasoner.eval.counterfactual import (CONDITIONS, apply_condition,
-                                                 condition_variants, evaluate_contrast,
-                                                 Contrast, format_contrast)
+from chroma_reasoner.eval.counterfactual import (
+    CONDITIONS,
+    Contrast,
+    apply_condition,
+    condition_variants,
+    evaluate_contrast,
+    format_contrast,
+)
 from chroma_reasoner.kb import load_kb
 from chroma_reasoner.plan import validate_plan
 
@@ -17,13 +22,22 @@ def kb():
 
 def _plan(objects_with_L):
     return {
-        "plan_version": "1.0", "image_id": "img", "prompt": "",
-        "regions": [{
-            "id": obj, "object": obj, "grounding_phrase": f"the {obj}",
-            "modifiers": [{"family": "weather", "value": "overcast", "effect": "x"}],
-            "resolved_colour": {"space": "Lab", "L": L, "a": 10, "b": 10},
-            "tolerance_delta_e": 10, "confidence": 0.8, "rationale": "t",
-        } for obj, L in objects_with_L],
+        "plan_version": "1.0",
+        "image_id": "img",
+        "prompt": "",
+        "regions": [
+            {
+                "id": obj,
+                "object": obj,
+                "grounding_phrase": f"the {obj}",
+                "modifiers": [{"family": "weather", "value": "overcast", "effect": "x"}],
+                "resolved_colour": {"space": "Lab", "L": L, "a": 10, "b": 10},
+                "tolerance_delta_e": 10,
+                "confidence": 0.8,
+                "rationale": "t",
+            }
+            for obj, L in objects_with_L
+        ],
     }
 
 
@@ -45,19 +59,19 @@ def test_conditions_do_not_stack(kb):
     plan = _plan([("dress", 45)])
     melancholic = apply_condition(kb, plan, CONDITIONS["mood_melancholic"])
     cheerful = apply_condition(kb, melancholic, CONDITIONS["mood_cheerful"])
-    moods = [m["value"] for m in cheerful["regions"][0]["modifiers"]
-             if m["family"] == "mood"]
+    moods = [m["value"] for m in cheerful["regions"][0]["modifiers"] if m["family"] == "mood"]
     assert moods == ["cheerful"]
 
 
 def test_mood_contrast_separates_in_the_declared_direction(kb):
     plan = _plan([("dress", 45), ("wall_interior", 60), ("sky", 70)])
     variants = condition_variants(kb, plan, ["mood_melancholic", "mood_cheerful"])
-    res = evaluate_contrast({"img": variants["mood_melancholic"]},
-                            {"img": variants["mood_cheerful"]},
-                            Contrast("mood_melancholic", "mood_cheerful",
-                                     (("chroma", "lower"), ("warmth", "lower"))))
-    assert res["n_active"] >= 2                       # mood applies broadly
+    res = evaluate_contrast(
+        {"img": variants["mood_melancholic"]},
+        {"img": variants["mood_cheerful"]},
+        Contrast("mood_melancholic", "mood_cheerful", (("chroma", "lower"), ("warmth", "lower"))),
+    )
+    assert res["n_active"] >= 2  # mood applies broadly
     assert res["median_separation"] > 1
     for metric in ("chroma", "warmth"):
         d = res["directions"][metric]
@@ -68,22 +82,24 @@ def test_inapplicable_condition_leaves_colour_untouched(kb):
     """'Autumn does nothing to a car' - the region is inactive, not wrong."""
     plan = _plan([("car", 40)])
     variants = condition_variants(kb, plan, ["season_autumn", "season_summer"])
-    res = evaluate_contrast({"img": variants["season_autumn"]},
-                            {"img": variants["season_summer"]},
-                            Contrast("season_autumn", "season_summer",
-                                     (("redness", "higher"),)))
+    res = evaluate_contrast(
+        {"img": variants["season_autumn"]},
+        {"img": variants["season_summer"]},
+        Contrast("season_autumn", "season_summer", (("redness", "higher"),)),
+    )
     assert res["n_regions"] == 1
-    assert res["n_active"] == 0                       # no colour movement
+    assert res["n_active"] == 0  # no colour movement
     assert res["median_separation"] == 0
 
 
 def test_autumn_reddens_foliage(kb):
     plan = _plan([("foliage", 45)])
     variants = condition_variants(kb, plan, ["season_autumn", "season_summer"])
-    res = evaluate_contrast({"img": variants["season_autumn"]},
-                            {"img": variants["season_summer"]},
-                            Contrast("season_autumn", "season_summer",
-                                     (("redness", "higher"),)))
+    res = evaluate_contrast(
+        {"img": variants["season_autumn"]},
+        {"img": variants["season_summer"]},
+        Contrast("season_autumn", "season_summer", (("redness", "higher"),)),
+    )
     assert res["n_active"] == 1
     assert res["directions"]["redness"]["as_expected"] == 1
 
@@ -91,10 +107,11 @@ def test_autumn_reddens_foliage(kb):
 def test_unpaired_images_are_skipped(kb):
     plan = _plan([("dress", 45)])
     v = condition_variants(kb, plan, ["mood_melancholic", "mood_cheerful"])
-    res = evaluate_contrast({"img_a": v["mood_melancholic"]},
-                            {"img_b": v["mood_cheerful"]},
-                            Contrast("mood_melancholic", "mood_cheerful",
-                                     (("chroma", "lower"),)))
+    res = evaluate_contrast(
+        {"img_a": v["mood_melancholic"]},
+        {"img_b": v["mood_cheerful"]},
+        Contrast("mood_melancholic", "mood_cheerful", (("chroma", "lower"),)),
+    )
     assert res["n_regions"] == 0
 
 
@@ -105,17 +122,42 @@ def test_palette_diversity_catches_collapse(kb):
     from chroma_reasoner.eval.counterfactual import palette_diversity
 
     def flat(colour):
-        return {"plan_version": "1.0", "image_id": "i", "prompt": "", "regions": [
-            {"id": f"r{n}", "object": "dress", "grounding_phrase": "x", "modifiers": [],
-             "resolved_colour": {"space": "Lab", "L": 50, **colour},
-             "confidence": 0.8, "rationale": "t"} for n in range(4)]}
+        return {
+            "plan_version": "1.0",
+            "image_id": "i",
+            "prompt": "",
+            "regions": [
+                {
+                    "id": f"r{n}",
+                    "object": "dress",
+                    "grounding_phrase": "x",
+                    "modifiers": [],
+                    "resolved_colour": {"space": "Lab", "L": 50, **colour},
+                    "confidence": 0.8,
+                    "rationale": "t",
+                }
+                for n in range(4)
+            ],
+        }
 
     collapsed = flat({"a": 5, "b": 5})
-    varied = {"plan_version": "1.0", "image_id": "i", "prompt": "", "regions": [
-        {"id": f"r{n}", "object": "dress", "grounding_phrase": "x", "modifiers": [],
-         "resolved_colour": {"space": "Lab", "L": 50, "a": a, "b": b},
-         "confidence": 0.8, "rationale": "t"}
-        for n, (a, b) in enumerate([(30, 20), (-25, 10), (0, -30), (10, 40)])]}
+    varied = {
+        "plan_version": "1.0",
+        "image_id": "i",
+        "prompt": "",
+        "regions": [
+            {
+                "id": f"r{n}",
+                "object": "dress",
+                "grounding_phrase": "x",
+                "modifiers": [],
+                "resolved_colour": {"space": "Lab", "L": 50, "a": a, "b": b},
+                "confidence": 0.8,
+                "rationale": "t",
+            }
+            for n, (a, b) in enumerate([(30, 20), (-25, 10), (0, -30), (10, 40)])
+        ],
+    }
 
     assert palette_diversity({"i": collapsed})["mean_palette_spread"] == 0
     assert palette_diversity({"i": collapsed})["mean_distinct_colours"] == 1
@@ -126,9 +168,11 @@ def test_palette_diversity_catches_collapse(kb):
 def test_contrast_reports_diversity_for_both_conditions(kb):
     plan = _plan([("dress", 45), ("sky", 70), ("grass", 40)])
     v = condition_variants(kb, plan, ["mood_melancholic", "mood_cheerful"])
-    res = evaluate_contrast({"img": v["mood_melancholic"]}, {"img": v["mood_cheerful"]},
-                            Contrast("mood_melancholic", "mood_cheerful",
-                                     (("chroma", "lower"),)))
+    res = evaluate_contrast(
+        {"img": v["mood_melancholic"]},
+        {"img": v["mood_cheerful"]},
+        Contrast("mood_melancholic", "mood_cheerful", (("chroma", "lower"),)),
+    )
     assert res["diversity_a"]["mean_palette_spread"] > 0
     assert res["diversity_b"]["mean_palette_spread"] > 0
 
@@ -136,8 +180,10 @@ def test_contrast_reports_diversity_for_both_conditions(kb):
 def test_format_contrast_is_readable(kb):
     plan = _plan([("dress", 45)])
     v = condition_variants(kb, plan, ["mood_melancholic", "mood_cheerful"])
-    res = evaluate_contrast({"img": v["mood_melancholic"]}, {"img": v["mood_cheerful"]},
-                            Contrast("mood_melancholic", "mood_cheerful",
-                                     (("chroma", "lower"),), "note here"))
+    res = evaluate_contrast(
+        {"img": v["mood_melancholic"]},
+        {"img": v["mood_cheerful"]},
+        Contrast("mood_melancholic", "mood_cheerful", (("chroma", "lower"),), "note here"),
+    )
     text = format_contrast(res)
     assert "mood_melancholic vs mood_cheerful" in text and "separation" in text

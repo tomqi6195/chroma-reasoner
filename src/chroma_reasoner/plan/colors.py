@@ -13,6 +13,10 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import numpy as np
 
 # D65 reference white
 _XN, _YN, _ZN = 0.95047, 1.0, 1.08883
@@ -26,7 +30,7 @@ class LabColor:
     b: float
 
     @classmethod
-    def from_plan(cls, resolved_colour: dict) -> "LabColor":
+    def from_plan(cls, resolved_colour: dict) -> LabColor:
         assert resolved_colour.get("space") == "Lab"
         return cls(resolved_colour["L"], resolved_colour["a"], resolved_colour["b"])
 
@@ -35,11 +39,11 @@ class LabColor:
 
 
 def _f_inv(t: float) -> float:
-    return t ** 3 if t > _DELTA else 3 * _DELTA ** 2 * (t - 4 / 29)
+    return t**3 if t > _DELTA else 3 * _DELTA**2 * (t - 4 / 29)
 
 
 def _f(t: float) -> float:
-    return t ** (1 / 3) if t > _DELTA ** 3 else t / (3 * _DELTA ** 2) + 4 / 29
+    return t ** (1 / 3) if t > _DELTA**3 else t / (3 * _DELTA**2) + 4 / 29
 
 
 def lab_to_srgb(lab: LabColor) -> tuple[float, float, float]:
@@ -77,7 +81,7 @@ def srgb_to_lab(rgb: tuple[float, float, float]) -> LabColor:
 
 def lab_to_hex(lab: LabColor) -> str:
     r, g, b = lab_to_srgb(lab)
-    return "#{:02x}{:02x}{:02x}".format(round(r * 255), round(g * 255), round(b * 255))
+    return f"#{round(r * 255):02x}{round(g * 255):02x}{round(b * 255):02x}"
 
 
 def delta_e76(c1: LabColor, c2: LabColor) -> float:
@@ -115,7 +119,7 @@ def project_chroma_into_gamut(lab: LabColor, iters: int = 22) -> LabColor:
     return LabColor(lab.L, lab.a * lo, lab.b * lo)
 
 
-def srgb_array_to_lab(rgb: "np.ndarray") -> "np.ndarray":
+def srgb_array_to_lab(rgb: np.ndarray) -> np.ndarray:
     """Vectorized sRGB->Lab. rgb: (..., 3) float in [0,1]. Returns (..., 3) Lab.
 
     Same math as srgb_to_lab; used where per-pixel conversion matters
@@ -130,6 +134,6 @@ def srgb_array_to_lab(rgb: "np.ndarray") -> "np.ndarray":
     y = (0.2126729 * r + 0.7151522 * g + 0.0721750 * b) / _YN
     z = (0.0193339 * r + 0.1191920 * g + 0.9503041 * b) / _ZN
     xyz = np.stack([x, y, z], axis=-1)
-    f = np.where(xyz > _DELTA ** 3, np.cbrt(xyz), xyz / (3 * _DELTA ** 2) + 4 / 29)
+    f = np.where(xyz > _DELTA**3, np.cbrt(xyz), xyz / (3 * _DELTA**2) + 4 / 29)
     fx, fy, fz = f[..., 0], f[..., 1], f[..., 2]
     return np.stack([116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)], axis=-1)

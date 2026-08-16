@@ -34,17 +34,22 @@ SIGMA_TO_TOLERANCE = 1.5
 @dataclass
 class Resolution:
     object: str
-    modes: list[dict]                      # post-composition distribution
-    resolved: LabColor                     # gamut-feasible at the given L
+    modes: list[dict]  # post-composition distribution
+    resolved: LabColor  # gamut-feasible at the given L
     chosen_mode: str
     tolerance_delta_e: float
-    applied: list[str]                     # modifiers that acted
-    skipped: list[str]                     # modifiers that didn't apply to this object
+    applied: list[str]  # modifiers that acted
+    skipped: list[str]  # modifiers that didn't apply to this object
     rationale: str
     trace: list[str] = field(default_factory=list)
 
-    def to_region(self, grounding_phrase: str, modifiers: list[dict],
-                  region_id: str | None = None, confidence: float = 0.7) -> dict:
+    def to_region(
+        self,
+        grounding_phrase: str,
+        modifiers: list[dict],
+        region_id: str | None = None,
+        confidence: float = 0.7,
+    ) -> dict:
         """Emit a plan-schema-valid region dict."""
         region = {
             "object": self.object,
@@ -108,7 +113,9 @@ def _apply_op(modes: list[dict], op: dict, trace: list[str]) -> list[dict]:
     return modes
 
 
-def compose(kb: KnowledgeBase, object_name: str, modifiers: list[dict]) -> tuple[list[dict], list[str], list[str], list[str]]:
+def compose(
+    kb: KnowledgeBase, object_name: str, modifiers: list[dict]
+) -> tuple[list[dict], list[str], list[str], list[str]]:
     """Apply (family, value) modifiers in order to the object's prior.
 
     Returns (modes, applied, skipped, trace).
@@ -124,7 +131,9 @@ def compose(kb: KnowledgeBase, object_name: str, modifiers: list[dict]) -> tuple
         label = f"{family}:{value}"
         if not set(m_entry["applies_to"]) & selectors:
             skipped.append(label)
-            trace.append(f"{label}: not operative for {object_name} (applies_to {m_entry['applies_to']})")
+            trace.append(
+                f"{label}: not operative for {object_name} (applies_to {m_entry['applies_to']})"
+            )
             continue
         applied.append(label)
         for op in m_entry["ops"]:
@@ -138,8 +147,9 @@ def compose(kb: KnowledgeBase, object_name: str, modifiers: list[dict]) -> tuple
     return modes, applied, skipped, trace
 
 
-def resolve(kb: KnowledgeBase, object_name: str, modifiers: list[dict],
-            measured_L: float | None = None) -> Resolution:
+def resolve(
+    kb: KnowledgeBase, object_name: str, modifiers: list[dict], measured_L: float | None = None
+) -> Resolution:
     """Compose modifiers onto the prior and pick a concrete colour.
 
     measured_L: the region's actual median luminance (from the grayscale
@@ -150,8 +160,11 @@ def resolve(kb: KnowledgeBase, object_name: str, modifiers: list[dict],
 
     candidates = modes
     if measured_L is not None:
-        in_range = [m for m in modes
-                    if m.get("L_range", [0, 100])[0] <= measured_L <= m.get("L_range", [0, 100])[1]]
+        in_range = [
+            m
+            for m in modes
+            if m.get("L_range", [0, 100])[0] <= measured_L <= m.get("L_range", [0, 100])[1]
+        ]
         if in_range:
             candidates = in_range
         else:
@@ -162,8 +175,10 @@ def resolve(kb: KnowledgeBase, object_name: str, modifiers: list[dict],
     raw = LabColor(L, best["ab"][0], best["ab"][1])
     feasible = project_chroma_into_gamut(raw)
     if (feasible.a, feasible.b) != (raw.a, raw.b):
-        trace.append(f"chroma projected into sRGB gamut at L={L:g}: "
-                     f"({raw.a:.1f},{raw.b:.1f}) -> ({feasible.a:.1f},{feasible.b:.1f})")
+        trace.append(
+            f"chroma projected into sRGB gamut at L={L:g}: "
+            f"({raw.a:.1f},{raw.b:.1f}) -> ({feasible.a:.1f},{feasible.b:.1f})"
+        )
 
     entry = kb.object_entry(object_name)
     parts = [f"KB prior '{entry['_canonical']}' mode '{best['name']}'"]

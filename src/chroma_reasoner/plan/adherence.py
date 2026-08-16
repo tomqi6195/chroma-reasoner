@@ -34,8 +34,12 @@ def region_adherence(output_rgb: np.ndarray, mask: np.ndarray, region: dict) -> 
     target = LabColor.from_plan(region["resolved_colour"])
     pixels = output_rgb[mask].astype(np.float64) / 255.0
     if len(pixels) == 0:
-        return {"region": region_key(region), "object": region["object"],
-                "error": "empty mask", "pass": False}
+        return {
+            "region": region_key(region),
+            "object": region["object"],
+            "error": "empty mask",
+            "pass": False,
+        }
     lab = srgb_array_to_lab(pixels)
     realized = LabColor(*np.median(lab, axis=0))
     tolerance = region.get("tolerance_delta_e", DEFAULT_TOLERANCE)
@@ -64,8 +68,9 @@ def evaluate_adherence(output_rgb: np.ndarray, masks: dict[str, np.ndarray], pla
     for r in plan["regions"]:
         key = region_key(r)
         if key not in excl:
-            regions.append({"region": key, "object": r["object"],
-                            "error": "no mask", "pass": False})
+            regions.append(
+                {"region": key, "object": r["object"], "error": "no mask", "pass": False}
+            )
             continue
         regions.append(region_adherence(output_rgb, excl[key], r))
     des = [r["delta_e"] for r in regions if "delta_e" in r]

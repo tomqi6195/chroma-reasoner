@@ -20,7 +20,10 @@ SELECTION_SCHEMA = {
         },
         "global_modifiers": {
             "type": "array",
-            "description": "Image-wide factors (film rendering, overall mood) that don't route through a single object. May be empty.",
+            "description": (
+                "Image-wide factors, such as film rendering or overall mood, "
+                "that do not route through one object."
+            ),
             "items": {
                 "type": "object",
                 "additionalProperties": False,
@@ -37,24 +40,39 @@ SELECTION_SCHEMA = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["object", "grounding_phrase", "estimated_L",
-                             "modifiers", "confidence", "rationale"],
+                "required": [
+                    "object",
+                    "grounding_phrase",
+                    "estimated_L",
+                    "modifiers",
+                    "confidence",
+                    "rationale",
+                ],
                 "properties": {
                     "object": {
                         "type": "string",
-                        "description": "A KB object class or listed alias, exactly as given in the vocabulary.",
+                        "description": "A KB object class or alias from the vocabulary.",
                     },
                     "grounding_phrase": {
                         "type": "string",
-                        "description": "Specific phrase for open-vocabulary detection, e.g. \"the woman's long dress\".",
+                        "description": (
+                            "Specific open-vocabulary detection phrase, such as "
+                            '"the woman\'s long dress".'
+                        ),
                     },
                     "estimated_L": {
                         "type": "number",
-                        "description": "Estimated median CIE L (0-100) of this region in the grayscale image: 0 black, 50 mid-grey, 100 white.",
+                        "description": (
+                            "Estimated median CIE L of the grayscale region: "
+                            "0 black, 50 mid-grey, 100 white."
+                        ),
                     },
                     "modifiers": {
                         "type": "array",
-                        "description": "Operative (family, value) pairs from the KB catalog, in application order: era, geography, season, weather, time_of_day, mood. Only include factors that genuinely apply to this object.",
+                        "description": (
+                            "Applicable KB (family, value) pairs in this order: era, geography, "
+                            "season, weather, time_of_day, mood."
+                        ),
                         "items": {
                             "type": "object",
                             "additionalProperties": False,
@@ -68,7 +86,7 @@ SELECTION_SCHEMA = {
                     },
                     "confidence": {
                         "type": "number",
-                        "description": "0-1: how confident the colour assignment can be, given content constraints.",
+                        "description": "Confidence from 0 to 1 given the content constraints.",
                     },
                     "rationale": {
                         "type": "string",

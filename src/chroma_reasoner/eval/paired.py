@@ -37,12 +37,13 @@ def sign_test(wins: int, losses: int) -> float:
     if n == 0:
         return 1.0
     k = max(wins, losses)
-    tail = sum(math.comb(n, i) for i in range(k, n + 1)) * (0.5 ** n)
+    tail = sum(math.comb(n, i) for i in range(k, n + 1)) * (0.5**n)
     return min(1.0, 2 * tail)
 
 
-def bootstrap_median_ci(values: list[float], iterations: int = 2000,
-                        seed: int = 0) -> tuple[float, float]:
+def bootstrap_median_ci(
+    values: list[float], iterations: int = 2000, seed: int = 0
+) -> tuple[float, float]:
     """Percentile bootstrap 95% CI for the median. Deterministic given seed."""
     if not values:
         return (float("nan"), float("nan"))
@@ -65,8 +66,9 @@ def _median(values: list[float]) -> float:
     return s[mid] if len(s) % 2 else (s[mid - 1] + s[mid]) / 2
 
 
-def compare_arms(report_a: dict, report_b: dict, name_a: str, name_b: str,
-                 tie_threshold: float = 0.5) -> dict:
+def compare_arms(
+    report_a: dict, report_b: dict, name_a: str, name_b: str, tie_threshold: float = 0.5
+) -> dict:
     """Paired comparison of two arms over their shared regions.
 
     Lower is better for both metrics, so a positive margin (b - a) means
@@ -76,8 +78,7 @@ def compare_arms(report_a: dict, report_b: dict, name_a: str, name_b: str,
     index_a, index_b = _region_index(report_a), _region_index(report_b)
     shared = sorted(set(index_a) & set(index_b))
 
-    out: dict = {"arm_a": name_a, "arm_b": name_b, "n_paired_regions": len(shared),
-                 "metrics": {}}
+    out: dict = {"arm_a": name_a, "arm_b": name_b, "n_paired_regions": len(shared), "metrics": {}}
     for metric in METRICS:
         margins, wins, losses, ties = [], 0, 0, 0
         worst = []
@@ -85,7 +86,7 @@ def compare_arms(report_a: dict, report_b: dict, name_a: str, name_b: str,
             a, b = index_a[key].get(metric), index_b[key].get(metric)
             if a is None or b is None:
                 continue
-            margin = b - a          # >0 : A is closer/committed => A wins
+            margin = b - a  # >0 : A is closer/committed => A wins
             margins.append(margin)
             if margin > tie_threshold:
                 wins += 1
@@ -97,14 +98,22 @@ def compare_arms(report_a: dict, report_b: dict, name_a: str, name_b: str,
         lo, hi = bootstrap_median_ci(margins)
         worst.sort()
         out["metrics"][metric] = {
-            "wins_a": wins, "wins_b": losses, "ties": ties,
+            "wins_a": wins,
+            "wins_b": losses,
+            "ties": ties,
             "median_margin": round(_median(margins), 2),
             "median_margin_ci95": [round(lo, 2), round(hi, 2)],
             "mean_margin": round(sum(margins) / len(margins), 2) if margins else None,
             "sign_test_p": round(sign_test(wins, losses), 5),
-            "worst_losses": [{"image": k[0], "region": k[1],
-                              f"{name_a}": round(av, 2), f"{name_b}": round(bv, 2)}
-                             for _, k, av, bv in worst[:5]],
+            "worst_losses": [
+                {
+                    "image": k[0],
+                    "region": k[1],
+                    f"{name_a}": round(av, 2),
+                    f"{name_b}": round(bv, 2),
+                }
+                for _, k, av, bv in worst[:5]
+            ],
         }
     return out
 
@@ -119,8 +128,11 @@ def format_comparison(cmp: dict) -> str:
             f"  {metric:>15}: {a} wins {share} decided ({s['ties']} ties)  "
             f"median margin {s['median_margin']:+g} "
             f"[{s['median_margin_ci95'][0]:+g}, {s['median_margin_ci95'][1]:+g}]  "
-            f"p={s['sign_test_p']}")
+            f"p={s['sign_test_p']}"
+        )
         for loss in s["worst_losses"][:3]:
-            lines.append(f"      worst loss: {loss['image']}/{loss['region']} "
-                         f"({a}={loss[a]} vs {b}={loss[b]})")
+            lines.append(
+                f"      worst loss: {loss['image']}/{loss['region']} "
+                f"({a}={loss[a]} vs {b}={loss[b]})"
+            )
     return "\n".join(lines)

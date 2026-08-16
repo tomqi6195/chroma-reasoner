@@ -21,8 +21,15 @@ import yaml
 
 KB_DIR = Path(__file__).resolve().parents[3] / "kb"
 
-VALID_OPS = {"scale_chroma", "shift_ab", "clamp_chroma", "scale_sigma",
-             "reweight", "add_mode", "remove_mode"}
+VALID_OPS = {
+    "scale_chroma",
+    "shift_ab",
+    "clamp_chroma",
+    "scale_sigma",
+    "reweight",
+    "add_mode",
+    "remove_mode",
+}
 
 
 class KBError(ValueError):
@@ -51,13 +58,13 @@ def _name_candidates(name: str) -> list[str]:
     add(base.replace(" ", "_"))
     for article in ("the ", "a ", "an "):
         if base.startswith(article):
-            base = base[len(article):]
+            base = base[len(article) :]
     add(base.replace(" ", "_"))
-    if "'s " in base:                       # "woman's dress" -> "dress"
+    if "'s " in base:  # "woman's dress" -> "dress"
         add(base.split("'s ", 1)[1].strip().replace(" ", "_"))
-    if "s' " in base:                       # "boys' jumpers" -> "jumpers"
+    if "s' " in base:  # "boys' jumpers" -> "jumpers"
         add(base.split("s' ", 1)[1].strip().replace(" ", "_"))
-    for candidate in list(out):             # naive singular
+    for candidate in list(out):  # naive singular
         if candidate.endswith("s") and not candidate.endswith("ss"):
             add(candidate[:-1])
     return out
@@ -94,9 +101,11 @@ class KnowledgeBase:
     def selectors_for(self, object_name: str) -> set[str]:
         """Every selector token this object matches: name, aliases, categories, '*'."""
         entry = self.object_entry(object_name)
-        return ({entry["_canonical"], "*"}
-                | set(entry.get("aliases", []))
-                | set(entry.get("categories", [])))
+        return (
+            {entry["_canonical"], "*"}
+            | set(entry.get("aliases", []))
+            | set(entry.get("categories", []))
+        )
 
 
 def _validate_mode(mode: dict, where: str) -> None:
@@ -152,5 +161,9 @@ def load_kb(kb_dir: Path | None = None) -> KnowledgeBase:
         modifiers = yaml.safe_load(f)["families"]
     _validate_objects(objects)
     _validate_modifiers(modifiers)
-    return KnowledgeBase(objects=objects, modifiers=modifiers,
-                         objects_path=objects_path, modifiers_path=modifiers_path)
+    return KnowledgeBase(
+        objects=objects,
+        modifiers=modifiers,
+        objects_path=objects_path,
+        modifiers_path=modifiers_path,
+    )

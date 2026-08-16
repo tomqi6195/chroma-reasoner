@@ -20,11 +20,18 @@ def _png_b64() -> str:
 
 
 def _messages():
-    return [{"role": "user", "content": [
-        {"type": "image", "source": {"type": "base64", "media_type": "image/png",
-                                     "data": _png_b64()}},
-        {"type": "text", "text": "Analyze the image."},
-    ]}]
+    return [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {"type": "base64", "media_type": "image/png", "data": _png_b64()},
+                },
+                {"type": "text", "text": "Analyze the image."},
+            ],
+        }
+    ]
 
 
 def test_extract_json_plain():

@@ -31,9 +31,13 @@ def save_mask(mask: np.ndarray, masks_root: Path, image_id: str, region: dict) -
     return path
 
 
-def load_masks(masks_root: Path, image_id: str, plan: dict,
-               shape: tuple[int, int] | None = None,
-               allow_missing: bool = False) -> dict[str, np.ndarray]:
+def load_masks(
+    masks_root: Path,
+    image_id: str,
+    plan: dict,
+    shape: tuple[int, int] | None = None,
+    allow_missing: bool = False,
+) -> dict[str, np.ndarray]:
     """Load one bool mask per region.
 
     allow_missing=False: raises if any region's mask is missing (strict —
@@ -84,7 +88,7 @@ def exclusive_masks(masks: dict[str, np.ndarray], plan: dict) -> dict[str, np.nd
     for i, region in enumerate(order):
         key = region_key(region)
         excl = masks[key].copy()
-        for smaller in order[i + 1:]:
+        for smaller in order[i + 1 :]:
             excl &= ~masks[region_key(smaller)]
         out[key] = excl if excl.any() else masks[key]
     return out

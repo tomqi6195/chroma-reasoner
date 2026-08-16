@@ -34,8 +34,7 @@ def original_is_monochrome(rgb: np.ndarray) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--originals", type=Path, required=True)
-    ap.add_argument("--arm", action="append", required=True,
-                    metavar="NAME=PLANS_DIR:MASKS_DIR")
+    ap.add_argument("--arm", action="append", required=True, metavar="NAME=PLANS_DIR:MASKS_DIR")
     ap.add_argument("--out", type=Path, default=None, help="optional JSON report path")
     args = ap.parse_args()
 
@@ -56,8 +55,7 @@ def main() -> None:
                 continue
             gray_shape = original.shape[:2]
             try:
-                masks = load_masks(Path(masks_dir), iid, plan, shape=gray_shape,
-                                   allow_missing=True)
+                masks = load_masks(Path(masks_dir), iid, plan, shape=gray_shape, allow_missing=True)
             except ValueError as e:
                 print(f"[{name}] {iid}: masks unavailable ({e})")
                 continue
@@ -66,25 +64,35 @@ def main() -> None:
                 continue
             res = plan_vs_reference(plan, masks, original)
             rows.append({"image": iid, **res})
-            print(f"[{name}] {iid}: mean dE {res['mean_delta_e']} | "
-                  f"chroma deficit {res['mean_chroma_deficit']} | "
-                  f"undercommitted {res['n_undercommitted']}/{res['n_regions']}")
+            print(
+                f"[{name}] {iid}: mean dE {res['mean_delta_e']} | "
+                f"chroma deficit {res['mean_chroma_deficit']} | "
+                f"undercommitted {res['n_undercommitted']}/{res['n_regions']}"
+            )
             for r in res["regions"]:
                 if "delta_e" in r:
-                    print(f"    {r['region']:>16} planned ab{tuple(r['planned_ab'])} "
-                          f"vs real ab{tuple(r['reference_ab'])}  dE={r['delta_e']}"
-                          f"  deficit={r['chroma_deficit']}")
+                    print(
+                        f"    {r['region']:>16} planned ab{tuple(r['planned_ab'])} "
+                        f"vs real ab{tuple(r['reference_ab'])}  dE={r['delta_e']}"
+                        f"  deficit={r['chroma_deficit']}"
+                    )
         des = [x["mean_delta_e"] for x in rows if x["mean_delta_e"] is not None]
         defs_ = [x["mean_chroma_deficit"] for x in rows if x["mean_chroma_deficit"] is not None]
         under = sum(x["n_undercommitted"] for x in rows)
         total = sum(x["n_regions"] for x in rows)
         summary = round(float(np.mean(des)), 2) if des else None
         deficit_summary = round(float(np.mean(defs_)), 2) if defs_ else None
-        print(f"== arm '{name}': mean dE {summary} | mean chroma deficit {deficit_summary} "
-              f"| undercommitted {under}/{total} regions over {len(rows)} images\n")
-        report[name] = {"images": rows, "mean_delta_e": summary,
-                        "mean_chroma_deficit": deficit_summary,
-                        "n_undercommitted": under, "n_regions": total}
+        print(
+            f"== arm '{name}': mean dE {summary} | mean chroma deficit {deficit_summary} "
+            f"| undercommitted {under}/{total} regions over {len(rows)} images\n"
+        )
+        report[name] = {
+            "images": rows,
+            "mean_delta_e": summary,
+            "mean_chroma_deficit": deficit_summary,
+            "n_undercommitted": under,
+            "n_regions": total,
+        }
 
     # Paired analysis over shared regions — the defensible comparison when
     # arms are matched region-for-region (kb vs llm). Arms with disjoint
@@ -92,7 +100,7 @@ def main() -> None:
     comparisons = []
     names = list(report)
     for i, name_a in enumerate(names):
-        for name_b in names[i + 1:]:
+        for name_b in names[i + 1 :]:
             cmp = compare_arms(report[name_a], report[name_b], name_a, name_b)
             if cmp["n_paired_regions"] == 0:
                 continue

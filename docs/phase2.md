@@ -15,26 +15,39 @@ measured — with **zero LLM/KB variance**. "The phase people skip and regret."
 | Gamut guard | `plan/colors.py::is_in_srgb_gamut` | Out-of-gamut plan colours clip at render and can never adhere; `validate_plan.py` warns |
 | CLI | `scripts/render_naive.py` | plan + gray + masks → naive render + adherence report |
 
-## The 5 hand-authored plans (`examples/plans/phase2/`)
+## Five hand-authored plans (`examples/plans/phase2/`)
 
 Each chosen to stress a different part of the path:
 
 - `000000000139` dining room — indoor domestic palette, several mid-size objects
-- `000000001000` tennis kids — **multi-instance binding**: one red shirt among white ones ("the red t-shirt of the boy holding the trophy")
-- `000000002299` vintage school photo — **a real B&W photograph**: no colour ground truth exists; the 1940s-Britain era/geo priors do all the work. This is the project's thesis in one image
+- `000000001000` tennis kids — **multi-instance binding**: one red shirt among
+  white ones ("the red t-shirt of the boy holding the trophy")
+- `000000002299` vintage school photo — **a real B&W photograph**: no colour
+  ground truth exists; the 1940s-Britain era/geo priors do all the work. This
+  is the project's thesis in one image
 - `000000010092` jungle lodge — strong saturated palette (orange walls, olive net)
-- `000000022755` school bus mirror — the strongest object prior there is (US regulation school-bus yellow), plus a reflection
+- `000000022755` school bus mirror — the strongest object prior there is (US
+  regulation school-bus yellow), plus a reflection
 
 All 5 validate with zero gamut warnings.
 
 ## Colab workflow (`notebooks/phase2_masks_colab.ipynb`)
 
-1. **Grounded-SAM** via HuggingFace `transformers` (`grounding-dino-base` + `sam-vit-huge`) — no CUDA-extension builds. Grounding runs on the **grayscale** image (the honest test-time input). Mask overlays are previewed inline; bad masks → edit the plan's `grounding_phrase`, re-run.
+1. **Grounded-SAM** via HuggingFace `transformers` (`grounding-dino-base` +
+   `sam-vit-huge`) — no CUDA-extension builds. Grounding runs on the
+   **grayscale** image (the honest test-time input). Mask overlays are
+   previewed inline; for bad masks, edit the plan's `grounding_phrase` and
+   re-run.
 2. **Naive render + adherence** immediately in-notebook — the instant end-to-end signal.
-3. **Control Color** — interface confirmed from its `test.py`: `process(input_image, hint_image, prompt, ...)` where `hint_image` = input with strokes painted (it diffs the two to find hints); ckpts `main_model.ckpt` + `content-guided_deformable_vae.ckpt` from its README's Google Drive (expect the quota dance again). Section is scaffolded; first run will need the usual porting iteration (`transformers<5` likely).
+3. **Control Color** — interface confirmed from its `test.py`:
+   `process(input_image, hint_image, prompt, ...)`, where `hint_image` is the
+   input with strokes painted. Checkpoints `main_model.ckpt` and
+   `content-guided_deformable_vae.ckpt` come from its README's Google Drive.
+   The section is scaffolded; the first run will likely need
+   `transformers<5`.
 4. Export `masks/`, `hints/`, `results/` as a zip for local evaluation.
 
-## What "done" looks like (exit criteria)
+## Exit criteria
 
 - Masks visually correct for ≥ 4/5 images (grounding phrases may need tuning)
 - Naive render: all regions pass adherence (proves masks+colours+evaluator agree)
@@ -96,7 +109,7 @@ consistency vs. generative-freedom trade-off), deferred to Phase 4:
    precisely the gap the KB + reasoner fill; interim lever: translate the
    plan's `global` era modifiers into the diffusion prompt.
 
-## Remaining / handoff to later phases
+## Next steps
 
 - Hint-strength tuning for the 3 hard cases (Phase 4, once the reasoner emits plans)
 - Optional: `using_deformable_vae=True` pass for structure preservation

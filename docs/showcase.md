@@ -7,7 +7,7 @@ plan-conditioned) in `results/showcase/results/figures/`.
 **The renders are worse than the automatic baseline on sparsely-planned
 images, and the cause is measurable.**
 
-## Result
+## Initial result
 
 | image | mask coverage | CF plan-cond. | CF outside masks | CF DDColor | CF original |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@ the colorizer's own prior, which reaches harder for vivid modern colour the
 less it is given to anchor on.** This is the Phase-2 finding #5 observation,
 now quantified.
 
-## The architectural gap it exposed
+## Architectural gap
 
 The plan schema has carried a `global` block since Phase 1 — for exactly the
 effects that "do not route through a single object": film-stock rendering, era
@@ -46,7 +46,7 @@ colours"), now applied in the showcase notebook's render cell. Unmapped
 modifiers fall back to their `effect` text, so the KB can grow without code
 changes.
 
-## Result of the fix (re-run, same seed)
+## Prompt-integration fix (same seed)
 
 Only 2 of 23 reasoned plans carry a `global` block at all, so only those
 images could change — a clean natural control:
@@ -104,11 +104,7 @@ follow. The one image where context genuinely matters (`2299`) cannot be
 scored this way at all, which is precisely why the counterfactual protocol
 (docs/phase6.md) exists. **Do not tune the system against CF-to-original.**
 
-## Still open after that fix
-
-- **51.6 is still far from DDColor's 1.8** on a monochrome original. The
-  prompt fix addresses the symptom; coverage is the cause.
-## Global-block rate: the prompt fix, and its side effect (2026-07-27)
+## Global-block rate and side effect (2026-07-27)
 
 Under the original wording (*"use sparingly"*) only **2 of 23** plans carried
 a global block — advice that was backwards once the block became the only
@@ -160,6 +156,11 @@ correctly-grounded global blocks, up from one.**
 The general lesson from the two failed prompt rounds: this model needs *both*
 directions of a constraint stated, and when a constraint is cheap to check
 deterministically, checking beats asking.
+
+## Next steps
+
+- **51.6 is still far from DDColor's 1.8** on a monochrome original. The
+  prompt fix addresses the symptom; coverage is the cause.
 
 - **Coverage is the real lever.** The reasoner selects 3–6 regions regardless
   of scene complexity; a 40-child class photo needs far more, or a background

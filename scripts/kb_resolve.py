@@ -28,14 +28,21 @@ def main() -> None:
     res = resolve(kb, args.object, modifiers, measured_L=args.L)
 
     print(f"object: {res.object}   chosen mode: {res.chosen_mode}")
-    print(f"resolved: {lab_to_hex(res.resolved)}  Lab({res.resolved.L:g},{res.resolved.a:g},{res.resolved.b:g})"
-          f"   tolerance dE: {res.tolerance_delta_e:g}")
+    colour = res.resolved
+    print(
+        f"resolved: {lab_to_hex(colour)}  "
+        f"Lab({colour.L:g},{colour.a:g},{colour.b:g})"
+        f"   tolerance dE: {res.tolerance_delta_e:g}"
+    )
     print(f"rationale: {res.rationale}")
     print("distribution:")
     for mode in sorted(res.modes, key=lambda m: -m["weight"]):
         lab = LabColor(sum(mode.get("L_range", [0, 100])) / 2, *mode["ab"])
-        print(f"  {mode['weight']:.2f}  {mode['name']:>16}  ab({mode['ab'][0]:.0f},{mode['ab'][1]:.0f})"
-              f"  ~{lab_to_hex(lab)}")
+        print(
+            f"  {mode['weight']:.2f}  {mode['name']:>16}  "
+            f"ab({mode['ab'][0]:.0f},{mode['ab'][1]:.0f})"
+            f"  ~{lab_to_hex(lab)}"
+        )
     if args.trace:
         print("trace:")
         for line in res.trace:

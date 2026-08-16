@@ -45,7 +45,7 @@ def test_autumn_shifts_foliage_toward_orange(kb):
     base = resolve(kb, "foliage", [], measured_L=45)
     autumn = resolve(kb, "foliage", [_mod("season", "autumn")], measured_L=45)
     assert autumn.chosen_mode == "senescent"
-    assert autumn.resolved.a > base.resolved.a   # toward red
+    assert autumn.resolved.a > base.resolved.a  # toward red
     assert "season:autumn" in autumn.applied
 
 
@@ -59,14 +59,15 @@ def test_1910s_melancholic_dress_is_muted_and_cool(kb):
     styled_modes, *_ = compose(kb, "dress", [_mod("era", "1910s"), _mod("mood", "melancholic")])
     base_c = {m["name"]: math.hypot(*m["ab"]) for m in base_modes}
     styled_c = {m["name"]: math.hypot(*m["ab"]) for m in styled_modes}
-    for name in ("warm", "cool", "earth"):   # chromatic modes must all mute
+    for name in ("warm", "cool", "earth"):  # chromatic modes must all mute
         assert styled_c[name] < base_c[name], name
 
-    styled = resolve(kb, "dress", [_mod("era", "1910s"), _mod("mood", "melancholic")],
-                     measured_L=45)
+    styled = resolve(
+        kb, "dress", [_mod("era", "1910s"), _mod("mood", "melancholic")], measured_L=45
+    )
     base = resolve(kb, "dress", [], measured_L=45)
-    assert styled.resolved.b < base.resolved.b            # cooler
-    assert math.hypot(styled.resolved.a, styled.resolved.b) < 15   # still muted overall
+    assert styled.resolved.b < base.resolved.b  # cooler
+    assert math.hypot(styled.resolved.a, styled.resolved.b) < 15  # still muted overall
 
 
 def test_autumn_does_nothing_to_a_car(kb):
@@ -114,29 +115,48 @@ def test_alias_resolution(kb):
 def test_object_name_normalization(kb):
     """Reasoners emit phrasings, not identifiers (Phase-5 scaled-run finding:
     "woman's dress" failed while 'dress' existed)."""
-    for phrasing, canonical in [("woman's dress", "dress"), ("The Wall", "wall_interior"),
-                                ("man's face", "skin"), ("Tennis Court", "tennis_court"),
-                                ("flowers", "flower"), ("school-bus", "school_bus"),
-                                ("the grass", "grass")]:
+    for phrasing, canonical in [
+        ("woman's dress", "dress"),
+        ("The Wall", "wall_interior"),
+        ("man's face", "skin"),
+        ("Tennis Court", "tennis_court"),
+        ("flowers", "flower"),
+        ("school-bus", "school_bus"),
+        ("the grass", "grass"),
+    ]:
         assert resolve(kb, phrasing, []).object == canonical, phrasing
 
 
 def test_coco_vocabulary_batch(kb):
     """Everyday classes the scaled run needed and lacked."""
-    for name, canonical in [("donut", "baked_food"), ("leafy greens", "vegetable"),
-                            ("zebra", "zebra"), ("shower_tub", "porcelain"),
-                            ("towel_rack", "metal_fixture"), ("hair", "hair"),
-                            ("ground", "soil"), ("apple", "fruit")]:
+    for name, canonical in [
+        ("donut", "baked_food"),
+        ("leafy greens", "vegetable"),
+        ("zebra", "zebra"),
+        ("shower_tub", "porcelain"),
+        ("towel_rack", "metal_fixture"),
+        ("hair", "hair"),
+        ("ground", "soil"),
+        ("apple", "fruit"),
+    ]:
         assert resolve(kb, name, []).object == canonical, name
 
 
 def test_phase4_vocabulary_expansion(kb):
     """Classes the reasoner needed in the first live runs and lacked."""
-    for name, canonical in [("table", "wood_floor"), ("street", "asphalt"),
-                            ("motorcycle", "car"), ("building", "building_facade"),
-                            ("tile_floor", "tile_floor"), ("mosquito_net", "mosquito_net"),
-                            ("window", "window"), ("rug", "rug"), ("tv", "television"),
-                            ("bedding", "bedding"), ("curtain", "curtain")]:
+    for name, canonical in [
+        ("table", "wood_floor"),
+        ("street", "asphalt"),
+        ("motorcycle", "car"),
+        ("building", "building_facade"),
+        ("tile_floor", "tile_floor"),
+        ("mosquito_net", "mosquito_net"),
+        ("window", "window"),
+        ("rug", "rug"),
+        ("tv", "television"),
+        ("bedding", "bedding"),
+        ("curtain", "curtain"),
+    ]:
         assert resolve(kb, name, []).object == canonical, name
     # geography:usa exists and routes through objects
     bus = resolve(kb, "school_bus", [_mod("geography", "usa")], measured_L=70)
@@ -146,8 +166,11 @@ def test_phase4_vocabulary_expansion(kb):
 def test_resolution_emits_valid_plan_region(kb):
     mods = [_mod("era", "1940s"), _mod("mood", "melancholic")]
     res = resolve(kb, "jumper", mods, measured_L=30)
-    region = res.to_region("the dark knitted jumper of the boy at the front",
-                           [{**m, "effect": "muted"} for m in mods], region_id="boy_jumper")
+    region = res.to_region(
+        "the dark knitted jumper of the boy at the front",
+        [{**m, "effect": "muted"} for m in mods],
+        region_id="boy_jumper",
+    )
     plan = {"plan_version": "1.0", "regions": [region]}
     assert validate_plan(plan) == [], validate_plan(plan)
 
@@ -155,8 +178,16 @@ def test_resolution_emits_valid_plan_region(kb):
 def test_composition_order_matters(kb):
     """scale-then-shift != shift-then-scale; order sensitivity is intended
     and must stay stable (documented in docs/phase3.md)."""
-    a = resolve(kb, "grass", [_mod("mood", "melancholic"), _mod("time_of_day", "golden_hour")],
-                measured_L=50)
-    b = resolve(kb, "grass", [_mod("time_of_day", "golden_hour"), _mod("mood", "melancholic")],
-                measured_L=50)
+    a = resolve(
+        kb,
+        "grass",
+        [_mod("mood", "melancholic"), _mod("time_of_day", "golden_hour")],
+        measured_L=50,
+    )
+    b = resolve(
+        kb,
+        "grass",
+        [_mod("time_of_day", "golden_hour"), _mod("mood", "melancholic")],
+        measured_L=50,
+    )
     assert (a.resolved.a, a.resolved.b) != (b.resolved.a, b.resolved.b)

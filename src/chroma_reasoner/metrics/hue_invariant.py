@@ -30,8 +30,9 @@ def scale_chroma_yuv(img_rgb: np.ndarray, alpha: float) -> np.ndarray:
     return cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB)
 
 
-def match_colorfulness(pred_rgb: np.ndarray, target_cf: float,
-                       lo: float = 0.0, hi: float = 4.0, iters: int = 25) -> tuple[np.ndarray, float]:
+def match_colorfulness(
+    pred_rgb: np.ndarray, target_cf: float, lo: float = 0.0, hi: float = 4.0, iters: int = 25
+) -> tuple[np.ndarray, float]:
     """Find alpha* such that CF(scale_chroma_yuv(pred, alpha)) ~= target_cf.
 
     Returns (corrected image, alpha*). Bisection on the monotone CF(alpha).
@@ -60,7 +61,9 @@ def build_hue_corrected_dir(pred_dir: Path, gt_dir: Path, out_dir: Path) -> list
     out_dir.mkdir(parents=True, exist_ok=True)
     alphas: list[float] = []
     preds = sorted(p for p in pred_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"})
-    gt_by_stem = {p.stem: p for p in gt_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"}}
+    gt_by_stem = {
+        p.stem: p for p in gt_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"}
+    }
     for pred_path in tqdm(preds, desc="HI-FID chroma matching"):
         gt_path = gt_by_stem.get(pred_path.stem)
         if gt_path is None:
@@ -69,6 +72,7 @@ def build_hue_corrected_dir(pred_dir: Path, gt_dir: Path, out_dir: Path) -> list
         gt = cv2.cvtColor(cv2.imread(str(gt_path), cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
         corrected, alpha = match_colorfulness(pred, colorfulness(gt))
         alphas.append(alpha)
-        cv2.imwrite(str(out_dir / (pred_path.stem + ".png")),
-                    cv2.cvtColor(corrected, cv2.COLOR_RGB2BGR))
+        cv2.imwrite(
+            str(out_dir / (pred_path.stem + ".png")), cv2.cvtColor(corrected, cv2.COLOR_RGB2BGR)
+        )
     return alphas

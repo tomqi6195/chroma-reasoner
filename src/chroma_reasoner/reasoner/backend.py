@@ -38,17 +38,16 @@ class AnthropicBackend:
         self.client = anthropic.Anthropic()
         self.model = model
 
-    def complete(self, system: str, messages: list[dict], schema: dict | None = None,
-                 **_ignored) -> dict:
+    def complete(
+        self, system: str, messages: list[dict], schema: dict | None = None, **_ignored
+    ) -> dict:
         response = self.client.messages.create(
             model=self.model,
             max_tokens=16000,
             thinking={"type": "adaptive"},
-            system=[{"type": "text", "text": system,
-                     "cache_control": {"type": "ephemeral"}}],
+            system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
             messages=messages,
-            output_config={"format": {"type": "json_schema",
-                                      "schema": schema or SELECTION_SCHEMA}},
+            output_config={"format": {"type": "json_schema", "schema": schema or SELECTION_SCHEMA}},
         )
         if response.stop_reason == "refusal":
             raise RuntimeError("model declined the request (stop_reason=refusal)")

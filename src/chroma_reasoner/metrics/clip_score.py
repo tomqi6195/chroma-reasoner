@@ -23,13 +23,16 @@ class ClipScorer:
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         # use_safetensors: torch<2.6 + transformers refuses .bin checkpoints
         # (CVE-2025-32434); the safetensors variant loads fine.
-        self.model = CLIPModel.from_pretrained(model_name, use_safetensors=True).to(self.device).eval()
+        self.model = (
+            CLIPModel.from_pretrained(model_name, use_safetensors=True).to(self.device).eval()
+        )
         self.processor = CLIPProcessor.from_pretrained(model_name)
 
     @torch.no_grad()
     def score(self, image: Image.Image, text: str) -> float:
-        inputs = self.processor(text=[text], images=[image], return_tensors="pt",
-                                padding=True, truncation=True).to(self.device)
+        inputs = self.processor(
+            text=[text], images=[image], return_tensors="pt", padding=True, truncation=True
+        ).to(self.device)
         # Full forward: outputs.image_embeds/text_embeds are the projected,
         # L2-normalized joint-space embeddings in every transformers version
         # (get_image_features changed return type across versions).
@@ -40,7 +43,9 @@ class ClipScorer:
 
     def score_dir(self, image_dir: Path, captions_by_stem: dict[str, str]) -> dict[str, float]:
         scores: dict[str, float] = {}
-        files = sorted(p for p in image_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"})
+        files = sorted(
+            p for p in image_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"}
+        )
         for path in tqdm(files, desc=f"CLIP-score {image_dir.name}"):
             caption = captions_by_stem.get(path.stem)
             if caption is None:

@@ -21,13 +21,23 @@ def synthetic():
     plan = {
         "plan_version": "1.0",
         "regions": [
-            {"id": "left", "object": "thing_a", "grounding_phrase": "left thing",
-             "resolved_colour": {"space": "Lab", "L": 50, "a": 40, "b": 20},
-             "confidence": 0.9, "rationale": "test"},
-            {"id": "right", "object": "thing_b", "grounding_phrase": "right thing",
-             "resolved_colour": {"space": "Lab", "L": 50, "a": -20, "b": -12},
-             "tolerance_delta_e": 5,
-             "confidence": 0.9, "rationale": "test"},
+            {
+                "id": "left",
+                "object": "thing_a",
+                "grounding_phrase": "left thing",
+                "resolved_colour": {"space": "Lab", "L": 50, "a": 40, "b": 20},
+                "confidence": 0.9,
+                "rationale": "test",
+            },
+            {
+                "id": "right",
+                "object": "thing_b",
+                "grounding_phrase": "right thing",
+                "resolved_colour": {"space": "Lab", "L": 50, "a": -20, "b": -12},
+                "tolerance_delta_e": 5,
+                "confidence": 0.9,
+                "rationale": "test",
+            },
         ],
     }
     return gray, masks, plan
@@ -69,10 +79,16 @@ def test_global_prompt_terms_translate_era_and_mood():
     the showcase run went neon."""
     from chroma_reasoner.plan.hints import global_prompt_terms
 
-    plan = {"plan_version": "1.0", "regions": [], "global": {"modifiers": [
-        {"family": "era", "value": "1940s", "effect": "wartime austerity"},
-        {"family": "mood", "value": "melancholic", "effect": "cool, dull"},
-    ]}}
+    plan = {
+        "plan_version": "1.0",
+        "regions": [],
+        "global": {
+            "modifiers": [
+                {"family": "era", "value": "1940s", "effect": "wartime austerity"},
+                {"family": "mood", "value": "melancholic", "effect": "cool, dull"},
+            ]
+        },
+    }
     positive, negative = global_prompt_terms(plan)
     assert "1940s" in positive and "muted" in positive
     assert "sombre" in positive
@@ -82,9 +98,15 @@ def test_global_prompt_terms_translate_era_and_mood():
 def test_global_prompt_terms_fall_back_to_effect_text():
     from chroma_reasoner.plan.hints import global_prompt_terms
 
-    plan = {"plan_version": "1.0", "regions": [], "global": {"modifiers": [
-        {"family": "era", "value": "1830s", "effect": "hand-tinted daguerreotype"},
-    ]}}
+    plan = {
+        "plan_version": "1.0",
+        "regions": [],
+        "global": {
+            "modifiers": [
+                {"family": "era", "value": "1830s", "effect": "hand-tinted daguerreotype"},
+            ]
+        },
+    }
     positive, negative = global_prompt_terms(plan)
     assert positive == "hand-tinted daguerreotype"
     assert negative == ""
@@ -117,12 +139,22 @@ def test_overlapping_masks_specific_wins():
         "plan_version": "1.0",
         "regions": [
             # deliberately listed small-first: order in the plan must not matter
-            {"id": "obj", "object": "obj", "grounding_phrase": "o",
-             "resolved_colour": {"space": "Lab", "L": 50, "a": 35, "b": 10},
-             "confidence": 0.9, "rationale": "t"},
-            {"id": "bg", "object": "bg", "grounding_phrase": "b",
-             "resolved_colour": {"space": "Lab", "L": 50, "a": -15, "b": 20},
-             "confidence": 0.9, "rationale": "t"},
+            {
+                "id": "obj",
+                "object": "obj",
+                "grounding_phrase": "o",
+                "resolved_colour": {"space": "Lab", "L": 50, "a": 35, "b": 10},
+                "confidence": 0.9,
+                "rationale": "t",
+            },
+            {
+                "id": "bg",
+                "object": "bg",
+                "grounding_phrase": "b",
+                "resolved_colour": {"space": "Lab", "L": 50, "a": -15, "b": 20},
+                "confidence": 0.9,
+                "rationale": "t",
+            },
         ],
     }
     rgb = render_naive(gray, masks, plan)

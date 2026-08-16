@@ -36,33 +36,36 @@ from .paired import bootstrap_median_ci, sign_test
 
 # --- the condition matrix ---------------------------------------------------
 
+
 @dataclass(frozen=True)
 class Condition:
     name: str
-    prompt: str                      # what the LLM arm is told
-    modifiers: tuple = ()            # (family, value) pairs the KB arm applies
+    prompt: str  # what the LLM arm is told
+    modifiers: tuple = ()  # (family, value) pairs the KB arm applies
 
 
 CONDITIONS: dict[str, Condition] = {
     "neutral": Condition("neutral", "", ()),
-    "era_1910s": Condition("era_1910s", "a photograph taken in the 1910s",
-                           (("era", "1910s"),)),
-    "era_1940s": Condition("era_1940s", "a photograph taken in the 1940s",
-                           (("era", "1940s"),)),
-    "era_1970s": Condition("era_1970s", "a photograph taken in the 1970s",
-                           (("era", "1970s"),)),
-    "mood_melancholic": Condition("mood_melancholic", "a melancholic, sombre scene",
-                                  (("mood", "melancholic"),)),
-    "mood_cheerful": Condition("mood_cheerful", "a cheerful, upbeat scene",
-                               (("mood", "cheerful"),)),
-    "season_autumn": Condition("season_autumn", "the same scene in autumn",
-                               (("season", "autumn"),)),
-    "season_summer": Condition("season_summer", "the same scene in high summer",
-                               (("season", "summer"),)),
+    "era_1910s": Condition("era_1910s", "a photograph taken in the 1910s", (("era", "1910s"),)),
+    "era_1940s": Condition("era_1940s", "a photograph taken in the 1940s", (("era", "1940s"),)),
+    "era_1970s": Condition("era_1970s", "a photograph taken in the 1970s", (("era", "1970s"),)),
+    "mood_melancholic": Condition(
+        "mood_melancholic", "a melancholic, sombre scene", (("mood", "melancholic"),)
+    ),
+    "mood_cheerful": Condition(
+        "mood_cheerful", "a cheerful, upbeat scene", (("mood", "cheerful"),)
+    ),
+    "season_autumn": Condition(
+        "season_autumn", "the same scene in autumn", (("season", "autumn"),)
+    ),
+    "season_summer": Condition(
+        "season_summer", "the same scene in high summer", (("season", "summer"),)
+    ),
 }
 
 
 # --- declared expectations (pre-registered) --------------------------------
+
 
 @dataclass(frozen=True)
 class Contrast:
@@ -75,15 +78,27 @@ class Contrast:
 
 
 CONTRASTS: tuple[Contrast, ...] = (
-    Contrast("era_1910s", "era_1970s", (("chroma", "lower"),),
-             "1910s muted dyes vs 1970s avocado/harvest-gold saturation"),
-    Contrast("era_1940s", "era_1970s", (("chroma", "lower"),),
-             "wartime austerity vs 1970s saturation"),
-    Contrast("mood_melancholic", "mood_cheerful",
-             (("chroma", "lower"), ("warmth", "lower")),
-             "melancholic desaturates and cools; cheerful saturates and warms"),
-    Contrast("season_autumn", "season_summer", (("redness", "higher"),),
-             "senescent foliage shifts toward red/orange"),
+    Contrast(
+        "era_1910s",
+        "era_1970s",
+        (("chroma", "lower"),),
+        "1910s muted dyes vs 1970s avocado/harvest-gold saturation",
+    ),
+    Contrast(
+        "era_1940s", "era_1970s", (("chroma", "lower"),), "wartime austerity vs 1970s saturation"
+    ),
+    Contrast(
+        "mood_melancholic",
+        "mood_cheerful",
+        (("chroma", "lower"), ("warmth", "lower")),
+        "melancholic desaturates and cools; cheerful saturates and warms",
+    ),
+    Contrast(
+        "season_autumn",
+        "season_summer",
+        (("redness", "higher"),),
+        "senescent foliage shifts toward red/orange",
+    ),
 )
 
 METRICS = ("chroma", "warmth", "redness")
@@ -102,6 +117,7 @@ def _metric(colour: dict, metric: str) -> float:
 
 # --- KB arm: apply a condition locally (no model) ---------------------------
 
+
 def apply_condition(kb: KnowledgeBase, plan: dict, condition: Condition) -> dict:
     """Re-resolve every region of `plan` under `condition`, regions unchanged.
 
@@ -115,12 +131,12 @@ def apply_condition(kb: KnowledgeBase, plan: dict, condition: Condition) -> dict
     out["prompt"] = condition.prompt
     for region in out["regions"]:
         kept = [m for m in region.get("modifiers", []) if m["family"] not in families]
-        added = [{"family": f, "value": v,
-                  "effect": kb.modifier_entry(f, v).get("note", "")}
-                 for f, v in condition.modifiers]
+        added = [
+            {"family": f, "value": v, "effect": kb.modifier_entry(f, v).get("note", "")}
+            for f, v in condition.modifiers
+        ]
         modifiers = kept + added
-        res = resolve(kb, region["object"], modifiers,
-                      measured_L=region["resolved_colour"]["L"])
+        res = resolve(kb, region["object"], modifiers, measured_L=region["resolved_colour"]["L"])
         region["modifiers"] = modifiers
         region["resolved_colour"] = res.resolved.to_plan()
         region["tolerance_delta_e"] = round(res.tolerance_delta_e, 1)
@@ -128,8 +144,9 @@ def apply_condition(kb: KnowledgeBase, plan: dict, condition: Condition) -> dict
     return assert_valid(out)
 
 
-def condition_variants(kb: KnowledgeBase, plan: dict,
-                       names: list[str] | None = None) -> dict[str, dict]:
+def condition_variants(
+    kb: KnowledgeBase, plan: dict, names: list[str] | None = None
+) -> dict[str, dict]:
     """One plan -> {condition_name: plan} for the KB arm."""
     chosen = names or list(CONDITIONS)
     return {name: apply_condition(kb, plan, CONDITIONS[name]) for name in chosen}
@@ -137,22 +154,27 @@ def condition_variants(kb: KnowledgeBase, plan: dict,
 
 # --- measurement -----------------------------------------------------------
 
+
 @dataclass
 class ContrastResult:
     contrast: Contrast
     n_regions: int = 0
-    n_active: int = 0                       # regions whose colour actually moved
+    n_active: int = 0  # regions whose colour actually moved
     separations: list = field(default_factory=list)
     directions: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         lo, hi = bootstrap_median_ci(self.separations)
         return {
-            "a": self.contrast.a, "b": self.contrast.b, "note": self.contrast.note,
-            "n_regions": self.n_regions, "n_active": self.n_active,
+            "a": self.contrast.a,
+            "b": self.contrast.b,
+            "note": self.contrast.note,
+            "n_regions": self.n_regions,
+            "n_active": self.n_active,
             "active_share": round(self.n_active / self.n_regions, 3) if self.n_regions else None,
             "mean_separation": round(sum(self.separations) / len(self.separations), 2)
-            if self.separations else None,
+            if self.separations
+            else None,
             "median_separation": round(_median(self.separations), 2),
             "median_separation_ci95": [round(lo, 2), round(hi, 2)],
             "directions": self.directions,
@@ -184,28 +206,37 @@ def palette_diversity(plans: dict[str, dict]) -> dict:
         colours = [r["resolved_colour"] for r in plan["regions"]]
         if len(colours) < 2:
             continue
-        pairs = [math.hypot(x["a"] - y["a"], x["b"] - y["b"])
-                 for i, x in enumerate(colours) for y in colours[i + 1:]]
+        pairs = [
+            math.hypot(x["a"] - y["a"], x["b"] - y["b"])
+            for i, x in enumerate(colours)
+            for y in colours[i + 1 :]
+        ]
         spreads.append(sum(pairs) / len(pairs))
         distinct_counts.append(len({(round(c["a"], 1), round(c["b"], 1)) for c in colours}))
     return {
         "mean_palette_spread": round(sum(spreads) / len(spreads), 2) if spreads else None,
         "mean_distinct_colours": round(sum(distinct_counts) / len(distinct_counts), 2)
-        if distinct_counts else None,
+        if distinct_counts
+        else None,
         "n_images": len(spreads),
     }
 
 
-def evaluate_contrast(plans_a: dict[str, dict], plans_b: dict[str, dict],
-                      contrast: Contrast, active_threshold: float = 1.0) -> dict:
+def evaluate_contrast(
+    plans_a: dict[str, dict],
+    plans_b: dict[str, dict],
+    contrast: Contrast,
+    active_threshold: float = 1.0,
+) -> dict:
     """Compare two conditions across images.
 
     plans_a / plans_b: {image_id: plan} for condition A / B. Regions are
     paired by id within each image.
     """
     result = ContrastResult(contrast)
-    per_expectation = {m: {"wins": 0, "losses": 0, "ties": 0, "margins": []}
-                       for m, _ in contrast.expectations}
+    per_expectation = {
+        m: {"wins": 0, "losses": 0, "ties": 0, "margins": []} for m, _ in contrast.expectations
+    }
 
     for image_id, plan_a in plans_a.items():
         plan_b = plans_b.get(image_id)
@@ -222,7 +253,7 @@ def evaluate_contrast(plans_a: dict[str, dict], plans_b: dict[str, dict],
             result.n_regions += 1
             result.separations.append(sep)
             if sep < active_threshold:
-                continue                     # condition did not touch this object
+                continue  # condition did not touch this object
             result.n_active += 1
             for metric, direction in contrast.expectations:
                 va, vb = _metric(ca, metric), _metric(cb, metric)
@@ -240,7 +271,9 @@ def evaluate_contrast(plans_a: dict[str, dict], plans_b: dict[str, dict],
         b = per_expectation[metric]
         result.directions[metric] = {
             "expected": f"A {direction}",
-            "as_expected": b["wins"], "against": b["losses"], "ties": b["ties"],
+            "as_expected": b["wins"],
+            "against": b["losses"],
+            "ties": b["ties"],
             "median_margin": round(_median(b["margins"]), 2),
             "sign_test_p": round(sign_test(b["wins"], b["losses"]), 5),
         }
@@ -250,35 +283,45 @@ def evaluate_contrast(plans_a: dict[str, dict], plans_b: dict[str, dict],
     return out
 
 
-def evaluate_all(plans_by_condition: dict[str, dict[str, dict]],
-                 contrasts: tuple = CONTRASTS) -> list[dict]:
+def evaluate_all(
+    plans_by_condition: dict[str, dict[str, dict]], contrasts: tuple = CONTRASTS
+) -> list[dict]:
     """Run every contrast whose two conditions are both present."""
     out = []
     for contrast in contrasts:
         if contrast.a in plans_by_condition and contrast.b in plans_by_condition:
-            out.append(evaluate_contrast(plans_by_condition[contrast.a],
-                                         plans_by_condition[contrast.b], contrast))
+            out.append(
+                evaluate_contrast(
+                    plans_by_condition[contrast.a], plans_by_condition[contrast.b], contrast
+                )
+            )
     return out
 
 
 def format_contrast(res: dict) -> str:
-    lines = [f"{res['a']} vs {res['b']}  ({res['note']})",
-             f"  separation: median {res['median_separation']} "
-             f"[{res['median_separation_ci95'][0]}, {res['median_separation_ci95'][1]}]  "
-             f"mean {res['mean_separation']}  "
-             f"active {res['n_active']}/{res['n_regions']} regions "
-             f"({res['active_share']})"]
+    lines = [
+        f"{res['a']} vs {res['b']}  ({res['note']})",
+        f"  separation: median {res['median_separation']} "
+        f"[{res['median_separation_ci95'][0]}, {res['median_separation_ci95'][1]}]  "
+        f"mean {res['mean_separation']}  "
+        f"active {res['n_active']}/{res['n_regions']} regions "
+        f"({res['active_share']})",
+    ]
     da, db = res.get("diversity_a", {}), res.get("diversity_b", {})
     if da.get("mean_palette_spread") is not None:
-        lines.append(f"  palette spread within image: "
-                     f"{res['a']} {da['mean_palette_spread']} "
-                     f"({da['mean_distinct_colours']} distinct)  |  "
-                     f"{res['b']} {db['mean_palette_spread']} "
-                     f"({db['mean_distinct_colours']} distinct)")
+        lines.append(
+            f"  palette spread within image: "
+            f"{res['a']} {da['mean_palette_spread']} "
+            f"({da['mean_distinct_colours']} distinct)  |  "
+            f"{res['b']} {db['mean_palette_spread']} "
+            f"({db['mean_distinct_colours']} distinct)"
+        )
     for metric, d in res["directions"].items():
         decided = d["as_expected"] + d["against"]
-        lines.append(f"  {metric:>8} {d['expected']:>10}: "
-                     f"{d['as_expected']}/{decided} as expected "
-                     f"({d['ties']} ties)  median margin {d['median_margin']:+g}  "
-                     f"p={d['sign_test_p']}")
+        lines.append(
+            f"  {metric:>8} {d['expected']:>10}: "
+            f"{d['as_expected']}/{decided} as expected "
+            f"({d['ties']} ties)  median margin {d['median_margin']:+g}  "
+            f"p={d['sign_test_p']}"
+        )
     return "\n".join(lines)

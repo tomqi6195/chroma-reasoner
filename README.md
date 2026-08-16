@@ -9,10 +9,10 @@ model — resolves those selections into colours. The result is an
 diffusion colorizer.
 
 The novelty is the reasoning-to-plan layer and its evaluation, not the pixel
-model. See [literature-review-and-roadmap.md](literature-review-and-roadmap.md)
-for the full framing.
+model. The [phase records](#documentation) capture the design, implementation,
+and evaluation decisions.
 
-```
+```text
 greyscale + "melancholic 1910s seaside"
    │
    ├─ VLM  ── selects objects, grounding phrases, operative modifiers, luminance
@@ -71,9 +71,11 @@ disambiguation prior on era-bearing content.
 ```powershell
 python -m venv .venv
 .venv\Scripts\pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
-.venv\Scripts\pip install -e .
+.venv\Scripts\pip install -e ".[dev]"
 git clone --depth 1 https://github.com/piddnad/DDColor.git third_party/DDColor
 python -m pytest tests -q
+python -m ruff check .
+python -m ruff format --check .
 ```
 
 Everything except the neural models runs on CPU. The VLM, Grounded-SAM, and the
@@ -89,17 +91,29 @@ python scripts/download_coco_subset.py --n 300 --seed 0
 
 # Baseline + metrics (FID, hue-invariant FID, colourfulness, CLIP-score)
 python scripts/run_ddcolor.py --input data/coco/val2017_subset --output results/ddcolor_tiny
-python scripts/evaluate.py --pred results/ddcolor_tiny --gt data/coco/val2017_subset --manifest data/coco/manifest.json --out results/phase0/ddcolor_tiny
+python scripts/evaluate.py `
+    --pred results/ddcolor_tiny `
+    --gt data/coco/val2017_subset `
+    --manifest data/coco/manifest.json `
+    --out results/phase0/ddcolor_tiny
 
 # Knowledge base: resolve an object under context, with the full audit trail
 python scripts/kb_resolve.py dress --mod era=1910s --mod mood=melancholic --L 45 --trace
 
 # Plans: validate, render deterministically, score adherence
 python scripts/validate_plan.py examples/plans/melancholic_1910s_seaside.json
-python scripts/render_naive.py --plan examples/plans/phase2/000000010092.json --gray data/coco/gray/000000010092.png --masks masks --out results/phase2/naive
+python scripts/render_naive.py `
+    --plan examples/plans/phase2/000000010092.json `
+    --gray data/coco/gray/000000010092.png `
+    --masks masks `
+    --out results/phase2/naive
 
 # Evaluation: three-arm ablation with paired per-region statistics
-python scripts/ablate_score.py --originals data/coco/val2017_subset --arm kb=plans/reasoned:masks_reasoned --arm llm=plans/ablation_llm:masks_reasoned --out results/phase5/scores.json
+python scripts/ablate_score.py `
+    --originals data/coco/val2017_subset `
+    --arm kb=plans/reasoned:masks_reasoned `
+    --arm llm=plans/ablation_llm:masks_reasoned `
+    --out results/phase5/scores.json
 
 # Counterfactuals: prompt separation + direction correctness (KB arm, no model)
 python scripts/counterfactual.py --plans plans/reasoned --out results/phase6/counterfactual.json
@@ -119,14 +133,30 @@ python scripts/counterfactual.py --plans plans/reasoned --out results/phase6/cou
 The Phase 4–6 notebooks write a run log into their output zip, so failures are
 diagnosable locally without re-running the GPU work.
 
+## Documentation
+
+| Record | Focus |
+|---|---|
+| [Phase 0](docs/phase0.md) | Baselines and evaluation protocol |
+| [Phase 1](docs/phase1.md) | Locked object-centric colour-plan schema |
+| [Phase 2](docs/phase2.md) | Manual plan-to-pixels consumption path |
+| [Phase 3](docs/phase3.md) | Knowledge-base representation and composition |
+| [Phase 4](docs/phase4.md) | VLM reasoner and repair pipeline |
+| [Phase 5](docs/phase5.md) | KB-on/off ablation and paired analysis |
+| [Phase 6](docs/phase6.md) | Counterfactual protocol and contribution narrowing |
+| [Showcase](docs/showcase.md) | End-to-end rendering and coverage findings |
+
 ## Repo layout
 
 - `src/chroma_reasoner/data/` — COCO subset + greyscale synthesis
-- `src/chroma_reasoner/plan/` — plan validation, Lab colour math (ΔE, gamut projection), masks, hints, adherence
+- `src/chroma_reasoner/plan/` — plan validation, Lab colour math (ΔE, gamut
+  projection), masks, hints, adherence
 - `src/chroma_reasoner/kb/` — KB loading, modifier composition, luminance-conditioned resolution
 - `src/chroma_reasoner/reasoner/` — VLM backends (Qwen2.5-VL, Claude), prompts, planner
-- `src/chroma_reasoner/eval/` — ΔE-to-reality, KB-off ablation, paired statistics, counterfactual protocol
-- `src/chroma_reasoner/metrics/` — FID, hue-invariant FID (arXiv:2503.14974 §5.2.1), colourfulness, CLIP-score
+- `src/chroma_reasoner/eval/` — ΔE-to-reality, KB-off ablation, paired
+  statistics, counterfactual protocol
+- `src/chroma_reasoner/metrics/` — FID, hue-invariant FID
+  (arXiv:2503.14974 §5.2.1), colourfulness, CLIP-score
 - `src/chroma_reasoner/baselines/` — DDColor runner
 - `kb/` — the knowledge base itself: `objects.yaml`, `modifiers.yaml`
 - `schemas/` — the locked plan JSON Schema

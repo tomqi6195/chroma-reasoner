@@ -50,8 +50,9 @@ def captions_from_manifest(manifest_path: Path) -> dict[str, str]:
     return out
 
 
-def evaluate(pred_dir: Path, gt_dir: Path, manifest_path: Path | None,
-             out_dir: Path, skip_clip: bool = False) -> dict:
+def evaluate(
+    pred_dir: Path, gt_dir: Path, manifest_path: Path | None, out_dir: Path, skip_clip: bool = False
+) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     report: dict = {
         "pred_dir": str(pred_dir),

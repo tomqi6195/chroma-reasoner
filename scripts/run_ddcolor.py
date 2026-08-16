@@ -18,14 +18,23 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--input", type=Path, required=True)
     ap.add_argument("--output", type=Path, required=True)
-    ap.add_argument("--model", type=str, default="ddcolor_paper_tiny",
-                    help=f"one of {MODEL_NAMES} or a full HF repo id")
+    ap.add_argument(
+        "--model",
+        type=str,
+        default="ddcolor_paper_tiny",
+        help=f"one of {MODEL_NAMES} or a full HF repo id",
+    )
     ap.add_argument("--input-size", type=int, default=512)
     ap.add_argument("--device", type=str, default=None)
     args = ap.parse_args()
 
-    n = colorize_dir(args.input, args.output, model_name=args.model,
-                     input_size=args.input_size, device=args.device)
+    n = colorize_dir(
+        args.input,
+        args.output,
+        model_name=args.model,
+        input_size=args.input_size,
+        device=args.device,
+    )
     print(f"colorized {n} images -> {args.output}")
 
 

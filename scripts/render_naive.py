@@ -24,7 +24,9 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan", type=Path, required=True)
     ap.add_argument("--gray", type=Path, required=True, help="L-channel PNG (cv2 0-255 scaling)")
-    ap.add_argument("--masks", type=Path, required=True, help="masks root (masks/{image_id}/{region}.png)")
+    ap.add_argument(
+        "--masks", type=Path, required=True, help="masks root (masks/{image_id}/{region}.png)"
+    )
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
 
@@ -47,7 +49,10 @@ def main() -> None:
     print(f"rendered: {out_img}")
     for r in report["regions"]:
         status = "PASS" if r["pass"] else "FAIL"
-        print(f"  [{status}] {r['region']:>12}  dE={r.get('delta_e', '-'):>6}  tol={r.get('tolerance', '-')}")
+        print(
+            f"  [{status}] {r['region']:>12}  "
+            f"dE={r.get('delta_e', '-'):>6}  tol={r.get('tolerance', '-')}"
+        )
     print(f"mean dE={report['mean_delta_e']}  pass {report['n_pass']}/{report['n_regions']}")
 
 

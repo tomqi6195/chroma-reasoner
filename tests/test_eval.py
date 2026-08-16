@@ -14,12 +14,18 @@ def _plan(a, b, tol=10):
         "plan_version": "1.0",
         "image_id": "synthetic",
         "prompt": "test scene",
-        "regions": [{
-            "id": "patch", "object": "thing", "grounding_phrase": "the patch",
-            "modifiers": [],
-            "resolved_colour": {"space": "Lab", "L": 50, "a": a, "b": b},
-            "tolerance_delta_e": tol, "confidence": 0.8, "rationale": "t",
-        }],
+        "regions": [
+            {
+                "id": "patch",
+                "object": "thing",
+                "grounding_phrase": "the patch",
+                "modifiers": [],
+                "resolved_colour": {"space": "Lab", "L": 50, "a": a, "b": b},
+                "tolerance_delta_e": tol,
+                "confidence": 0.8,
+                "rationale": "t",
+            }
+        ],
     }
 
 
@@ -49,7 +55,7 @@ def test_reference_score_large_when_plan_wrong():
 def test_gray_guess_for_colourful_region_flagged_as_undercommitted():
     """The desaturation exploit: a gray guess scores moderate dE but must be
     caught by the chroma deficit (the PSNR-bias rediscovery)."""
-    img, masks = _scene(LabColor(50, 30, 25))       # colourful reality
+    img, masks = _scene(LabColor(50, 30, 25))  # colourful reality
     res = plan_vs_reference(_plan(0, 0), masks, img)  # plan says gray
     row = res["regions"][0]
     assert row["chroma_deficit"] > 30
@@ -57,7 +63,7 @@ def test_gray_guess_for_colourful_region_flagged_as_undercommitted():
 
 
 def test_gray_guess_for_gray_region_not_penalized():
-    img, masks = _scene(LabColor(50, 1, 2))          # reality is near-neutral
+    img, masks = _scene(LabColor(50, 1, 2))  # reality is near-neutral
     res = plan_vs_reference(_plan(0, 0), masks, img)
     assert res["regions"][0]["chroma_deficit"] < 4
     assert res["n_undercommitted"] == 0
@@ -79,14 +85,14 @@ def test_llm_color_plan_swaps_colours_and_keeps_L(tmp_path):
     img_path = tmp_path / "synthetic.png"
     cv2.imwrite(str(img_path), np.full((20, 20), 128, dtype=np.uint8))
 
-    plan = _plan(16, 28)   # KB colour: warm brown
+    plan = _plan(16, 28)  # KB colour: warm brown
     backend = MockColorBackend([{"id": "patch", "hex": "#4060a0"}])  # model picks blue
     out = llm_color_plan(plan, backend, str(img_path))
 
     assert validate_plan(out) == []
     c = out["regions"][0]["resolved_colour"]
-    assert c["L"] == 50                      # luminance held fixed
-    assert c["b"] < 0                        # blue chroma from the model
+    assert c["L"] == 50  # luminance held fixed
+    assert c["b"] < 0  # blue chroma from the model
     assert out["regions"][0]["base_prior"] is None
     assert "ABLATION" in out["regions"][0]["rationale"]
     # original plan untouched

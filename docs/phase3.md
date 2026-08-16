@@ -69,7 +69,7 @@ verbatim).
 - `Resolution.to_region()` emits plan-schema-valid regions with
   `base_prior: "kb:<object>"` — colours become traceable to auditable priors.
 
-## Known limits / next
+## Limitations and next steps
 
 - Isotropic sigma (no ab covariance); fine at this scale.
 - Era coverage is 4 decades × narrow object sets; expand by mining MHMD

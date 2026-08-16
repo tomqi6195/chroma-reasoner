@@ -6,7 +6,9 @@ import pytest
 
 from chroma_reasoner.plan import PlanValidationError, load_plan, validate_plan
 
-EXAMPLE = Path(__file__).resolve().parents[1] / "examples" / "plans" / "melancholic_1910s_seaside.json"
+EXAMPLE = (
+    Path(__file__).resolve().parents[1] / "examples" / "plans" / "melancholic_1910s_seaside.json"
+)
 
 
 @pytest.fixture()
